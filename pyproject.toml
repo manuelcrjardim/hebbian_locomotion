@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hebbian_locomotion"
+version = "0.1.0"
+description = "Recreating Bio-Inspired Plastic Neural Networks for OOD Generalization"
+dependencies = [
+    "isaaclab",  # Depends on the core simulator
+    "torch"
+]
+
+[tool.setuptools.packages.find]
+where = ["source"]
+

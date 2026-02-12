@@ -1,0 +1,22 @@
+# Python / Isaac Lab junk
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+
+# Isaac Lab Logs (These get huge)
+logs/
+output/
+*_output/
+
+# VS Code settings (Optional, but good if sharing)
+.vscode/
+
+# Mac OS junk (if you view files on a mac)
+.DS_Store
+
+# Large Asset Files (Optional)
+# GitHub blocks files > 100MB. If your .usd files are huge, ignore them 
+# or use Git LFS. For this paper, they should be small enough to commit.
+# *.usd
