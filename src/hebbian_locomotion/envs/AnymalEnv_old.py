@@ -6,16 +6,18 @@ from PIL import Image
 
 # Isaac Lab Imports
 from isaaclab.app import AppLauncher
-app_launcher = AppLauncher(headless=True, livestream=1)
-simulation_app = app_launcher.app
+#app_launcher = AppLauncher(headless=True, livestream=1)
+#simulation_app = app_launcher.app
 
 import isaaclab.envs.mdp as mdp
 import isaaclab.sim as sim_utils
 from isaaclab.assets import ArticulationCfg, AssetBaseCfg
 from isaaclab.envs import ManagerBasedEnv, ManagerBasedEnvCfg, ManagerBasedRLEnv, ManagerBasedRLEnvCfg
 from isaaclab.managers import EventTermCfg as EventTerm
+from isaaclab.managers import RewardTermCfg as RewTerm
 from isaaclab.managers import ObservationGroupCfg as ObsGroup
 from isaaclab.managers import ObservationTermCfg as ObsTerm
+from isaaclab.utils.math import euler_xyz_from_quat
 from isaaclab.managers import SceneEntityCfg
 from isaaclab.scene import InteractiveSceneCfg
 from isaaclab.sensors import RayCasterCfg, patterns
@@ -37,8 +39,7 @@ class MySceneCfg(InteractiveSceneCfg):
     # add terrain
     terrain = TerrainImporterCfg(
         prim_path="/World/ground",
-        terrain_type="generator",
-        terrain_generator=ROUGH_TERRAINS_CFG,
+        terrain_type="plane",
         physics_material=sim_utils.RigidBodyMaterialCfg(
             friction_combine_mode="multiply",
             restitution_combine_mode="multiply",
@@ -129,6 +130,53 @@ class EmptyManagerCfg:
 
     pass
 
+# 1. Forward Velocity in World X-axis
+def forward_velocity_x(env, asset_cfg: SceneEntityCfg) -> torch.Tensor:
+    asset = env.scene[asset_cfg.name]
+    # Extract the x-axis component of the world-frame linear velocity
+    return asset.data.root_lin_vel_w[:, 0]
+
+# 2. Upright Posture Reward
+def upright_posture(env, asset_cfg: SceneEntityCfg) -> torch.Tensor:
+    asset = env.scene[asset_cfg.name]
+    # The projection of local Z onto world Z is the negative of the Z-component 
+    # of the projected gravity vector.
+    z_proj = -asset.data.projected_gravity_b[:, 2]
+    
+    # Return 0.0 if z_proj > 0.93, else -0.5
+    return torch.where(z_proj > 0.93, 0.0, -0.5)
+
+# 3. Heading Yaw Reward
+def heading_yaw(env, asset_cfg: SceneEntityCfg) -> torch.Tensor:
+    asset = env.scene[asset_cfg.name]
+    # Convert the world-frame root quaternion into Euler angles
+    roll, pitch, yaw = euler_xyz_from_quat(asset.data.root_quat_w)
+    
+    # Return 0.0 if abs(yaw) < 0.45, else -0.5
+    return torch.where(torch.abs(yaw) < 0.45, 0.0, -0.5)
+
+@configclass
+class RewardsCfg:
+    """Reward specifications matching the Hebbian Locomotion paper."""
+    
+    # Weight coefficients: kv=2.0, ku=0.5, ky=0.5
+    V_t = RewTerm(
+        func=forward_velocity_x, 
+        weight=2.0, 
+        params={"asset_cfg": SceneEntityCfg("robot")}
+    )
+    U_t = RewTerm(
+        func=upright_posture, 
+        weight=0.5, 
+        params={"asset_cfg": SceneEntityCfg("robot")}
+    )
+    Yaw_t = RewTerm(
+        func=heading_yaw, 
+        weight=0.5, 
+        params={"asset_cfg": SceneEntityCfg("robot")}
+    )
+
+
 @configclass
 class EventCfg:
     """Configuration for events."""
@@ -160,7 +208,7 @@ class AnymalEnvCfg(ManagerBasedRLEnvCfg):
     actions: ActionsCfg = ActionsCfg()
     events: EventCfg = EventCfg()
 
-    rewards: EmptyManagerCfg = EmptyManagerCfg()
+    rewards: RewardsCfg = RewardsCfg()
     terminations: EmptyManagerCfg = EmptyManagerCfg()
     
     def __post_init__(self):
@@ -187,11 +235,7 @@ def main():
     
     obs, _ = env.reset() 
     count = 0
-    
-    print("[INFO] ---------------------------------------------")
-    print("[INFO] STREAMING STARTED!")
-    print("[INFO] Connect to: http://127.0.0.1:8211 in your browser")
-    print("[INFO] ---------------------------------------------")
+
 
     # 3. INFINITE LOOP (Press Ctrl+C in terminal to stop)
     while simulation_app.is_running():  
@@ -207,7 +251,3 @@ def main():
              print(f"[INFO] Simulating step {count}")
 
     env.close()
-
-if __name__ == "__main__":
-    main()
-    simulation_app.close()

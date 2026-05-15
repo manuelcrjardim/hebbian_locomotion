@@ -10,6 +10,9 @@ logs/
 output/
 *_output/
 
+checkpoints/
+tensorboard/
+
 # VS Code settings (Optional, but good if sharing)
 .vscode/
 

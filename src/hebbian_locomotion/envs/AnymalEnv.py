@@ -6,19 +6,21 @@ from PIL import Image
 
 # Isaac Lab Imports
 from isaaclab.app import AppLauncher
-app_launcher = AppLauncher(headless=True, livestream=1)
-simulation_app = app_launcher.app
+#app_launcher = AppLauncher(headless=True, livestream=1)
+#simulation_app = app_launcher.app
 
 import isaaclab.envs.mdp as mdp
 import isaaclab.sim as sim_utils
 from isaaclab.assets import ArticulationCfg, AssetBaseCfg
 from isaaclab.envs import ManagerBasedEnv, ManagerBasedEnvCfg, ManagerBasedRLEnv, ManagerBasedRLEnvCfg
 from isaaclab.managers import EventTermCfg as EventTerm
+from isaaclab.managers import RewardTermCfg as RewTerm
 from isaaclab.managers import ObservationGroupCfg as ObsGroup
 from isaaclab.managers import ObservationTermCfg as ObsTerm
+from isaaclab.utils.math import euler_xyz_from_quat
 from isaaclab.managers import SceneEntityCfg
 from isaaclab.scene import InteractiveSceneCfg
-from isaaclab.sensors import RayCasterCfg, patterns
+from isaaclab.sensors import ContactSensorCfg, RayCasterCfg, patterns
 from isaaclab.terrains import TerrainImporterCfg
 from isaaclab.utils import configclass
 from isaaclab.utils.assets import ISAACLAB_NUCLEUS_DIR, NVIDIA_NUCLEUS_DIR, check_file_path, read_file
@@ -30,15 +32,16 @@ from isaaclab_assets.robots.anymal import ANYMAL_C_CFG  # isort: skip
 # Import your custom assets and network
 from hebbian_locomotion.networks.hebbian_neural_net import HebbianNet
 
+
+
 @configclass
 class MySceneCfg(InteractiveSceneCfg):
-    """Example scene configuration."""
+    """Scene configuration with terrain, robot, and sensors."""
 
     # add terrain
     terrain = TerrainImporterCfg(
         prim_path="/World/ground",
-        terrain_type="generator",
-        terrain_generator=ROUGH_TERRAINS_CFG,
+        terrain_type="plane",
         physics_material=sim_utils.RigidBodyMaterialCfg(
             friction_combine_mode="multiply",
             restitution_combine_mode="multiply",
@@ -56,7 +59,15 @@ class MySceneCfg(InteractiveSceneCfg):
     # add robot
     robot: ArticulationCfg = ANYMAL_C_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
 
-    # sensors
+
+    contact_sensor = ContactSensorCfg(
+        prim_path="{ENV_REGEX_NS}/Robot/.*FOOT",
+        update_period=0.0,      # update every sim step
+        history_length=1,       # we only need the current step
+        debug_vis=False,
+    )
+
+    # height scanner
     height_scanner = RayCasterCfg(
         prim_path="{ENV_REGEX_NS}/Robot/base",
         offset=RayCasterCfg.OffsetCfg(pos=(0.0, 0.0, 20.0)),
@@ -76,6 +87,7 @@ class MySceneCfg(InteractiveSceneCfg):
         ),
     )
 
+
 @configclass
 class ActionsCfg:
     """Action specifications for the MDP."""
@@ -87,6 +99,42 @@ def constant_commands(env: ManagerBasedRLEnv) -> torch.Tensor:
     """The generated command from the command generator."""
     return torch.tensor([[1, 0, 0]], device=env.device).repeat(env.num_envs, 1)
 
+
+# ------------------------------------------------------------------
+# Custom observation: binary foot contact
+# ------------------------------------------------------------------
+
+def foot_contact_binary(env: ManagerBasedRLEnv,
+                        sensor_cfg: SceneEntityCfg,
+                        threshold: float = 1.0) -> torch.Tensor:
+    """Return binary foot contact signals (0 or 1) for each foot.
+
+    Matches the paper's foot contact observation (Table I):
+        0 = no contact, 1 = leg is in contact.
+
+    The contact sensor reports net normal forces in world frame with shape
+    (num_envs, num_bodies, 3). We take the norm across the xyz force
+    components and threshold it.
+
+    Args:
+        env:        The environment instance.
+        sensor_cfg: SceneEntityCfg pointing to the contact sensor.
+        threshold:  Force magnitude (N) above which contact is registered.
+
+    Returns:
+        Tensor of shape (num_envs, num_feet) with values 0.0 or 1.0.
+        For ANYmal C this is (num_envs, 4).
+    """
+    contact_sensor = env.scene.sensors[sensor_cfg.name]
+    # net_forces_w has shape (num_envs, num_bodies, 3)
+    net_forces = contact_sensor.data.net_forces_w
+    # Compute force magnitude per foot: (num_envs, num_bodies)
+    force_magnitude = torch.norm(net_forces, dim=-1)
+    # Threshold to binary
+    binary_contact = (force_magnitude > threshold).float()
+    return binary_contact
+
+
 @configclass
 class ObservationsCfg:
     """Observation specifications for the MDP."""
@@ -94,27 +142,31 @@ class ObservationsCfg:
     @configclass
     class PolicyCfg(ObsGroup):
         """Observations for policy group.
-        
-            Need to implement foot contact into observations 
+
+        Paper (Table I) uses: joint angles, foot contacts, body orientation.
+        For ANYmal C:
+            - projected_gravity: 3 values (body orientation proxy)
+            - joint_pos:         12 values (joint angles)
+            - foot_contact:      4 values (binary foot contact)
+            Total: 19
         """
 
         # observation terms (order preserved)
-        #base_lin_vel = ObsTerm(func=mdp.base_lin_vel, noise=Unoise(n_min=-0.1, n_max=0.1))
-        #base_ang_vel = ObsTerm(func=mdp.base_ang_vel, noise=Unoise(n_min=-0.2, n_max=0.2))
         projected_gravity = ObsTerm(
             func=mdp.projected_gravity,
             noise=Unoise(n_min=-0.05, n_max=0.05),
         )
-        #velocity_commands = ObsTerm(func=constant_commands)
-        joint_pos = ObsTerm(func=mdp.joint_pos_rel, noise=Unoise(n_min=-0.01, n_max=0.01))
-        # joint_vel = ObsTerm(func=mdp.joint_vel_rel, noise=Unoise(n_min=-1.5, n_max=1.5))
-        # actions = ObsTerm(func=mdp.last_action)
-        '''height_scan = ObsTerm(
-            func=mdp.height_scan,
-            params={"sensor_cfg": SceneEntityCfg("height_scanner")},
-            noise=Unoise(n_min=-0.1, n_max=0.1),
-            clip=(-1.0, 1.0),
-        )'''
+        joint_pos = ObsTerm(
+            func=mdp.joint_pos_rel,
+            noise=Unoise(n_min=-0.01, n_max=0.01),
+        )
+        foot_contact = ObsTerm(
+            func=foot_contact_binary,
+            params={
+                "sensor_cfg": SceneEntityCfg("contact_sensor"),
+                "threshold": 1.0,
+            },
+        )
 
         def __post_init__(self):
             self.enable_corruption = True
@@ -123,11 +175,58 @@ class ObservationsCfg:
     # observation groups
     policy: PolicyCfg = PolicyCfg()
 
+
 @configclass
 class EmptyManagerCfg:
     """Empty manager specifications for the environment."""
 
     pass
+
+
+# ------------------------------------------------------------------
+# Reward functions
+# ------------------------------------------------------------------
+
+def forward_velocity_x(env, asset_cfg: SceneEntityCfg) -> torch.Tensor:
+    """Forward velocity in world X-axis."""
+    asset = env.scene[asset_cfg.name]
+    return asset.data.root_lin_vel_w[:, 0]
+
+
+def upright_posture(env, asset_cfg: SceneEntityCfg) -> torch.Tensor:
+    """Upright posture reward (Eq. 6 in the paper)."""
+    asset = env.scene[asset_cfg.name]
+    z_proj = -asset.data.projected_gravity_b[:, 2]
+    return torch.where(z_proj > 0.93, 0.0, -0.5)
+
+
+def heading_yaw(env, asset_cfg: SceneEntityCfg) -> torch.Tensor:
+    """Heading yaw reward (Eq. 7 in the paper)."""
+    asset = env.scene[asset_cfg.name]
+    roll, pitch, yaw = euler_xyz_from_quat(asset.data.root_quat_w)
+    return torch.where(torch.abs(yaw) < 0.45, 0.0, -0.5)
+
+
+@configclass
+class RewardsCfg:
+    """Reward specifications matching the Hebbian Locomotion paper (Eq. 5)."""
+
+    V_t = RewTerm(
+        func=forward_velocity_x,
+        weight=1.0,
+        params={"asset_cfg": SceneEntityCfg("robot")},
+    )
+    U_t = RewTerm(
+        func=upright_posture,
+        weight=2.0,
+        params={"asset_cfg": SceneEntityCfg("robot")},
+    )
+    Yaw_t = RewTerm(
+        func=heading_yaw,
+        weight=0.5,
+        params={"asset_cfg": SceneEntityCfg("robot")},
+    )
+
 
 @configclass
 class EventCfg:
@@ -137,21 +236,23 @@ class EventCfg:
         func=mdp.reset_root_state_uniform,
         mode="reset",
         params={
-            "pose_range": {"x": (-0.5, 0.5), "y": (-0.5, 0.5), "yaw": (-3.14, 3.14)},
+            "pose_range": {"x": (-0.5, 0.5), "y": (-0.5, 0.5), "yaw": (-0.2, 0.2)},
             "velocity_range": {
-                "x": (-0.5, 0.5),
-                "y": (-0.5, 0.5),
-                "z": (-0.5, 0.5),
-                "roll": (-0.5, 0.5),
-                "pitch": (-0.5, 0.5),
-                "yaw": (-0.5, 0.5),
+                "x": (0.0, 0.0),
+                "y": (0.0, 0.0),
+                "z": (0.0, 0.0),
+                "roll": (0.0, 0.0),
+                "pitch": (0.0, 0.0),
+                "yaw": (0.0, 0.0),
             },
         },
     )
 
+
 @configclass
 class AnymalEnvCfg(ManagerBasedRLEnvCfg):
-    """The Master Configuration"""
+    """The Master Configuration."""
+
     # 1. Scene Setup
     scene = MySceneCfg(num_envs=64, env_spacing=2.5)
 
@@ -160,9 +261,9 @@ class AnymalEnvCfg(ManagerBasedRLEnvCfg):
     actions: ActionsCfg = ActionsCfg()
     events: EventCfg = EventCfg()
 
-    rewards: EmptyManagerCfg = EmptyManagerCfg()
+    rewards: RewardsCfg = RewardsCfg()
     terminations: EmptyManagerCfg = EmptyManagerCfg()
-    
+
     def __post_init__(self):
         """Post initialization."""
         # general settings
@@ -173,41 +274,3 @@ class AnymalEnvCfg(ManagerBasedRLEnvCfg):
         if self.scene.height_scanner is not None:
             self.scene.height_scanner.update_period = self.decimation * self.sim.dt
 
-def main():
-    print("[INFO] Initializing Environment for Streaming...")
-    env_cfg = AnymalEnvCfg()
-    
-    # 2. REMOVE "rgb_array". Standard mode is fine for streaming.
-    env = ManagerBasedRLEnv(cfg=env_cfg)
-
-    # ... (Your network setup code remains the same) ...
-    obs_dim = env.observation_manager.group_obs_dim["policy"][0]
-    action_dim = 12
-    net = HebbianNet(popsize=env.num_envs, sizes=[obs_dim, 64, 32, action_dim], norm_mode='max')
-    
-    obs, _ = env.reset() 
-    count = 0
-    
-    print("[INFO] ---------------------------------------------")
-    print("[INFO] STREAMING STARTED!")
-    print("[INFO] Connect to: http://127.0.0.1:8211 in your browser")
-    print("[INFO] ---------------------------------------------")
-
-    # 3. INFINITE LOOP (Press Ctrl+C in terminal to stop)
-    while simulation_app.is_running():  
-        policy_obs = obs["policy"]      
-        action = net.forward(policy_obs)
-        obs, _, _, _, _  = env.step(action)
-        
-        # We don't need env.render() here, the extension handles it automatically
-        # But keeping it doesn't hurt.
-        
-        count += 1
-        if count % 1000 == 0:
-             print(f"[INFO] Simulating step {count}")
-
-    env.close()
-
-if __name__ == "__main__":
-    main()
-    simulation_app.close()

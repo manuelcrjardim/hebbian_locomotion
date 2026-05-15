@@ -1,0 +1,355 @@
+import torch
+import hydra
+from omegaconf import DictConfig
+import os
+import numpy as np
+from PIL import Image
+
+# Isaac Lab Imports
+from isaaclab.app import AppLauncher
+#app_launcher = AppLauncher(headless=True, livestream=1)
+#simulation_app = app_launcher.app
+
+import isaaclab.envs.mdp as mdp
+import isaaclab.sim as sim_utils
+from isaaclab.assets import ArticulationCfg, AssetBaseCfg
+from isaaclab.envs import ManagerBasedEnv, ManagerBasedEnvCfg, ManagerBasedRLEnv, ManagerBasedRLEnvCfg
+from isaaclab.managers import EventTermCfg as EventTerm
+from isaaclab.managers import RewardTermCfg as RewTerm
+from isaaclab.managers import ObservationGroupCfg as ObsGroup
+from isaaclab.managers import ObservationTermCfg as ObsTerm
+from isaaclab.utils.math import euler_xyz_from_quat
+from isaaclab.managers import SceneEntityCfg
+from isaaclab.scene import InteractiveSceneCfg
+from isaaclab.sensors import ContactSensorCfg, RayCasterCfg, patterns
+from isaaclab.terrains import TerrainImporterCfg
+from isaaclab.utils import configclass
+from isaaclab.utils.assets import ISAACLAB_NUCLEUS_DIR, NVIDIA_NUCLEUS_DIR, check_file_path, read_file
+from isaaclab.utils.noise import AdditiveUniformNoiseCfg as Unoise
+
+from isaaclab.terrains.config.rough import ROUGH_TERRAINS_CFG  # isort: skip
+from isaaclab_assets.robots.anymal import ANYMAL_C_CFG  # isort: skip
+
+# Import your custom assets and network
+from hebbian_locomotion.networks.hebbian_neural_net import HebbianNet
+from isaaclab.sensors import TiledCameraCfg
+
+
+def look_at_quat(eye, target):
+    """Compute a (w, x, y, z) quaternion for a USD camera at *eye* looking at *target*.
+
+    USD/Isaac Sim cameras look along their local -Z axis with +Y as up.
+    This builds the rotation matrix [right | up | -forward] and converts it.
+
+    Both *eye* and *target* are 3-tuples, interpreted as offsets from the
+    camera's parent prim (Robot/base) in world frame.
+
+    Usage in the camera config:
+        rot=look_at_quat(eye=(3, 3, 2), target=(0, 0, 0.5))
+    """
+    eye = np.asarray(eye, dtype=np.float64)
+    target = np.asarray(target, dtype=np.float64)
+    forward = target - eye
+    forward /= np.linalg.norm(forward)
+
+    world_up = np.array([0.0, 0.0, 1.0])
+    right = np.cross(forward, world_up)
+    right /= np.linalg.norm(right)
+
+    up = np.cross(right, forward)
+    up /= np.linalg.norm(up)
+
+    # Columns: camera +X (right), +Y (up), +Z (backward = -forward)
+    R = np.column_stack([right, up, -forward])
+
+    # Rotation matrix → quaternion (w, x, y, z)
+    trace = R[0, 0] + R[1, 1] + R[2, 2]
+    if trace > 0:
+        s = 0.5 / np.sqrt(trace + 1.0)
+        w, x, y, z = 0.25 / s, (R[2, 1] - R[1, 2]) * s, (R[0, 2] - R[2, 0]) * s, (R[1, 0] - R[0, 1]) * s
+    elif R[0, 0] > R[1, 1] and R[0, 0] > R[2, 2]:
+        s = 2.0 * np.sqrt(1.0 + R[0, 0] - R[1, 1] - R[2, 2])
+        w, x, y, z = (R[2, 1] - R[1, 2]) / s, 0.25 * s, (R[0, 1] + R[1, 0]) / s, (R[0, 2] + R[2, 0]) / s
+    elif R[1, 1] > R[2, 2]:
+        s = 2.0 * np.sqrt(1.0 + R[1, 1] - R[0, 0] - R[2, 2])
+        w, x, y, z = (R[0, 2] - R[2, 0]) / s, (R[0, 1] + R[1, 0]) / s, 0.25 * s, (R[1, 2] + R[2, 1]) / s
+    else:
+        s = 2.0 * np.sqrt(1.0 + R[2, 2] - R[0, 0] - R[1, 1])
+        w, x, y, z = (R[1, 0] - R[0, 1]) / s, (R[0, 2] + R[2, 0]) / s, (R[1, 2] + R[2, 1]) / s, 0.25 * s
+
+    q = np.array([w, x, y, z])
+    q /= np.linalg.norm(q)
+    if q[0] < 0:
+        q = -q
+    return tuple(float(v) for v in q)
+
+
+# ── Camera view parameters ──────────────────────────────────────────
+# Change these to reframe the recording camera.
+#   eye:    where the camera sits relative to the robot base (world frame offset)
+#   target: what the camera looks at (robot CoM height ≈ 0.5 m above base)
+
+_CAM_EYE = (-2.0, 0.0, 1.5) 
+_CAM_TARGET = (0.0, 0.0, 0.5)
+
+
+@configclass
+class MySceneCfg(InteractiveSceneCfg):
+    """Scene configuration with terrain, robot, and sensors."""
+
+    # add terrain
+    terrain = TerrainImporterCfg(
+        prim_path="/World/ground",
+        terrain_type="plane",
+        physics_material=sim_utils.RigidBodyMaterialCfg(
+            friction_combine_mode="multiply",
+            restitution_combine_mode="multiply",
+            static_friction=1.0,
+            dynamic_friction=1.0,
+        ),
+        visual_material=sim_utils.MdlFileCfg(
+            mdl_path=f"{ISAACLAB_NUCLEUS_DIR}/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned.mdl",
+            project_uvw=True,
+            texture_scale=(0.25, 0.25),
+        ),
+        debug_vis=False,
+    )
+
+    # add robot
+    robot: ArticulationCfg = ANYMAL_C_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
+
+    contact_sensor = ContactSensorCfg(
+        prim_path="{ENV_REGEX_NS}/Robot/.*FOOT",
+        update_period=0.0,      # update every sim step
+        history_length=1,       # we only need the current step
+        debug_vis=False,
+    )
+
+    height_scanner = RayCasterCfg(
+        prim_path="{ENV_REGEX_NS}/Robot/base",
+        offset=RayCasterCfg.OffsetCfg(pos=(0.0, 0.0, 20.0)),
+        ray_alignment="yaw",
+        pattern_cfg=patterns.GridPatternCfg(resolution=0.1, size=[1.6, 1.0]),
+        debug_vis=True,
+        mesh_prim_paths=["/World/ground"],
+    )
+
+    # lights
+    sky_light = AssetBaseCfg(
+        prim_path="/World/skyLight",
+        spawn=sim_utils.DomeLightCfg(
+            intensity=900.0,
+            texture_file=f"{NVIDIA_NUCLEUS_DIR}/Assets/Skies/Cloudy/kloofendal_48d_partly_cloudy_4k.hdr",
+            visible_in_primary_ray=False,
+        ),
+    )
+
+    # ── Recording camera ──
+    # Camera is parented to Robot/base so it follows the robot.
+    # Offsets are in world frame (convention="world").
+    # Adjust _CAM_EYE and _CAM_TARGET above to reframe the shot.
+    recording_camera = TiledCameraCfg(
+        prim_path="{ENV_REGEX_NS}/Robot/base/recording_cam",
+        offset=TiledCameraCfg.OffsetCfg(
+            pos=_CAM_EYE,
+            # FIX: Dynamically calculate the quaternion so it actually looks at the target
+            rot=look_at_quat(eye=_CAM_EYE, target=_CAM_TARGET), 
+            convention="world",
+        ),
+        data_types=["rgb"],
+        spawn=sim_utils.PinholeCameraCfg(
+            focal_length=24.0,
+            focus_distance=400.0,
+            horizontal_aperture=20.955,
+            clipping_range=(0.1, 50.0),
+        ),
+        width=640,
+        height=480,
+    )
+
+
+@configclass
+class ActionsCfg:
+    """Action specifications for the MDP."""
+
+    joint_pos = mdp.JointPositionActionCfg(asset_name="robot", joint_names=[".*"], scale=0.5, use_default_offset=True)
+
+
+def constant_commands(env: ManagerBasedRLEnv) -> torch.Tensor:
+    """The generated command from the command generator."""
+    return torch.tensor([[1, 0, 0]], device=env.device).repeat(env.num_envs, 1)
+
+
+# ------------------------------------------------------------------
+# Custom observation: binary foot contact
+# ------------------------------------------------------------------
+
+def foot_contact_binary(env: ManagerBasedRLEnv,
+                        sensor_cfg: SceneEntityCfg,
+                        threshold: float = 1.0) -> torch.Tensor:
+    """Return binary foot contact signals (0 or 1) for each foot.
+
+    Matches the paper's foot contact observation (Table I):
+        0 = no contact, 1 = leg is in contact.
+
+    The contact sensor reports net normal forces in world frame with shape
+    (num_envs, num_bodies, 3). We take the norm across the xyz force
+    components and threshold it.
+
+    Args:
+        env:        The environment instance.
+        sensor_cfg: SceneEntityCfg pointing to the contact sensor.
+        threshold:  Force magnitude (N) above which contact is registered.
+
+    Returns:
+        Tensor of shape (num_envs, num_feet) with values 0.0 or 1.0.
+        For ANYmal C this is (num_envs, 4).
+    """
+    contact_sensor = env.scene.sensors[sensor_cfg.name]
+    # net_forces_w has shape (num_envs, num_bodies, 3)
+    net_forces = contact_sensor.data.net_forces_w
+    # Compute force magnitude per foot: (num_envs, num_bodies)
+    force_magnitude = torch.norm(net_forces, dim=-1)
+    # Threshold to binary
+    binary_contact = (force_magnitude > threshold).float()
+    return binary_contact
+
+
+@configclass
+class ObservationsCfg:
+    """Observation specifications for the MDP."""
+
+    @configclass
+    class PolicyCfg(ObsGroup):
+        """Observations for policy group.
+
+        Paper (Table I) uses: joint angles, foot contacts, body orientation.
+        For ANYmal C:
+            - projected_gravity: 3 values (body orientation proxy)
+            - joint_pos:         12 values (joint angles)
+            - foot_contact:      4 values (binary foot contact)
+            Total: 19
+        """
+
+        # observation terms (order preserved)
+        projected_gravity = ObsTerm(
+            func=mdp.projected_gravity,
+            noise=Unoise(n_min=-0.05, n_max=0.05),
+        )
+        joint_pos = ObsTerm(
+            func=mdp.joint_pos_rel,
+            noise=Unoise(n_min=-0.01, n_max=0.01),
+        )
+        foot_contact = ObsTerm(
+            func=foot_contact_binary,
+            params={
+                "sensor_cfg": SceneEntityCfg("contact_sensor"),
+                "threshold": 1.0,
+            },
+        )
+
+        def __post_init__(self):
+            self.enable_corruption = True
+            self.concatenate_terms = True
+
+    # observation groups
+    policy: PolicyCfg = PolicyCfg()
+
+
+@configclass
+class EmptyManagerCfg:
+    """Empty manager specifications for the environment."""
+
+    pass
+
+
+# ------------------------------------------------------------------
+# Reward functions
+# ------------------------------------------------------------------
+
+def forward_velocity_x(env, asset_cfg: SceneEntityCfg) -> torch.Tensor:
+    """Forward velocity in world X-axis."""
+    asset = env.scene[asset_cfg.name]
+    return asset.data.root_lin_vel_w[:, 0]
+
+
+def upright_posture(env, asset_cfg: SceneEntityCfg) -> torch.Tensor:
+    """Upright posture reward (Eq. 6 in the paper)."""
+    asset = env.scene[asset_cfg.name]
+    z_proj = -asset.data.projected_gravity_b[:, 2]
+    return torch.where(z_proj > 0.93, 0.0, -0.5)
+
+
+def heading_yaw(env, asset_cfg: SceneEntityCfg) -> torch.Tensor:
+    """Heading yaw reward (Eq. 7 in the paper)."""
+    asset = env.scene[asset_cfg.name]
+    roll, pitch, yaw = euler_xyz_from_quat(asset.data.root_quat_w)
+    return torch.where(torch.abs(yaw) < 0.45, 0.0, -0.5)
+
+
+@configclass
+class RewardsCfg:
+    """Reward specifications matching the Hebbian Locomotion paper (Eq. 5)."""
+
+    V_t = RewTerm(
+        func=forward_velocity_x,
+        weight=2.0,
+        params={"asset_cfg": SceneEntityCfg("robot")},
+    )
+    U_t = RewTerm(
+        func=upright_posture,
+        weight=0.5,
+        params={"asset_cfg": SceneEntityCfg("robot")},
+    )
+    Yaw_t = RewTerm(
+        func=heading_yaw,
+        weight=0.5,
+        params={"asset_cfg": SceneEntityCfg("robot")},
+    )
+
+
+@configclass
+class EventCfg:
+    """Configuration for events."""
+
+    reset_base = EventTerm(
+        func=mdp.reset_root_state_uniform,
+        mode="reset",
+        params={
+            "pose_range": {"x": (-0.5, 0.5), "y": (-0.5, 0.5), "yaw": (-0.2, 0.2)},
+            "velocity_range": {
+                "x": (0.0, 0.0),
+                "y": (0.0, 0.0),
+                "z": (0.0, 0.0),
+                "roll": (0.0, 0.0),
+                "pitch": (0.0, 0.0),
+                "yaw": (0.0, 0.0),
+            },
+        },
+    )
+
+
+@configclass
+class AnymalEnvCfg(ManagerBasedRLEnvCfg):
+    """The Master Configuration."""
+
+    # 1. Scene Setup
+    scene = MySceneCfg(num_envs=64, env_spacing=2.5)
+
+    # 2. Managers
+    observations: ObservationsCfg = ObservationsCfg()
+    actions: ActionsCfg = ActionsCfg()
+    events: EventCfg = EventCfg()
+
+    rewards: RewardsCfg = RewardsCfg()
+    terminations: EmptyManagerCfg = EmptyManagerCfg()
+
+    def __post_init__(self):
+        """Post initialization."""
+        # general settings
+        self.decimation = 4
+        self.episode_length_s = 20.0
+        # simulation settings
+        self.sim.dt = 0.005
+        if self.scene.height_scanner is not None:
+            self.scene.height_scanner.update_period = self.decimation * self.sim.dt
