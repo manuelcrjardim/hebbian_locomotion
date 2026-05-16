@@ -18,9 +18,9 @@ from datetime import datetime
 EPOCH = 55
 STEPS = 500
 current_time = datetime.now().strftime("%m:%d_%H:%M")
-CHECKPOINT_PATH = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/Gecko_hebbian_es_checkpoint_05\\14-18:48_24.pickle"
-PLOT_OUTPUT = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/logs/hebbian_network_pos_test/trajectory_{STEPS}_steps_{current_time}_epoch_{EPOCH}.png"
-PLOT_OUTPUT2 = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/logs/hebbian_network_pos_test/trajectory_{STEPS}_steps_over_time_{current_time}_epoch_{EPOCH}.png"
+CHECKPOINT_PATH = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/Gecko_hebbian_es_checkpoint_05:16-17:20_224.pickle"
+PLOT_OUTPUT = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/logs/positions/trajectory_{STEPS}_steps_{current_time}_epoch_{EPOCH}.png"
+PLOT_OUTPUT2 = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/logs/positions/trajectory_{STEPS}_steps_over_time_{current_time}_epoch_{EPOCH}.png"
 
 def main():
     # Load checkpoint

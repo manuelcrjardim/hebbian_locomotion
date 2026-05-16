@@ -56,8 +56,8 @@ GECKO_CFG = ArticulationCfg(
     actuators={
         "all_motors": ImplicitActuatorCfg(
             joint_names_expr=[".*"], 
-            stiffness=1.0,     # Mapped from set_drive
-            damping=0.0,       # Mapped from set_drive
+            stiffness=20.0,     # Mapped from set_drive
+            damping=0.5,       # Mapped from set_drive
             effort_limit=4.1,  # Mapped from set_drive max_force
         ),
     },
