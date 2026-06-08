@@ -18,7 +18,7 @@ from datetime import datetime
 EPOCH = 55
 STEPS = 500
 current_time = datetime.now().strftime("%m:%d_%H:%M")
-CHECKPOINT_PATH = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/Gecko_hebbian_es_checkpoint_05:16-17:20_224.pickle"
+CHECKPOINT_PATH = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/Gecko_hebbian_es_checkpoint_06:04-16:27_199.pickle"
 PLOT_OUTPUT = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/logs/positions/trajectory_{STEPS}_steps_{current_time}_epoch_{EPOCH}.png"
 PLOT_OUTPUT2 = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/logs/positions/trajectory_{STEPS}_steps_over_time_{current_time}_epoch_{EPOCH}.png"
 
@@ -50,10 +50,10 @@ def main():
         actions = model.forward(obs["policy"])
         obs, rewards, _, _, _ = env.step(actions)
 
-        pos = robot.data.root_pos_w[0].cpu().numpy()
-        xs.append(pos[0])
-        ys.append(pos[1])
-        zs.append(pos[2])
+        avg_pos = robot.data.root_pos_w.mean(dim=0).cpu().numpy()
+        xs.append(avg_pos[0])
+        ys.append(avg_pos[1])
+        zs.append(avg_pos[2])
 
     env.close()
 

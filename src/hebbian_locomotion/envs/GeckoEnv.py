@@ -56,8 +56,8 @@ GECKO_CFG = ArticulationCfg(
     actuators={
         "all_motors": ImplicitActuatorCfg(
             joint_names_expr=[".*"], 
-            stiffness=20.0,     # Mapped from set_drive
-            damping=0.5,       # Mapped from set_drive
+            stiffness=1.0,     # Mapped from set_drive
+            damping=0.0,       # Mapped from set_drive
             effort_limit=4.1,  # Mapped from set_drive max_force
         ),
     },
@@ -121,7 +121,11 @@ class MySceneCfg(InteractiveSceneCfg):
 class ActionsCfg:
     """Action specifications for the MDP."""
 
-    joint_pos = mdp.JointPositionActionCfg(asset_name="robot", joint_names=[".*"], scale=0.5, use_default_offset=True)
+    joint_effort = mdp.JointEffortActionCfg(
+        asset_name="robot",
+        joint_names=[".*"],
+        scale=4.0,
+    )
 
 
 def constant_commands(env: ManagerBasedRLEnv) -> torch.Tensor:
@@ -132,6 +136,22 @@ def constant_commands(env: ManagerBasedRLEnv) -> torch.Tensor:
 # ------------------------------------------------------------------
 # Custom observation: binary foot contact
 # ------------------------------------------------------------------
+
+def body_euler_angles(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg) -> torch.Tensor:
+    """Return body orientation as (roll, pitch, yaw) Euler angles in [-pi, pi].
+
+    Matches the paper's Table I: body orientation in radians.
+    Yaw is in the world frame, so it gives the network access to absolute
+    heading — critical for learning to move in +X direction.
+    """
+    asset = env.scene[asset_cfg.name]
+    roll, pitch, yaw = euler_xyz_from_quat(asset.data.root_quat_w)
+    # Wrap to [-pi, pi] (euler_xyz_from_quat returns values in [0, 2*pi])
+    roll = torch.atan2(torch.sin(roll), torch.cos(roll))
+    pitch = torch.atan2(torch.sin(pitch), torch.cos(pitch))
+    yaw = torch.atan2(torch.sin(yaw), torch.cos(yaw))
+    return torch.stack([roll, pitch, yaw], dim=-1)
+
 
 def foot_contact_binary(env: ManagerBasedRLEnv,
                         sensor_cfg: SceneEntityCfg,
@@ -174,15 +194,16 @@ class ObservationsCfg:
 
         Paper (Table I) uses: joint angles, foot contacts, body orientation.
         For ANYmal C:
-            - projected_gravity: 3 values (body orientation proxy)
-            - joint_pos:         12 values (joint angles)
+            - body_orientation:  3 values (roll, pitch, yaw)
+            - joint_pos:         16 values (joint angles)
             - foot_contact:      4 values (binary foot contact)
-            Total: 19
+            Total: 23
         """
 
         # observation terms (order preserved)
-        projected_gravity = ObsTerm(
-            func=mdp.projected_gravity,
+        body_orientation = ObsTerm(
+            func=body_euler_angles,
+            params={"asset_cfg": SceneEntityCfg("robot")},
             noise=Unoise(n_min=-0.05, n_max=0.05),
         )
         joint_pos = ObsTerm(
@@ -302,4 +323,4 @@ class GeckoEnvCfg(ManagerBasedRLEnvCfg):
         self.sim.dt = 0.005
         if self.scene.height_scanner is not None:
             self.scene.height_scanner.update_period = self.decimation * self.sim.dt
-
+            

@@ -154,7 +154,7 @@ class OpenES:
                  popsize=256,  # population size
                  antithetic=True,  # whether to use antithetic sampling
                  weight_decay=0.00,  # weight decay coefficient
-                 rank_fitness=True,  # use rank rather than fitness numbers
+                 rank_fitness=False,  # use rank rather than fitness numbers
                  forget_best=True):  # forget historical best
 
         self.num_params = num_params

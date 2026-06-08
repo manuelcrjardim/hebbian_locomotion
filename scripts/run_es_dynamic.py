@@ -34,7 +34,10 @@ def main():
     writer = SummaryWriter(log_dir=custom_log_dir)
     # --- 1. Hyperparameters ---
     EPOCHS = 500                    # Total generations
-    EPISODE_LENGTH_TRAIN = 500      # Simulation steps per rollout
+    EPISODE_LENGTH_TRAIN = 500      # MAX episode length (curriculum cap)
+    INITIAL_EPISODE_LENGTH = 500     # Starting episode length
+    FALL_Z_THRESHOLD = 0.1          # Robot considered fallen when base z < this
+    GROWTH_FACTOR = 1.5             # next_length = last_fall_step * GROWTH_FACTOR
     POPSIZE = 1024                   # Population size (paper uses 1024)
     SAVE_EVERY = 25
 
@@ -69,7 +72,7 @@ def main():
     solver = OpenES(
         n_params,
         popsize=POPSIZE,
-        rank_fitness=True,
+        rank_fitness=False,
         antithetic=True,
         learning_rate=LEARNING_RATE,
         learning_rate_decay=LEARNING_RATE_DECAY,
@@ -85,7 +88,7 @@ def main():
     # --- 3. Main Training Loop ---
     print("\n[INFO] Starting Evolution Strategy Training...")
 
-    episode_length = EPISODE_LENGTH_TRAIN
+    current_length = INITIAL_EPISODE_LENGTH  # dynamic episode length
 
     reward_list = []
 
@@ -103,14 +106,14 @@ def main():
         #    weights each generation, not carry over from the previous one.
         models.reset_weights()
 
-        DYNAMIC_EPISODE_LENGTH = episode_length
-
         # D. Reset the environment
         obs, _ = env.reset()
 
-        # Capture starting XY position for distance-travelled logging
+        # Per-env fall tracking (step index at which base z first dropped below threshold)
         robot = env.scene["robot"]
         initial_xy = robot.data.root_pos_w[:, :2].clone()
+        fall_step = torch.full((POPSIZE,), current_length, dtype=torch.long, device=env.device)
+        fallen_mask = torch.zeros(POPSIZE, dtype=torch.bool, device=env.device)
 
         # Track rewards and termination per individual
         total_rewards = torch.zeros(POPSIZE, device=env.device)
@@ -125,10 +128,10 @@ def main():
         # Save the old mean parameter vector to calculate step size later[cite: 5]
         old_mu = solver.mu.copy()
 
-        tracked_step_rewards = torch.zeros(EPISODE_LENGTH_TRAIN)
+        tracked_step_rewards = torch.zeros(current_length)
 
         # E. Rollout: evaluate the population
-        for step in range(EPISODE_LENGTH_TRAIN):
+        for step in range(current_length):
             policy_obs = obs["policy"]
 
             # Forward pass (updates Hebbian weights internally)
@@ -141,6 +144,12 @@ def main():
 
             survival_steps += done_mask.float()
             
+            # Track first-fall step per env (z below threshold)
+            z = robot.data.root_pos_w[:, 2]
+            just_fell = (z < FALL_Z_THRESHOLD) & ~fallen_mask
+            fall_step[just_fell] = step
+            fallen_mask = fallen_mask | just_fell
+
             # 2. Track real forward X-velocity[cite: 4]
             # We only record velocity for agents that are currently "alive" (done_mask)
             robot = env.scene["robot"]
@@ -158,10 +167,15 @@ def main():
             done_mask = done_mask & ~terminates & ~truncates
 
         # F. Scale rewards to match the original es_train.py convention
-        total_rewards = total_rewards / EPISODE_LENGTH_TRAIN * 100
+        total_rewards = total_rewards / current_length * 100
+
+        # Update episode length for next epoch: last_fall * 1.5, monotonically non-decreasing, capped at max
+        last_fall = fall_step.max().item()
+        new_length = min(EPISODE_LENGTH_TRAIN, int(last_fall * GROWTH_FACTOR))
+        current_length = max(current_length, new_length)
 
         # FIX 3: Correct Matplotlib plotting logic
-        if epoch % 5 == 0:
+        if epoch % 25 == 0:
             plt.figure(figsize=(8, 6))
             # Ensure tensor is moved to CPU and converted to numpy for plotting
             plt.plot(tracked_step_rewards.cpu().numpy(), label="Agent 0 Reward")
@@ -231,6 +245,8 @@ def main():
         # It's also helpful to track the ES sigma (exploration variance)
         writer.add_scalar("Parameters/Sigma", solver.sigma, epoch)
         writer.add_scalar("Parameters/Learning_Rate", solver.learning_rate, epoch)
+        writer.add_scalar("Curriculum/Episode_Length", current_length, epoch)
+        writer.add_scalar("Curriculum/Last_Fall_Step", last_fall, epoch)
 
         # --- Distance travelled (XY displacement) ---
         final_xy = robot.data.root_pos_w[:, :2]
