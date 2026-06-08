@@ -238,9 +238,9 @@ class EmptyManagerCfg:
 # ------------------------------------------------------------------
 
 def forward_velocity_x(env, asset_cfg: SceneEntityCfg) -> torch.Tensor:
-    """Forward velocity in world X-axis."""
+    """Forward velocity in robot-frame X-axis."""
     asset = env.scene[asset_cfg.name]
-    return asset.data.root_lin_vel_w[:, 0]
+    return asset.data.root_lin_vel_b[:, 0]
 
 
 def upright_posture(env, asset_cfg: SceneEntityCfg) -> torch.Tensor:
@@ -273,7 +273,7 @@ class RewardsCfg:
     )
     Yaw_t = RewTerm(
         func=heading_yaw,
-        weight=0.5,
+        weight=0,
         params={"asset_cfg": SceneEntityCfg("robot")},
     )
 

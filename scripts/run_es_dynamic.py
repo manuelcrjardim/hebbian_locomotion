@@ -130,6 +130,8 @@ def main():
 
         tracked_step_rewards = torch.zeros(current_length)
 
+        prev_actions = None 
+
         # E. Rollout: evaluate the population
         for step in range(current_length):
             policy_obs = obs["policy"]
@@ -137,8 +139,13 @@ def main():
             # Forward pass (updates Hebbian weights internally)
             actions = models.forward(policy_obs)
 
+            if prev_actions != None:
+                actions = 0.1*actions + 0.9 * prev_actions
+
             # Environment step
             obs, rewards, terminates, truncates, extras = env.step(actions)
+
+            prev_actions = actions
 
             tracked_step_rewards[step] = rewards[0].item()
 
@@ -153,7 +160,7 @@ def main():
             # 2. Track real forward X-velocity[cite: 4]
             # We only record velocity for agents that are currently "alive" (done_mask)
             robot = env.scene["robot"]
-            total_velocity += robot.data.root_lin_vel_w[:, 0] * done_mask.float()
+            total_velocity += robot.data.root_lin_vel_b[:, 0] * done_mask.float()
             
             # 3. Track action saturation (what percentage of outputs are pegged at the extremes)
             saturated = (torch.abs(actions) > 0.95).sum().item()
