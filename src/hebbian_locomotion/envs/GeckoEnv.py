@@ -152,6 +152,12 @@ def body_euler_angles(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg) -> torc
     yaw = torch.atan2(torch.sin(yaw), torch.cos(yaw))
     return torch.stack([roll, pitch, yaw], dim=-1)
 
+def forward_velocity(env, asset_cfg: SceneEntityCfg) -> torch.Tensor:
+    """Forward velocity in robot-frame X-axis."""
+    asset = env.scene[asset_cfg.name]
+    return asset.data.root_lin_vel_b
+    asset = env.scene[asset_cfg.name]
+    return asset.data.root_lin_vel_b
 
 def foot_contact_binary(env: ManagerBasedRLEnv,
                         sensor_cfg: SceneEntityCfg,
@@ -216,6 +222,11 @@ class ObservationsCfg:
                 "sensor_cfg": SceneEntityCfg("contact_sensor"),
                 "threshold": 1.0,
             },
+        )
+        velocity_frame = ObsTerm(
+            func = forward_velocity,
+            params={"asset_cfg": SceneEntityCfg("robot")},
+            noise=Unoise(n_min=-0.05, n_max=0.05),
         )
 
         def __post_init__(self):
