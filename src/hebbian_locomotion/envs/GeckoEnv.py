@@ -50,17 +50,18 @@ GECKO_CFG = ArticulationCfg(
         ),
     ),
     init_state=ArticulationCfg.InitialStateCfg(
-        pos=(0.0, 0.0, 0.35),  # Adjust Z-height so it doesn't spawn inside the floor
+        pos=(0.0, 0.0, 0.0),  # Adjust Z-height so it doesn't spawn inside the floor
         joint_pos={".*": 0.0}, # Initializes all 16 joints to 0
     ),
-    actuators={
-        "all_motors": ImplicitActuatorCfg(
-            joint_names_expr=[".*"], 
-            stiffness=1.0,     # Mapped from set_drive
-            damping=0.0,       # Mapped from set_drive
-            effort_limit=4.1,  # Mapped from set_drive max_force
-        ),
-    },
+        actuators={
+            "all_motors": ImplicitActuatorCfg(
+                joint_names_expr=[".*"], 
+                stiffness=1.0,     # Mapped from set_drive
+                damping=0.0,       # Mapped from set_drive
+                effort_limit=4.1,  # Mapped from set_drive max_force
+            ),
+        },
+
 )
 
 @configclass
@@ -121,10 +122,11 @@ class MySceneCfg(InteractiveSceneCfg):
 class ActionsCfg:
     """Action specifications for the MDP."""
 
-    joint_effort = mdp.JointEffortActionCfg(
+    joint_pos = mdp.JointPositionActionCfg(
         asset_name="robot",
         joint_names=[".*"],
-        scale=4.0,
+        scale=1.0,
+        use_default_offset=False,
     )
 
 
@@ -153,11 +155,32 @@ def body_euler_angles(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg) -> torc
     return torch.stack([roll, pitch, yaw], dim=-1)
 
 def forward_velocity(env, asset_cfg: SceneEntityCfg) -> torch.Tensor:
-    """Forward velocity in robot-frame X-axis."""
+    """Body-frame linear velocity (vx, vy, vz)."""
     asset = env.scene[asset_cfg.name]
     return asset.data.root_lin_vel_b
+
+
+def up_projection(env, asset_cfg: SceneEntityCfg) -> torch.Tensor:
+    """Upright projection (1 = upright, 0 = sideways). Code obs index 54."""
     asset = env.scene[asset_cfg.name]
-    return asset.data.root_lin_vel_b
+    return (-asset.data.projected_gravity_b[:, 2]).unsqueeze(-1)
+
+
+def prev_action_obs(env: ManagerBasedRLEnv) -> torch.Tensor:
+    """Return the previous (filtered) action fed back as observation.
+
+    The paper feeds back self.actions (the filtered, pre-scale [-1, 1] policy
+    output). Because the low-pass filter lives in the training loop, we can't
+    use mdp.last_action (which would return the scaled effort). Instead the
+    training loop stashes the filtered action on env.prev_action_buf each step,
+    and this term reads it back.
+
+    Falls back to zeros on the first step / before the buffer exists.
+    """
+    buf = getattr(env, "prev_action_buf", None)
+    if buf is None:
+        return torch.zeros(env.num_envs, 16, device=env.device)
+    return buf
 
 def foot_contact_binary(env: ManagerBasedRLEnv,
                         sensor_cfg: SceneEntityCfg,
@@ -198,33 +221,40 @@ class ObservationsCfg:
     class PolicyCfg(ObsGroup):
         """Observations for policy group.
 
-        Paper (Table I) uses: joint angles, foot contacts, body orientation.
-        For ANYmal C:
-            - body_orientation:  3 values (roll, pitch, yaw)
-            - joint_pos:         16 values (joint angles)
-            - foot_contact:      4 values (binary foot contact)
-            Total: 23
+        Matches the ACTUAL slalom code observation (locomotion_simple_rew.py),
+        NOT the paper's Table I. Layout (55 dims), in code order:
+            - joint_pos:    16   code idx 0-15
+            - joint_vel:    16   code idx 16-31
+            - roll/pitch/yaw: 3  code idx 32-34
+            - last_action:  16   code idx 35-50  (previous FILTERED action)
+            - body_lin_vel:  3   code idx 51-53
+            - up_proj:       1   code idx 54
+        No foot contacts (the code's active obs omits them).
         """
 
-        # observation terms (order preserved)
+        joint_pos = ObsTerm(
+            func=mdp.joint_pos_rel,
+            noise=Unoise(n_min=-0.01, n_max=0.01),
+        )
+        joint_vel = ObsTerm(
+            func=mdp.joint_vel_rel,
+            noise=Unoise(n_min=-0.01, n_max=0.01),
+        )
         body_orientation = ObsTerm(
             func=body_euler_angles,
             params={"asset_cfg": SceneEntityCfg("robot")},
             noise=Unoise(n_min=-0.05, n_max=0.05),
         )
-        joint_pos = ObsTerm(
-            func=mdp.joint_pos_rel,
-            noise=Unoise(n_min=-0.01, n_max=0.01),
+        last_action = ObsTerm(
+            func=prev_action_obs,
         )
-        foot_contact = ObsTerm(
-            func=foot_contact_binary,
-            params={
-                "sensor_cfg": SceneEntityCfg("contact_sensor"),
-                "threshold": 1.0,
-            },
+        body_lin_vel = ObsTerm(
+            func=forward_velocity,
+            params={"asset_cfg": SceneEntityCfg("robot")},
+            noise=Unoise(n_min=-0.05, n_max=0.05),
         )
-        velocity_frame = ObsTerm(
-            func = forward_velocity,
+        up_proj = ObsTerm(
+            func=up_projection,
             params={"asset_cfg": SceneEntityCfg("robot")},
             noise=Unoise(n_min=-0.05, n_max=0.05),
         )
@@ -268,6 +298,7 @@ def heading_yaw(env, asset_cfg: SceneEntityCfg) -> torch.Tensor:
     return torch.where(torch.abs(yaw) < 0.45, 0.0, -0.5)
 
 
+
 @configclass
 class RewardsCfg:
     """Reward specifications matching the Hebbian Locomotion paper (Eq. 5)."""
@@ -284,7 +315,7 @@ class RewardsCfg:
     )
     Yaw_t = RewTerm(
         func=heading_yaw,
-        weight=0,
+        weight=0.5,
         params={"asset_cfg": SceneEntityCfg("robot")},
     )
 
@@ -334,4 +365,3 @@ class GeckoEnvCfg(ManagerBasedRLEnvCfg):
         self.sim.dt = 0.005
         if self.scene.height_scanner is not None:
             self.scene.height_scanner.update_period = self.decimation * self.sim.dt
-            

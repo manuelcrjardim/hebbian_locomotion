@@ -15,10 +15,10 @@ from datetime import datetime
 
 
 # ── Config ──
-EPOCH = 124
+EPOCH = 299
 STEPS = 500
 current_time = datetime.now().strftime("%m:%d_%H:%M")
-CHECKPOINT_PATH = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/Gecko_hebbian_es_checkpoint_06:09-16:34_499.pickle"
+CHECKPOINT_PATH = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/Gecko_hebbian_es_checkpoint_06:10-19:04_299.pickle"
 PLOT_OUTPUT = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/logs/positions/trajectory_{STEPS}_steps_{current_time}_epoch_{EPOCH}.png"
 PLOT_OUTPUT2 = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/logs/positions/trajectory_{STEPS}_steps_over_time_{current_time}_epoch_{EPOCH}.png"
 

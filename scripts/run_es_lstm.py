@@ -1,3 +1,27 @@
+"""
+run_es_dynamic_lstm.py — LSTM-baseline sibling of run_es_dynamic.py.
+
+Identical to run_es_dynamic.py (same env, reward, ES optimiser, EMA action
+filter, dynamic-episode curriculum, checkpointing, and all generic TensorBoard
+logs) EXCEPT the controller is an ES-trained LSTM and the Hebbian-specific
+internals logs are replaced with LSTM-specific ones.
+
+Logging changes vs. run_es_dynamic.py (everything else is unchanged):
+  REMOVED (HNN-specific, would crash on the LSTM):
+    - Fitness/Max_Dynamic_Weight        (max plastic Hebbian weight)
+    - Internals/Values of A,B,C,D        (evolved Hebbian coefficients)
+    - Internals/Learning_Rates           (evolved per-synapse lr)
+  ADDED (LSTM-specific):
+    - Internals/Max_Abs_Hidden_State, Max_Abs_Cell_State, Mean_Abs_Hidden_State
+        (recurrent-state magnitude monitors — the analog of Max_Dynamic_Weight)
+    - Internals/W_ih, W_hh, Gate_Biases, W_out, b_out   (evolved LSTM params)
+    - Internals/Hidden_State_h, Cell_State_c            (plastic recurrent state)
+
+Set HIDDEN to match the evolved-parameter count of the net you are comparing
+against (the constructor prints the count). For I~23, O=16: H=60 -> ~21k
+(near plain ABCD), H=64-66 -> ~24k (brackets the eligibility-trace ABCD variant).
+"""
+
 import os
 import torch
 import numpy as np
@@ -17,15 +41,7 @@ from isaaclab.envs import ManagerBasedRLEnv
 
 # Import your custom modules
 from hebbian_locomotion.envs.AnymalEnv import AnymalEnvCfg
-from hebbian_locomotion.envs.GeckoEnv import (
-    GeckoEnvCfg,
-    forward_velocity_x,
-    upright_posture,
-    heading_yaw,
-)
-from isaaclab.managers import SceneEntityCfg
-from hebbian_locomotion.networks.hebbian_neural_net import HebbianNet
-from hebbian_locomotion.networks.han_net import HANNet
+from hebbian_locomotion.envs.GeckoEnv import GeckoEnvCfg
 from hebbian_locomotion.networks.LSTM import LSTMNet
 from hebbian_locomotion.networks.ES_classes import OpenES
 
@@ -43,21 +59,21 @@ def main():
     # --- 1. Hyperparameters ---
     EPOCHS = 500                    # Total generations
     EPISODE_LENGTH_TRAIN = 500      # MAX episode length (curriculum cap)
-    INITIAL_EPISODE_LENGTH = 500     # Starting episode length
+    INITIAL_EPISODE_LENGTH = 500    # Starting episode length
     FALL_Z_THRESHOLD = 0.1          # Robot considered fallen when base z < this
     GROWTH_FACTOR = 1.5             # next_length = last_fall_step * GROWTH_FACTOR
-    POPSIZE = 2048                   # Population size (paper uses 1024)
-    SAVE_EVERY = 25
+    POPSIZE = 1024                  # Population size (paper uses 1024)
+    SAVE_EVERY = 50
+
+    HIDDEN = 30      # was 64; the 3-stack net is ~12·h² in params, so h≈30 matches the ABCD nets
 
     ROBOT = 'Gecko'
-    RUN_NETWORK = 'LSTM'
+
     # ES parameters (paper: sigma_init=0.1, decay=0.999, lr=0.1, lr_decay=0.999)
     LEARNING_RATE = 0.1
     LEARNING_RATE_DECAY = 0.999
     SIGMA_INIT = 0.1
     SIGMA_DECAY = 0.999
-
-    HIDDEN = 64                                  # Size of hidden layer in LSTM network
 
     print("[INFO] Initializing Environment...")
     env_cfg = GeckoEnvCfg()
@@ -68,21 +84,8 @@ def main():
     obs_dim = env.observation_manager.group_obs_dim["policy"][0]
     action_dim = 16
 
-    run_name = f"HAN_run_lr_{current_time}"
-
-    base_dir = "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/tensorboard"
-    custom_log_dir = os.path.join(base_dir, run_name)
-
-    print(f"\n[INFO] Initializing HAN Network (obs={obs_dim}, act={action_dim})...")
-    '''
-    models = HebbianNet(
-        popsize=POPSIZE,
-        sizes=[obs_dim, 64, 32, action_dim],
-        norm_mode='var'
-    )
-    '''
-
-    models = HANNet(POPSIZE, sizes=[obs_dim, 64, 32, action_dim], norm_mode='max', M=10, tau_hebb=4)
+    print(f"\n[INFO] Initializing LSTM Network (obs={obs_dim}, hidden={HIDDEN}, act={action_dim})...")
+    models = LSTMNet(popsize=POPSIZE, sizes=[obs_dim, HIDDEN, action_dim])
 
     n_params = models.get_n_params_a_model()
     print(f"[INFO] Evolvable parameters per individual: {n_params}")
@@ -91,7 +94,7 @@ def main():
     solver = OpenES(
         n_params,
         popsize=POPSIZE,
-        rank_fitness=False,
+        rank_fitness=True,
         antithetic=True,
         learning_rate=LEARNING_RATE,
         learning_rate_decay=LEARNING_RATE_DECAY,
@@ -114,15 +117,15 @@ def main():
     for epoch in range(EPOCHS):
 
         PLOT_OUTPUT = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/logs/rewards/_{current_time}_rewards_epoch_{epoch}.png"
-        # A. Ask: get new population of Hebbian coefficients from ES
+        # A. Ask: get new population of LSTM weights from ES
         solutions = solver.ask()
 
-        # B. Distribute: load evolved coefficients into the parallel networks
+        # B. Distribute: load evolved LSTM weights into the parallel networks
         models.set_models_params(solutions)
 
-        # C. Reset connection weights to fresh random values for this rollout.
-        #    This is critical — the Hebbian rules must transform a new set of
-        #    weights each generation, not carry over from the previous one.
+        # C. Reset the LSTM hidden/cell state for this rollout.
+        #    Analogous to resetting the Hebbian connection weights: the recurrent
+        #    state must start fresh each generation, not carry over.
         models.reset_weights()
 
         # D. Reset the environment
@@ -138,41 +141,28 @@ def main():
         total_rewards = torch.zeros(POPSIZE, device=env.device)
         done_mask = torch.ones(POPSIZE, device=env.device, dtype=torch.bool)
 
-        # --- NEW: Initialize tracking metrics for this epoch ---
+        # --- Initialize tracking metrics for this epoch ---
         survival_steps = torch.zeros(POPSIZE, device=env.device)
         total_velocity = torch.zeros(POPSIZE, device=env.device)
         action_saturation_count = 0
         total_action_elements = 0
 
-        # Per-reward-term episode sums (raw func outputs, accumulated over rollout)
-        v_term_sum = torch.zeros(POPSIZE, device=env.device)
-        u_term_sum = torch.zeros(POPSIZE, device=env.device)
-        yaw_term_sum = torch.zeros(POPSIZE, device=env.device)
-        reward_robot_cfg = SceneEntityCfg("robot")
-        
-        # Save the old mean parameter vector to calculate step size later[cite: 5]
+        # Save the old mean parameter vector to calculate step size later
         old_mu = solver.mu.copy()
 
         tracked_step_rewards = torch.zeros(current_length)
 
         prev_actions = None
-        # Initialize the previous-action buffer the observation reads from.
-        env.prev_action_buf = torch.zeros(POPSIZE, action_dim, device=env.device)
 
         # E. Rollout: evaluate the population
         for step in range(current_length):
             policy_obs = obs["policy"]
 
-            # Forward pass (updates Hebbian weights internally)
+            # Forward pass (advances LSTM hidden/cell state internally)
             actions = models.forward(policy_obs)
 
-            # Low-pass action filter (paper: 0.1*new + 0.9*prev)
-            if prev_actions is not None:
-                actions = 0.1 * actions + 0.9 * prev_actions
-
-            # Stash the FILTERED action so the next observation can feed it back
-            # (the obs built inside env.step() will read env.prev_action_buf).
-            env.prev_action_buf = actions.detach()
+            if prev_actions != None:
+                actions = 0.1*actions + 0.9 * prev_actions
 
             # Environment step
             obs, rewards, terminates, truncates, extras = env.step(actions)
@@ -182,29 +172,22 @@ def main():
             tracked_step_rewards[step] = rewards[0].item()
 
             survival_steps += done_mask.float()
-            
+
             # Track first-fall step per env (z below threshold)
             z = robot.data.root_pos_w[:, 2]
             just_fell = (z < FALL_Z_THRESHOLD) & ~fallen_mask
             fall_step[just_fell] = step
             fallen_mask = fallen_mask | just_fell
 
-            # 2. Track real forward X-velocity[cite: 4]
+            # Track real forward X-velocity (body frame)
             # We only record velocity for agents that are currently "alive" (done_mask)
             robot = env.scene["robot"]
             total_velocity += robot.data.root_lin_vel_b[:, 0] * done_mask.float()
-            
-            # 3. Track action saturation (what percentage of outputs are pegged at the extremes)
+
+            # Track action saturation (what percentage of outputs are pegged at the extremes)
             saturated = (torch.abs(actions) > 0.95).sum().item()
             action_saturation_count += saturated
             total_action_elements += actions.numel()
-
-            # Accumulate raw reward-term outputs (same functions the reward uses),
-            # masked by done_mask to match how total_rewards is accumulated.
-            mask_f = done_mask.float()
-            v_term_sum += forward_velocity_x(env, reward_robot_cfg) * mask_f
-            u_term_sum += upright_posture(env, reward_robot_cfg) * mask_f
-            yaw_term_sum += heading_yaw(env, reward_robot_cfg) * mask_f
 
             # Only accumulate rewards for individuals that haven't terminated.
             # IsaacLab auto-resets terminated envs, which would mix rewards
@@ -220,23 +203,19 @@ def main():
         new_length = min(EPISODE_LENGTH_TRAIN, int(last_fall * GROWTH_FACTOR))
         current_length = max(current_length, new_length)
 
-        # FIX 3: Correct Matplotlib plotting logic
+        # Matplotlib plotting logic
         if epoch % 25 == 0:
             plt.figure(figsize=(8, 6))
-            # Ensure tensor is moved to CPU and converted to numpy for plotting
             plt.plot(tracked_step_rewards.cpu().numpy(), label="Agent 0 Reward")
             plt.title(f"Step Rewards - Epoch {epoch}")
             plt.xlabel("Simulation Step")
             plt.ylabel("Reward")
             plt.legend()
-            # plt.axis("equal") <- REMOVED: This forces X and Y axes to share the same scale, 
-            # which ruins line graphs where X is 500 steps and Y is small reward numbers.
             plt.grid(True)
             plt.tight_layout()
             plt.savefig(PLOT_OUTPUT, dpi=150)
-            plt.close() # <-- ADDED: Crucial to prevent a memory leak by closing the figure!
+            plt.close()
             print(f"Saved plot to {PLOT_OUTPUT}")
-
 
         # G. Tell: pass fitness back to the ES optimizer
         total_rewards_cpu = total_rewards.cpu().numpy()
@@ -251,37 +230,37 @@ def main():
         pop_mean_curve[epoch] = mean_reward
         best_sol_curve[epoch] = best_reward
 
-        # --- NEW: Calculate Final Metrics ---
         # Physical
         avg_survival = survival_steps.mean().item()
-        avg_velocity = (total_velocity / (survival_steps + 1e-5)).mean().item() 
-        
-        # Internals
+        avg_velocity = (total_velocity / (survival_steps + 1e-5)).mean().item()
+
+        # Internals (generic)
         saturation_pct = (action_saturation_count / total_action_elements) * 100.0
-        max_weight = max([torch.max(torch.abs(w)).item() for w in models.get_weights()])
- 
-        A_vals = torch.cat([a.flatten() for a in models.A]).cpu().numpy()
-        B_vals = torch.cat([b.flatten() for b in models.B]).cpu().numpy()
-        C_vals = torch.cat([c.flatten() for c in models.C]).cpu().numpy()
-        D_vals = torch.cat([d.flatten() for d in models.D]).cpu().numpy()
-        lr_vals = torch.cat([lr.flatten() for lr in models.lr]).cpu().numpy()
-        
-        # ES Optimizer Health[cite: 5]
+
+
+        # ES Optimizer Health
         reward_std = fit_arr.std()
         step_size = np.linalg.norm(solver.mu - old_mu)
 
-        # --- NEW: Log everything to TensorBoard ---
+        # --- Log everything to TensorBoard ---
         writer.add_scalar("Fitness/Avg_Survival_Steps", avg_survival, epoch)
         writer.add_scalar("Fitness/Avg_Forward_Velocity_m_s", avg_velocity, epoch)
-        writer.add_scalar("Fitness/Max_Dynamic_Weight", max_weight, epoch)
         writer.add_scalar("Fitness/Action_Saturation_Pct", saturation_pct, epoch)
-        
-        writer.add_histogram("Internals/Values of A", A_vals, epoch)
-        writer.add_histogram("Internals/Values of B", B_vals, epoch)
-        writer.add_histogram("Internals/Values of C", C_vals, epoch)
-        writer.add_histogram("Internals/Values of D", D_vals, epoch)
-        writer.add_histogram("Internals/Learning_Rates", lr_vals, epoch)
-        
+
+         # --- LSTM-specific internals (3-stack SeqLSTMs) ---
+        h_state, c_state = models.get_states()          # (pop, 3*hidden)
+        writer.add_scalar("Internals/Max_Abs_Hidden_State", h_state.abs().max().item(), epoch)
+        writer.add_scalar("Internals/Max_Abs_Cell_State",  c_state.abs().max().item(), epoch)
+        writer.add_scalar("Internals/Mean_Abs_Hidden_State", h_state.abs().mean().item(), epoch)
+
+        for bi, blk in enumerate(models.get_weights(), start=1):
+            gate_w = torch.cat([blk["Wf"].flatten(), blk["Wi"].flatten(),
+                                blk["Wc"].flatten(), blk["Wo"].flatten()])
+            writer.add_histogram(f"Internals/Block{bi}_GateWeights", gate_w.cpu().numpy(), epoch)
+            writer.add_histogram(f"Internals/Block{bi}_Wout", blk["Wout"].flatten().cpu().numpy(), epoch)
+        writer.add_histogram("Internals/Hidden_State_h", h_state.flatten().cpu().numpy(), epoch)
+        writer.add_histogram("Internals/Cell_State_c", c_state.flatten().cpu().numpy(), epoch)
+
         writer.add_scalar("Rewards/Reward_Std_Dev", reward_std, epoch)
         writer.add_scalar("Rewards/Mu_Step_Size", step_size, epoch)
         writer.add_scalar("Rewards/Mean_Reward", mean_reward, epoch)
@@ -300,25 +279,10 @@ def main():
         writer.add_histogram("Position/Distance_Distribution", distance, epoch)
         writer.add_scalar("Position/Avg_Distance", distance.mean(), epoch)
 
-        # --- Reward term breakdown (per-step average over the episode) ---
-        # Raw function outputs, averaged over the rollout length.
-        v_avg = (v_term_sum / current_length)
-        u_avg = (u_term_sum / current_length)
-        yaw_avg = (yaw_term_sum / current_length)
-        # weights from RewardsCfg (V=2.0, U=0.5, Yaw=0.0) for weighted contribution
-        writer.add_scalar("RewardTerms/V_raw_mean", v_avg.mean().item(), epoch)
-        writer.add_scalar("RewardTerms/U_raw_mean", u_avg.mean().item(), epoch)
-        writer.add_scalar("RewardTerms/Yaw_raw_mean", yaw_avg.mean().item(), epoch)
-        writer.add_scalar("RewardTerms/V_weighted_mean", (2.0 * v_avg).mean().item(), epoch)
-        writer.add_scalar("RewardTerms/U_weighted_mean", (0.5 * u_avg).mean().item(), epoch)
-        writer.add_histogram("RewardTerms/V_raw_dist", v_avg.cpu().numpy(), epoch)
-        writer.add_histogram("RewardTerms/U_raw_dist", u_avg.cpu().numpy(), epoch)
-        writer.add_histogram("RewardTerms/Yaw_raw_dist", yaw_avg.cpu().numpy(), epoch)
-
         print(f"Epoch {epoch:03d} | Mean: {mean_reward:>8.2f} | Best: {best_reward:>8.2f} | Sigma: {solver.sigma:.4f} | LR: {solver.learning_rate:.6f}")
 
         if (epoch + 1) % SAVE_EVERY == 0:
-            save_path = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/{ROBOT}_hebbian_es_checkpoint_{current_time}_{epoch}.pickle"
+            save_path = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/{ROBOT}_lstm_es_checkpoint_{current_time}_{epoch}.pickle"
             print(f"  -> Saving checkpoint to {save_path}")
             with open(save_path, 'wb') as f:
                 pickle.dump((
@@ -327,7 +291,7 @@ def main():
                     pop_mean_curve,
                     best_sol_curve,
                 ), f)
-    
+
     writer.close()
     env.close()
 
