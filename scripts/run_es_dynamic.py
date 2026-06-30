@@ -34,7 +34,7 @@ current_time = datetime.now().strftime("%m:%d-%H:%M")
 
 def main():
 
-    run_name = f"lstm_run_lr_{current_time}"
+    run_name = f"han_run_lr_{current_time}"
 
     base_dir = "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/tensorboard"
     custom_log_dir = os.path.join(base_dir, run_name)

@@ -87,6 +87,8 @@ def main():
     print(f"\n[INFO] Initializing LSTM Network (obs={obs_dim}, hidden={HIDDEN}, act={action_dim})...")
     models = LSTMNet(popsize=POPSIZE, sizes=[obs_dim, HIDDEN, action_dim])
 
+    models
+
     n_params = models.get_n_params_a_model()
     print(f"[INFO] Evolvable parameters per individual: {n_params}")
 
