@@ -17,6 +17,7 @@ from isaaclab.envs import ManagerBasedRLEnv
 
 # Import your custom modules
 from hebbian_locomotion.envs.AnymalEnv import AnymalEnvCfg
+from hebbian_locomotion.envs.Go1_env_test import Go1EnvCfg
 from hebbian_locomotion.envs.GeckoEnv import (
     GeckoEnvCfg,
     forward_velocity_x,
@@ -34,12 +35,12 @@ current_time = datetime.now().strftime("%m:%d-%H:%M")
 
 def main():
 
-    run_name = f"han_run_lr_{current_time}"
+    #run_name = f"han_run_lr_{current_time}"
 
     base_dir = "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/tensorboard"
-    custom_log_dir = os.path.join(base_dir, run_name)
+    #custom_log_dir = os.path.join(base_dir, run_name)
 
-    writer = SummaryWriter(log_dir=custom_log_dir)
+    #writer = SummaryWriter(log_dir=custom_log_dir)
     # --- 1. Hyperparameters ---
     EPOCHS = 500                    # Total generations
     EPISODE_LENGTH_TRAIN = 500      # MAX episode length (curriculum cap)
@@ -49,7 +50,7 @@ def main():
     POPSIZE = 2048                   # Population size (paper uses 1024)
     SAVE_EVERY = 25
 
-    ROBOT = 'Gecko'
+    ROBOT = 'GO1'
     MODEL = 'HEBBAIN'
     REWARD = 'NEW'
     # ES parameters (paper: sigma_init=0.1, decay=0.999, lr=0.1, lr_decay=0.999)
@@ -61,30 +62,31 @@ def main():
     HIDDEN = 64                                  # Size of hidden layer in LSTM network
 
     print("[INFO] Initializing Environment...")
-    env_cfg = GeckoEnvCfg()
+    env_cfg = Go1EnvCfg()
     env_cfg.scene.num_envs = POPSIZE
     env = ManagerBasedRLEnv(cfg=env_cfg)
 
     # --- 2. Network & Optimizer Setup ---
     obs_dim = env.observation_manager.group_obs_dim["policy"][0]
-    action_dim = 16
+    action_dim = 12
 
-    run_name = f"{REWARD}_{MODEL}_run_lr_{current_time}"
+    run_name = f"{ROBOT}_{REWARD}_{MODEL}_{current_time}"
 
     base_dir = "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/tensorboard"
     custom_log_dir = os.path.join(base_dir, run_name)
+
+    writer = SummaryWriter(log_dir=custom_log_dir)
 
     print(f"\n[INFO] Initializing HAN Network (obs={obs_dim}, act={action_dim})...")
     
     models = HebbianNet(
         popsize=POPSIZE,
         sizes=[obs_dim, 64, 32, action_dim],
-        norm_mode='var'
+        norm_mode='max'
     )
+
     '''
-
     models = HANNet(POPSIZE, sizes=[obs_dim, 64, 32, action_dim], norm_mode='max', M=10, tau_hebb=4)
-
     '''
 
     n_params = models.get_n_params_a_model()
@@ -161,6 +163,7 @@ def main():
         prev_actions = None
         # Initialize the previous-action buffer the observation reads from.
         env.prev_action_buf = torch.zeros(POPSIZE, action_dim, device=env.device)
+        env.prev_prev_action_buf = torch.zeros(POPSIZE, action_dim, device=env.device)
 
         # E. Rollout: evaluate the population
         for step in range(current_length):
@@ -175,6 +178,10 @@ def main():
 
             # Stash the FILTERED action so the next observation can feed it back
             # (the obs built inside env.step() will read env.prev_action_buf).
+            env.prev_prev_action_buf = getattr(
+                env, "prev_action_buf",
+                torch.zeros(POPSIZE, action_dim, device=env.device),
+            )
             env.prev_action_buf = actions.detach()
 
             # Environment step
@@ -213,7 +220,7 @@ def main():
             # IsaacLab auto-resets terminated envs, which would mix rewards
             # from separate episodes and corrupt the fitness signal.
             total_rewards += rewards * done_mask.float()
-            done_mask = done_mask & ~terminates & ~truncates
+            # done_mask = done_mask & ~terminates & ~truncates
 
         # F. Scale rewards to match the original es_train.py convention
         total_rewards = total_rewards / current_length * 100
@@ -312,8 +319,6 @@ def main():
         writer.add_scalar("RewardTerms/V_raw_mean", v_avg.mean().item(), epoch)
         writer.add_scalar("RewardTerms/U_raw_mean", u_avg.mean().item(), epoch)
         writer.add_scalar("RewardTerms/Yaw_raw_mean", yaw_avg.mean().item(), epoch)
-        writer.add_scalar("RewardTerms/V_weighted_mean", (2.0 * v_avg).mean().item(), epoch)
-        writer.add_scalar("RewardTerms/U_weighted_mean", (0.5 * u_avg).mean().item(), epoch)
         writer.add_histogram("RewardTerms/V_raw_dist", v_avg.cpu().numpy(), epoch)
         writer.add_histogram("RewardTerms/U_raw_dist", u_avg.cpu().numpy(), epoch)
         writer.add_histogram("RewardTerms/Yaw_raw_dist", yaw_avg.cpu().numpy(), epoch)
@@ -321,7 +326,7 @@ def main():
         print(f"Epoch {epoch:03d} | Mean: {mean_reward:>8.2f} | Best: {best_reward:>8.2f} | Sigma: {solver.sigma:.4f} | LR: {solver.learning_rate:.6f}")
 
         if (epoch + 1) % SAVE_EVERY == 0:
-            save_path = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/{REWARD}_{MODEL}_es_checkpoint_{current_time}_{epoch}.pickle"
+            save_path = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/{ROBOT}_{REWARD}_{MODEL}_{current_time}_{epoch}.pickle"
             print(f"  -> Saving checkpoint to {save_path}")
             with open(save_path, 'wb') as f:
                 pickle.dump((

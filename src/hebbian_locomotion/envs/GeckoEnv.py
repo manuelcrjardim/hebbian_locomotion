@@ -212,6 +212,41 @@ def foot_contact_binary(env: ManagerBasedRLEnv,
     binary_contact = (force_magnitude > threshold).float()
     return binary_contact
 
+# ------------------------------------------------------------------
+# Reward functions (HAN-style Gaussian tracking)
+# ------------------------------------------------------------------
+
+def track_lin_vel_gaussian(
+    env,
+    asset_cfg: SceneEntityCfg,
+    target_speed: float = 1.0,
+    std: float = 0.5,
+) -> torch.Tensor:
+    """Gaussian forward-velocity tracking reward (HAN Fig. 10, left).
+
+    r = exp(-(v_x - v_target)^2 / std^2), peaked at 1.0 when v_x == target.
+    v_x is body-frame forward velocity. `std` is the tracking bandwidth
+    (MuJoCo Playground Joystick default: std^2 = 0.25 -> std = 0.5).
+    """
+    asset = env.scene[asset_cfg.name]
+    vx = asset.data.root_lin_vel_b[:, 0]
+    err = vx - target_speed
+    return torch.exp(-torch.square(err) / (std ** 2))
+
+
+def track_zero_yaw_rate_gaussian(
+    env,
+    asset_cfg: SceneEntityCfg,
+    std: float = 0.5,
+) -> torch.Tensor:
+    """Gaussian zero-yaw-rate tracking reward (HAN Fig. 10, right).
+
+    r = exp(-(w_z - 0)^2 / std^2). Uses body-frame yaw angular velocity,
+    matching the paper's 'yaw rate (rad/s)' axis rather than yaw angle.
+    """
+    asset = env.scene[asset_cfg.name]
+    wz = asset.data.root_ang_vel_b[:, 2]
+    return torch.exp(-torch.square(wz) / (std ** 2))
 
 @configclass
 class ObservationsCfg:
@@ -297,7 +332,35 @@ def heading_yaw(env, asset_cfg: SceneEntityCfg) -> torch.Tensor:
     roll, pitch, yaw = euler_xyz_from_quat(asset.data.root_quat_w)
     return torch.where(torch.abs(yaw) < 0.45, 0.0, -0.5)
 
+def yaw_gaussian(env, asset_cfg: SceneEntityCfg) -> torch.Tensor:
+    asset = env.scene[asset_cfg.name]
+    target = 0
+    roll, pitch, yaw = euler_xyz_from_quat(asset.data.root_quat_w)
+    return
 
+def speed_gaussian(env, asset_cfg: SceneEntityCfg, target=1) -> torch.Tensor:
+    asset = env.scene[asset_cfg.name]
+
+    pass
+
+@configclass
+class RewardsCfg2:
+    """Gaussian tracking rewards matching the HAN paper (Fig. 10)."""
+
+    track_vel = RewTerm(
+        func=track_lin_vel_gaussian,
+        weight=1.0,
+        params={
+            "asset_cfg": SceneEntityCfg("robot"),
+            "target_speed": 1.0,   # <-- HAN target: sweep {1.0, 1.5, 2.0}
+            "std": 0.5,
+        },
+    )
+    track_yaw = RewTerm(
+        func=track_zero_yaw_rate_gaussian,
+        weight=1.0,
+        params={"asset_cfg": SceneEntityCfg("robot"), "std": 0.5},
+    )
 
 @configclass
 class RewardsCfg:
@@ -361,6 +424,7 @@ class GeckoEnvCfg(ManagerBasedRLEnvCfg):
         # general settings
         self.decimation = 4
         self.episode_length_s = 20.0
+        self.target_speed = self.rewards.track_vel.params["target_speed"]
         # simulation settings
         self.sim.dt = 0.005
         if self.scene.height_scanner is not None:
