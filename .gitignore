@@ -11,6 +11,7 @@ output/
 *_output/
 
 checkpoints/
+checkpoints_zip/
 tensorboard/
 
 # VS Code settings (Optional, but good if sharing)

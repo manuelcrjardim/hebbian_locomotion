@@ -54,7 +54,8 @@ class MySceneCfg(InteractiveSceneCfg):
     contact_sensor = ContactSensorCfg(
         prim_path="{ENV_REGEX_NS}/Robot/.*_foot",
         update_period=0.0,
-        history_length=1,
+        history_length=3,          # was 1; a small history stabilises edge detection
+        track_air_time=True,       # exposes data.last_air_time / current_air_time
         debug_vis=False,
     )
 
@@ -132,6 +133,11 @@ def forward_velocity_x(env, asset_cfg: SceneEntityCfg) -> torch.Tensor:
     asset = env.scene[asset_cfg.name]
     return asset.data.root_lin_vel_b[:, 0]
 
+def healthy_bonus(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg) -> torch.Tensor:
+    """Alive/upright bonus: 1.0 when sufficiently upright, else 0.0."""
+    asset = env.scene[asset_cfg.name]
+    up_proj = -asset.data.projected_gravity_b[:, 2]
+    return (up_proj > 0.9).float()
 
 def upright_posture(env, asset_cfg: SceneEntityCfg) -> torch.Tensor:
     """Upright posture reward (Eq. 6 in the paper)."""
@@ -145,6 +151,12 @@ def heading_yaw(env, asset_cfg: SceneEntityCfg) -> torch.Tensor:
     asset = env.scene[asset_cfg.name]
     roll, pitch, yaw = euler_xyz_from_quat(asset.data.root_quat_w)
     return torch.where(torch.abs(yaw) < 0.45, 0.0, -0.5)
+
+def lin_vel_z_penalty(env, asset_cfg, std: float = 1.0):
+    """Cost for vertical velocity — kills the ballistic/porpoising phase."""
+    asset = env.scene[asset_cfg.name]
+    vz = asset.data.root_lin_vel_b[:, 2]
+    return -(1.0 - torch.exp(-torch.square(vz) / (std ** 2)))
 
 def track_lin_vel_gaussian(
     env: ManagerBasedRLEnv,
@@ -178,42 +190,58 @@ def yaw_rate_penalty(
     wz = asset.data.root_ang_vel_b[:, 2]
     return -(1.0 - torch.exp(-torch.square(wz) / (std ** 2)))
 
-@configclass
-class RewardsCfg2:
-    """Reward specifications matching the Hebbian Locomotion paper (Eq. 5)."""
+def feet_air_time_targeted(
+    env,
+    sensor_cfg: SceneEntityCfg,
+    asset_cfg: SceneEntityCfg,
+    t_target: float = 0.20,   # target swing duration [s] — Go1 trot ~0.15-0.25
+    sigma_t: float = 0.10,    # tolerance around the target
+    vx_min: float = 0.10,     # only credit stepping that produces forward motion
+) -> torch.Tensor:
+    """Reward a stepping cadence near t_target, paid at touchdown.
 
-    V_t = RewTerm(
-        func=forward_velocity_x,
-        weight=2.0,
-        params={"asset_cfg": SceneEntityCfg("robot")},
-    )
-    U_t = RewTerm(
-        func=upright_posture,
-        weight=0.5,
-        params={"asset_cfg": SceneEntityCfg("robot")},
-    )
-    Yaw_t = RewTerm(
-        func=heading_yaw,
-        weight=0.5,
-        params={"asset_cfg": SceneEntityCfg("robot")},
-    )
+    Tent on air time: a shuffle (short) and a bound (long flight) both score
+    below a clean step. Gated on forward v_x so a vertical hop collects nothing.
+    Uses the contact sensor's native air-time buffers (reset-safe edge detection).
+    """
+    contact_sensor = env.scene.sensors[sensor_cfg.name]
+    first_contact = contact_sensor.compute_first_contact(env.step_dt)[:, sensor_cfg.body_ids]
+    last_air_time = contact_sensor.data.last_air_time[:, sensor_cfg.body_ids]
 
+    shaped = torch.exp(-torch.square(last_air_time - t_target) / (sigma_t ** 2))
+    reward = torch.sum(shaped * first_contact.float(), dim=1) / first_contact.shape[1]
+
+    vx = env.scene[asset_cfg.name].data.root_lin_vel_b[:, 0]
+    return reward * (vx > vx_min).float()
 
 @configclass
 class RewardsCfg:
-    """HAN Go1 reward: velocity tracking (positive) + yaw-rate cost (negative)."""
+    """Green's config + the walk-vs-bounce pincer (air-time reward × v_z cost)."""
 
     track_vel = RewTerm(
-        func=track_lin_vel_gaussian,
-        weight=1.0,
-        params={"asset_cfg": SceneEntityCfg("robot"), "target_speed": 1.0, "std": 1.0},
+        func=track_lin_vel_gaussian, weight=1.0,
+        params={"asset_cfg": SceneEntityCfg("robot"), "target_speed": 1.0, "std": 0.8},
+    )
+    Healthy_t = RewTerm(
+        func=healthy_bonus, weight=0.1,
+        params={"asset_cfg": SceneEntityCfg("robot")},
     )
     yaw_pen = RewTerm(
-        func=yaw_rate_penalty,
-        weight=0.5,
+        func=yaw_rate_penalty, weight=0.5,
         params={"asset_cfg": SceneEntityCfg("robot"), "std": 1.0},
     )
-
+    air_time = RewTerm(
+        func=feet_air_time_targeted, weight=1.0,   # strong enough to forbid standstill
+        params={
+            "sensor_cfg": SceneEntityCfg("contact_sensor", body_names=".*_foot"),
+            "asset_cfg": SceneEntityCfg("robot"),
+            "t_target": 0.20, "sigma_t": 0.10, "vx_min": 0.10,
+        },
+    )
+    vz_pen = RewTerm(
+        func=lin_vel_z_penalty, weight=0.2,        # small — forbids the launch, doesn't crush CoM motion
+        params={"asset_cfg": SceneEntityCfg("robot"), "std": 1.0},
+    )
 
 # ------------------------------------------------------------------
 # Events

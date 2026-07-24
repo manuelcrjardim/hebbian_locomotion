@@ -156,7 +156,7 @@ class SeqLSTMs:
     """Three stacked LSTM blocks — the repo's policy network — with the ES
     pipeline (HebbianNet) interface."""
 
-    def __init__(self, popsize, sizes=None, arch=None, init_w=0.1, state_init=0.1, device="cuda"):
+    def __init__(self, popsize, sizes=None, arch=None, init_w=0.1, state_init=0.01, device="cuda"):
         arch = sizes if sizes is not None else arch
         assert arch is not None and len(arch) == 3, "pass sizes=[obs_dim, hidden, action_dim]"
         self.architecture = list(arch)

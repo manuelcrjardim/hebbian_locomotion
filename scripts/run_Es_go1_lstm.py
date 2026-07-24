@@ -103,6 +103,7 @@ def build_run_cfg(env_cfg, models, solver, *,
         "M": getattr(models, "M", None),                 # HANNet boxcar window
         "tau_hebb": getattr(models, "tau_hebb", None),   # HANNet dual-timescale
         "gamma_logit": None,                             # D2Net evolved EMA decay
+        "state_init": getattr(models, "state_init", None),  # LSTM h/c init scale
     }
     # gamma_logit is a per-individual tensor on D2Net; store the first indiv's scalar.
     gl = getattr(models, "gamma_logit", None)
@@ -157,11 +158,11 @@ def main():
     INITIAL_EPISODE_LENGTH = 500     # Starting episode length
     FALL_Z_THRESHOLD = 0.1          # Robot considered fallen when base z < this
     GROWTH_FACTOR = 1.5             # next_length = last_fall_step * GROWTH_FACTOR
-    POPSIZE = 4096                  # Population size (paper uses 1024)
+    POPSIZE = 4096                   # Population size (paper uses 1024)
     SAVE_EVERY = 500
 
     ROBOT = 'GO1'
-    MODEL = 'HAN'
+    MODEL = 'LSTM'
     REWARD = f'NEW_WITH_HEALTHY_BONUS_{POPSIZE}_SPEED_1_RANK_FITNESS_FOOT_CONTACT_HEALTHY_BONUS_0.1'
     # ES parameters (paper: sigma_init=0.1, decay=0.999, lr=0.1, lr_decay=0.999)
     LEARNING_RATE = 0.1
@@ -169,7 +170,11 @@ def main():
     SIGMA_INIT = 0.2
     SIGMA_DECAY = 0.9995
 
-    HIDDEN = 64                                  # Size of hidden layer in LSTM network
+    # Size HIDDEN so the LSTM's evolved-param count matches the plain HebbianNet
+    # ([33,64,32,12] -> ~22,720 evolved params). For the 3-stack SeqLSTMs at
+    # obs=33/act=12, H=25 gives ~22.2k (H=26 ~23.3k); granularity is ~1.1k/unit,
+    # so 25 is the closest match. CONFIRM against the printed n_params below.
+    HIDDEN = 25                                  # Size of hidden layer in LSTM network
 
     print("[INFO] Initializing Environment...")
     env_cfg = Go1EnvCfg()
@@ -187,17 +192,16 @@ def main():
 
     writer = SummaryWriter(log_dir=custom_log_dir)
 
-    print(f"\n[INFO] Initializing HAN Network (obs={obs_dim}, act={action_dim})...")
-    '''
-    models = HebbianNet(
+    print(f"\n[INFO] Initializing LSTM Network (obs={obs_dim}, hidden={HIDDEN}, act={action_dim})...")
+
+    # Recurrence baseline: 3-stacked-block SeqLSTMs (aliased LSTMNet), exposing the
+    # same ES interface as HebbianNet. The evolved weight matrices are fixed within
+    # a rollout; the hidden/cell state is the within-lifetime variable, reset each
+    # generation by reset_weights() (interface-compatible name — it resets h/c).
+    models = LSTMNet(
         popsize=POPSIZE,
-        sizes=[obs_dim, 64, 32, action_dim],
-        norm_mode='max'
+        sizes=[obs_dim, HIDDEN, action_dim],
     )
-    '''
-    
-    models = HANNet(POPSIZE, sizes=[obs_dim, 64, 32, action_dim], norm_mode='max', M=10, tau_hebb=4)
-    
     n_params = models.get_n_params_a_model()
     print(f"[INFO] Evolvable parameters per individual: {n_params}")
 
@@ -255,9 +259,10 @@ def main():
         # B. Distribute: load evolved coefficients into the parallel networks
         models.set_models_params(solutions)
 
-        # C. Reset connection weights to fresh random values for this rollout.
-        #    This is critical — the Hebbian rules must transform a new set of
-        #    weights each generation, not carry over from the previous one.
+        # C. Reset the LSTM hidden/cell state for this rollout.
+        #    reset_weights() is the interface-compatible name; for the LSTM it
+        #    re-initialises h/c to small random values, so the recurrent state
+        #    starts fresh each generation rather than carrying over.
         models.reset_weights()
 
         # D. Reset the environment
@@ -303,7 +308,7 @@ def main():
         for step in range(current_length):
             policy_obs = obs["policy"]
 
-            # Forward pass (updates Hebbian weights internally)
+            # Forward pass (advances the LSTM hidden/cell state internally)
             actions = models.forward(policy_obs)
 
             # Low-pass action filter (paper: 0.1*new + 0.9*prev)
@@ -403,14 +408,16 @@ def main():
         
         # Internals
         saturation_pct = (action_saturation_count / total_action_elements) * 100.0
-        max_weight = max([torch.max(torch.abs(w)).item() for w in models.get_weights()])
- 
-        A_vals = torch.cat([a.flatten() for a in models.A]).cpu().numpy()
-        B_vals = torch.cat([b.flatten() for b in models.B]).cpu().numpy()
-        C_vals = torch.cat([c.flatten() for c in models.C]).cpu().numpy()
-        D_vals = torch.cat([d.flatten() for d in models.D]).cpu().numpy()
-        lr_vals = torch.cat([lr.flatten() for lr in models.lr]).cpu().numpy()
-        
+
+        # LSTM recurrent-state health (analogue of the Hebbian dynamic-weight
+        # internals). get_states() returns (h, c), each (popsize, 3*hidden), as
+        # left at the end of the rollout — watch these for blow-up / saturation.
+        h_state, c_state = models.get_states()
+        # Evolved (fixed-within-rollout) weights, flattened across the 3 blocks.
+        evolved_w = torch.cat(
+            [t.flatten() for blk in models.get_weights() for t in blk.values()]
+        ).cpu().numpy()
+
         # ES Optimizer Health[cite: 5]
         reward_std = fit_arr.std()
         step_size = np.linalg.norm(solver.mu - old_mu)
@@ -418,14 +425,12 @@ def main():
         # --- NEW: Log everything to TensorBoard ---
         writer.add_scalar("Fitness/Avg_Survival_Steps", avg_survival, epoch)
         writer.add_scalar("Fitness/Avg_Forward_Velocity_m_s", avg_velocity, epoch)
-        writer.add_scalar("Fitness/Max_Dynamic_Weight", max_weight, epoch)
         writer.add_scalar("Fitness/Action_Saturation_Pct", saturation_pct, epoch)
-        
-        writer.add_histogram("Internals/Values of A", A_vals, epoch)
-        writer.add_histogram("Internals/Values of B", B_vals, epoch)
-        writer.add_histogram("Internals/Values of C", C_vals, epoch)
-        writer.add_histogram("Internals/Values of D", D_vals, epoch)
-        writer.add_histogram("Internals/Learning_Rates", lr_vals, epoch)
+
+        writer.add_scalar("Internals/Max_Abs_Hidden_State",  h_state.abs().max().item(),  epoch)
+        writer.add_scalar("Internals/Max_Abs_Cell_State",    c_state.abs().max().item(),  epoch)
+        writer.add_scalar("Internals/Mean_Abs_Hidden_State", h_state.abs().mean().item(), epoch)
+        writer.add_histogram("Internals/Evolved_Weights", evolved_w, epoch)
         
         writer.add_scalar("Rewards/Reward_Std_Dev", reward_std, epoch)
         writer.add_scalar("Rewards/Mu_Step_Size", step_size, epoch)
@@ -465,7 +470,7 @@ def main():
         print(f"Epoch {epoch:03d} | Mean: {mean_reward:>8.2f} | Best: {best_reward:>8.2f} | Sigma: {solver.sigma:.4f} | LR: {solver.learning_rate:.6f}")
 
         if (epoch + 1) % SAVE_EVERY == 0:
-            save_path = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/{current_time}_{ROBOT}_{REWARD}_{MODEL}_{epoch}.pickle"
+            save_path = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/{run_name}_{epoch}.pickle"
             print(f"  -> Saving checkpoint to {save_path}")
             with open(save_path, 'wb') as f:
                 pickle.dump((

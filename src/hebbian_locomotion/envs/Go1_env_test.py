@@ -97,6 +97,7 @@ class ObservationsCfg:
 
     Layout (33 dims), in order:
         - base_lin_vel:      3
+
         - base_ang_vel:      3
         - joint_pos:        12
         - joint_vel:        12
@@ -216,7 +217,7 @@ class RewardsCfg:
     )
     Healthy_t = RewTerm(
         func=healthy_bonus,
-        weight=0.5,
+        weight=1.0,
         params={"asset_cfg": SceneEntityCfg("robot")},
     )
     ActionRate_t = RewTerm(
