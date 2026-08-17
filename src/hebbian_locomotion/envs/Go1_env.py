@@ -212,7 +212,7 @@ def feet_air_time_targeted(
     reward = torch.sum(shaped * first_contact.float(), dim=1) / first_contact.shape[1]
 
     vx = env.scene[asset_cfg.name].data.root_lin_vel_b[:, 0]
-    return reward * (vx > vx_min).float()
+    return reward * torch.sigmoid((vx - vx_min) / 0.05)
 
 @configclass
 class RewardsCfg:

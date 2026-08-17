@@ -1,0 +1,18 @@
+{
+  "tag": "HEB_FIRST_TRY",
+  "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/07:28-16:26_GO1_NEW_WITH_HEALTHY_BONUS_4096_SPEED_1_NO_RANK_FITNESS_FOOT_CONTACT_HEALTHY_BONUS_0.1_HEB_499_460636060.pickle",
+  "param_source": "best_mu",
+  "steps": 500,
+  "freeze_step": -1,
+  "rho": 0.9,
+  "convergence_ratio": 0.8087024195744836,
+  "dW_early_mean": 4.868587800136808,
+  "dW_late_mean": 3.937238733881449,
+  "converged_fixed_point": true,
+  "explained_variance_pc1": 0.3812962469323635,
+  "explained_variance_pc2": 0.15369804484512534,
+  "mean_reward": 0.016180206137476488,
+  "total_reward": 8.090103068738244,
+  "mean_vx": 0.5646209434759804,
+  "z_range": 0.23562733829021454
+}

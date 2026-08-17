@@ -1,0 +1,18 @@
+{
+  "tag": "08:06-17:39_HAN_M_1_mu",
+  "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:04-18:00_GO1_FINAL_HAN_499_1853697842_M_20_benchamrk.pickle",
+  "param_source": "mu",
+  "steps": 1000,
+  "freeze_step": -1,
+  "rho": 0.9,
+  "convergence_ratio": 0.6189811534675616,
+  "dW_early_mean": 4.733329848626838,
+  "dW_late_mean": 2.9298419694454783,
+  "converged_fixed_point": true,
+  "explained_variance_pc1": 0.30068440901527604,
+  "explained_variance_pc2": 0.1328304057227673,
+  "mean_reward": 0.005611648759764648,
+  "total_reward": 5.611648759764648,
+  "mean_vx": 0.050626632032566704,
+  "z_range": 0.2478509098291397
+}

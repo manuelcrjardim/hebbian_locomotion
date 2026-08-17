@@ -1,0 +1,94 @@
+{
+  "tag": "gait_spectrum_heb",
+  "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/07:30-19:50_HEB_mu_data.npz",
+  "dt": 0.02,
+  "skip_steps": 100,
+  "n_analysed": 400,
+  "duration_s": 8.0,
+  "freq_resolution_hz": 0.125,
+  "nyquist_hz": 25.0,
+  "f_peak_z_hz": 0.625,
+  "f_peak_vx_hz": 1.25,
+  "f_peak_weights_hz": 0.625,
+  "f_gait_hz": 0.625,
+  "T_gait_s": 1.6,
+  "T_gait_steps": 80.0,
+  "harmonics_z": [
+    {
+      "harmonic": 1,
+      "freq_hz": 0.625,
+      "amplitude": 0.0606051962190941
+    },
+    {
+      "harmonic": 2,
+      "freq_hz": 1.25,
+      "amplitude": 0.045064212160562916
+    },
+    {
+      "harmonic": 3,
+      "freq_hz": 1.875,
+      "amplitude": 0.008956613849830476
+    }
+  ],
+  "harmonics_weights": [
+    {
+      "harmonic": 1,
+      "freq_hz": 0.625,
+      "amplitude": 0.041410922205691474
+    },
+    {
+      "harmonic": 2,
+      "freq_hz": 1.25,
+      "amplitude": 0.028007509859108173
+    },
+    {
+      "harmonic": 3,
+      "freq_hz": 1.875,
+      "amplitude": 0.018923709010821837
+    }
+  ],
+  "recommended_M": {
+    "M_hat_1.0": 80,
+    "M_hat_1.5": 120,
+    "M_hat_2.0": 160,
+    "M_hat_4.0": 320
+  },
+  "candidate_windows": [
+    {
+      "M": 1,
+      "window_s": 0.02,
+      "M_hat": 0.012499999999999999,
+      "gain_at_f_gait": 1.0
+    },
+    {
+      "M": 10,
+      "window_s": 0.2,
+      "M_hat": 0.125,
+      "gain_at_f_gait": 0.9747458691950022
+    },
+    {
+      "M": 50,
+      "window_s": 1.0,
+      "M_hat": 0.625,
+      "gain_at_f_gait": 0.47064893945554503
+    },
+    {
+      "M": 83,
+      "window_s": 1.6600000000000001,
+      "M_hat": 1.0375,
+      "gain_at_f_gait": 0.036070297198388654
+    },
+    {
+      "M": 110,
+      "window_s": 2.2,
+      "M_hat": 1.375,
+      "gain_at_f_gait": 0.21393133611615686
+    },
+    {
+      "M": 220,
+      "window_s": 4.4,
+      "M_hat": 2.75,
+      "gain_at_f_gait": 0.08186797799538055
+    }
+  ]
+}

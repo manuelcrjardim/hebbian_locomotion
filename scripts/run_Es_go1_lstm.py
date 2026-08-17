@@ -163,12 +163,12 @@ def main():
 
     ROBOT = 'GO1'
     MODEL = 'LSTM'
-    REWARD = f'NEW_WITH_HEALTHY_BONUS_{POPSIZE}_SPEED_1_RANK_FITNESS_FOOT_CONTACT_HEALTHY_BONUS_0.1'
+    REWARD = f'FINAL'
     # ES parameters (paper: sigma_init=0.1, decay=0.999, lr=0.1, lr_decay=0.999)
     LEARNING_RATE = 0.1
     LEARNING_RATE_DECAY = 0.999
     SIGMA_INIT = 0.2
-    SIGMA_DECAY = 0.9995
+    SIGMA_DECAY = 0.995
 
     # Size HIDDEN so the LSTM's evolved-param count matches the plain HebbianNet
     # ([33,64,32,12] -> ~22,720 evolved params). For the 3-stack SeqLSTMs at

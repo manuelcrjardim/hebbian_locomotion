@@ -1,0 +1,31 @@
+{
+  "tag": "07:30-19:50_HEB",
+  "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/07:29-17:39_GO1_NEW_WITH_HEALTHY_BONUS_4096_SPEED_1_NO_RANK_FITNESS_UPDATED_FOOT_CONTACT_HEALTHY_BONUS_0.1_HEB_499_418040111.pickle",
+  "n_envs": 64,
+  "episode_steps": 2000,
+  "M": 1,
+  "tau_hebb": 1,
+  "sigma": 0.155750418662692,
+  "mean_fitness_mu": 1.7980713844299316,
+  "var_A_env_plus_init": 2.1085697881062515e-06,
+  "var_B_env": 2.354786829528166e-06,
+  "var_C_total": 0.00031329115154221654,
+  "var_environment": 2.354786829528166e-06,
+  "var_weight_init": 0.0,
+  "var_parameters": 0.0003111825817541103,
+  "sd_environment": 0.0015345314690576293,
+  "sd_weight_init": 0.0,
+  "sd_parameters": 0.01764036795971417,
+  "gradient_cosine": 0.7102044406135226,
+  "gradient_cosine_ci95": [
+    0.5213169715422862,
+    0.9615963642632636
+  ],
+  "pearson_r": 0.8345354795455933,
+  "pearson_r_ci95": [
+    0.6755449935793877,
+    0.9525837376713753
+  ],
+  "spearman_rho": 0.8923534798534798,
+  "spearman_p": 4.273725976644119e-23
+}

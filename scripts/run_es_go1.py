@@ -26,6 +26,22 @@ from hebbian_locomotion.networks.han_net import HANNet
 from hebbian_locomotion.networks.LSTM import LSTMNet
 from hebbian_locomotion.networks.ES_classes import OpenES
 
+import random
+import figstyle
+figstyle.apply()
+# --- Seeding -----------------------------------------------------------
+# Draws a fresh seed from OS entropy on every launch. Set RUN_SEED only
+# when you deliberately want to re-run a specific configuration.
+_env_seed = os.environ.get("RUN_SEED")
+SEED = int(_env_seed) if _env_seed is not None else random.SystemRandom().randint(0, 2**31 - 1)
+
+random.seed(SEED)
+torch.manual_seed(SEED)          # HebbianNet init + reset_weights()
+torch.cuda.manual_seed_all(SEED)
+np.random.seed(SEED)             # OpenES.ask() -> np.random.randn
+
+print(f"[INFO] Seed: {SEED} ({'explicit' if _env_seed else 'auto'})")
+# -----------------------------------------------------------------------
 
 current_time = datetime.now().strftime("%m:%d-%H:%M")
 
@@ -73,7 +89,7 @@ def build_run_cfg(env_cfg, models, solver, *,
                   episode_length_train, initial_episode_length,
                   fall_z_threshold, growth_factor,
                   action_filter_alpha, reward_scaling,
-                  obs_dim, action_dim, timestamp, seed=None):
+                  obs_dim, action_dim, timestamp, seed=SEED):
     """Assemble a plain, JSON-serialisable record of everything that shaped a run:
     reward terms (off the live env cfg), ES hyperparameters (off the solver),
     network architecture / plasticity params (off the model), and the hand-set
@@ -161,18 +177,20 @@ def main():
     SAVE_EVERY = 500
 
     ROBOT = 'GO1'
-    MODEL = 'HAN'
-    REWARD = f'NEW_WITH_HEALTHY_BONUS_{POPSIZE}_SPEED_1_RANK_FITNESS_FOOT_CONTACT_HEALTHY_BONUS_0.1'
+    MODEL = 'HAN' 
+    M = 1
+    REWARD = f'FINAL'
     # ES parameters (paper: sigma_init=0.1, decay=0.999, lr=0.1, lr_decay=0.999)
     LEARNING_RATE = 0.1
     LEARNING_RATE_DECAY = 0.999
     SIGMA_INIT = 0.2
-    SIGMA_DECAY = 0.9995
+    SIGMA_DECAY = 0.995
 
     HIDDEN = 64                                  # Size of hidden layer in LSTM network
 
     print("[INFO] Initializing Environment...")
     env_cfg = Go1EnvCfg()
+    env_cfg.seed = SEED    
     env_cfg.scene.num_envs = POPSIZE
     env = ManagerBasedRLEnv(cfg=env_cfg)
 
@@ -180,7 +198,7 @@ def main():
     obs_dim = env.observation_manager.group_obs_dim["policy"][0]
     action_dim = 12
 
-    run_name = f"{current_time}_{ROBOT}_{REWARD}_{MODEL}"
+    run_name = f"{current_time}_{ROBOT}_{REWARD}_{MODEL}_M{M}_TAU1_{SEED}"
 
     base_dir = "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/tensorboard"
     custom_log_dir = os.path.join(base_dir, run_name)
@@ -194,9 +212,9 @@ def main():
         sizes=[obs_dim, 64, 32, action_dim],
         norm_mode='max'
     )
-    '''
     
-    models = HANNet(POPSIZE, sizes=[obs_dim, 64, 32, action_dim], norm_mode='max', M=10, tau_hebb=4)
+    '''
+    models = HANNet(POPSIZE, sizes=[obs_dim, 64, 32, action_dim], norm_mode='max', M=M, tau_hebb=1)
     
     n_params = models.get_n_params_a_model()
     print(f"[INFO] Evolvable parameters per individual: {n_params}")
@@ -205,7 +223,7 @@ def main():
     solver = OpenES(
         n_params,
         popsize=POPSIZE,
-        rank_fitness=True,
+        rank_fitness=False,
         antithetic=True,
         learning_rate=LEARNING_RATE,
         learning_rate_decay=LEARNING_RATE_DECAY,
@@ -228,7 +246,7 @@ def main():
         reward_scaling="total / current_length * 100",
         obs_dim=obs_dim, action_dim=action_dim,
         timestamp=current_time,
-        seed=None,                                     # wire in a SEED constant if you seed
+        seed=SEED,                                     # wire in a SEED constant if you seed
     )
 
     # Readable sidecar you can `cat` on the cluster without unpickling / Isaac.
@@ -366,7 +384,7 @@ def main():
         current_length = max(current_length, new_length)
 
         # FIX 3: Correct Matplotlib plotting logic
-        if epoch % 25 == 0:
+        if epoch % 600 == 0:
             plt.figure(figsize=(8, 6))
             # Ensure tensor is moved to CPU and converted to numpy for plotting
             plt.plot(tracked_step_rewards.cpu().numpy(), label="Agent 0 Reward")
@@ -416,6 +434,8 @@ def main():
         step_size = np.linalg.norm(solver.mu - old_mu)
 
         # --- NEW: Log everything to TensorBoard ---
+        writer.add_text("config/seed", str(SEED))          # TensorBoard
+
         writer.add_scalar("Fitness/Avg_Survival_Steps", avg_survival, epoch)
         writer.add_scalar("Fitness/Avg_Forward_Velocity_m_s", avg_velocity, epoch)
         writer.add_scalar("Fitness/Max_Dynamic_Weight", max_weight, epoch)
@@ -465,7 +485,7 @@ def main():
         print(f"Epoch {epoch:03d} | Mean: {mean_reward:>8.2f} | Best: {best_reward:>8.2f} | Sigma: {solver.sigma:.4f} | LR: {solver.learning_rate:.6f}")
 
         if (epoch + 1) % SAVE_EVERY == 0:
-            save_path = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/{current_time}_{ROBOT}_{REWARD}_{MODEL}_{epoch}.pickle"
+            save_path = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/{current_time}_{ROBOT}_{REWARD}_{MODEL}_M_{M}_{SEED}.pickle"
             print(f"  -> Saving checkpoint to {save_path}")
             with open(save_path, 'wb') as f:
                 pickle.dump((

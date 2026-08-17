@@ -47,7 +47,7 @@ ACTION_DIM = 12              # Go1: 12 joints
 # Which candidate parameter vectors to evaluate and overlay. Order = plot order.
 WHICH_PARAMS = ["mu", "best"]          # subset of {"mu", "best", "curr_best"}
 
-CHECKPOINT_PATH = ("/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/GO1_NEW_wITH_HEALTHY_BONUS_HEBBAIN_07:02-18:55_299.pickle")
+CHECKPOINT_PATH = ("/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/07:30-17:11_GO1_FINAL_HEB_499_1529172083.pickle")
 
 current_time = datetime.now().strftime("%m-%d_%H-%M")
 OUT_DIR = (

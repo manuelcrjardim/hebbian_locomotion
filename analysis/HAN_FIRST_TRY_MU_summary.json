@@ -1,0 +1,18 @@
+{
+  "tag": "HAN_FIRST_TRY_MU",
+  "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/07:29-13:07_GO1_NEW_WITH_HEALTHY_BONUS_4096_SPEED_1_NO_RANK_FITNESS_FOOT_CONTACT_HEALTHY_BONUS_0.1_HAN_499_1762784774.pickle",
+  "param_source": "mu",
+  "steps": 500,
+  "freeze_step": -1,
+  "rho": 0.9,
+  "convergence_ratio": 0.3958280445588508,
+  "dW_early_mean": 5.569294654760301,
+  "dW_late_mean": 2.20448301276583,
+  "converged_fixed_point": true,
+  "explained_variance_pc1": 0.24780720097677617,
+  "explained_variance_pc2": 0.148949535714159,
+  "mean_reward": 0.006459549189065001,
+  "total_reward": 3.2297745945325005,
+  "mean_vx": 0.12607072822540066,
+  "z_range": 0.2532045394182205
+}

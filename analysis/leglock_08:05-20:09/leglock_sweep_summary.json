@@ -1,0 +1,246 @@
+{
+  "run_tag": "leglock_sweep",
+  "conditions": [
+    {
+      "label": "M1",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:04-11:52_GO1_FINAL_HAN_499_860896728.pickle"
+    },
+    {
+      "label": "M20",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:04-18:00_GO1_FINAL_HAN_499_1853697842.pickle"
+    },
+    {
+      "label": "M160",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:04-00:56_GO1_FINAL_HAN_499_576310242.pickle"
+    }
+  ],
+  "cells": {
+    "baseline": {
+      "freeze": false,
+      "lock": false
+    },
+    "freeze_only": {
+      "freeze": true,
+      "lock": false
+    },
+    "lock_only": {
+      "freeze": false,
+      "lock": true
+    },
+    "both": {
+      "freeze": true,
+      "lock": true
+    }
+  },
+  "param_source": "mu",
+  "num_repeats": 11,
+  "steps": 1000,
+  "event_step": 500,
+  "episode_seconds": 20.0,
+  "lock_mode": "stuck",
+  "leg_patterns": [
+    "RL_calf_joint"
+  ],
+  "hold_position": "default",
+  "mask_locked_actions": false,
+  "norm_mode": "max",
+  "measures": {
+    "win_frac": 0.25,
+    "early_frac": 0.05,
+    "rho": 0.9
+  },
+  "results": [
+    {
+      "condition": "M1",
+      "cell": "baseline",
+      "M": 1,
+      "tau_hebb": 1,
+      "velocity_retention": 0.981241762638092,
+      "convergence_ratio": 1.0842023191407648,
+      "fraction_converged": 0.0,
+      "v_pre": 0.81186443567276,
+      "v_post": 0.7971256971359253,
+      "dW_early": 3.524223010143981,
+      "dW_late": 3.8227637741260287,
+      "mean_reward": 0.019224362447857857,
+      "final_upright": 0.9991654753684998,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "M1",
+      "cell": "freeze_only",
+      "M": 1,
+      "tau_hebb": 1,
+      "velocity_retention": -0.0006959550082683563,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.8120408654212952,
+      "v_post": -0.0005649394006468356,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.011371253058314323,
+      "final_upright": -0.9994188547134399,
+      "fallen_fraction": 1.0
+    },
+    {
+      "condition": "M1",
+      "cell": "lock_only",
+      "M": 1,
+      "tau_hebb": 1,
+      "velocity_retention": 0.00019147519196849316,
+      "convergence_ratio": 0.9846425268697369,
+      "fraction_converged": 0.0,
+      "v_pre": 0.8123891353607178,
+      "v_post": 0.00015549635281786323,
+      "dW_early": 3.5740453451442082,
+      "dW_late": 3.509956130230866,
+      "mean_reward": 0.011760858818888664,
+      "final_upright": -0.9996007680892944,
+      "fallen_fraction": 1.0
+    },
+    {
+      "condition": "M1",
+      "cell": "both",
+      "M": 1,
+      "tau_hebb": 1,
+      "velocity_retention": -0.0007844878709875047,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.813015878200531,
+      "v_post": -0.0006393599906004965,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.011402991600334644,
+      "final_upright": -0.9999204874038696,
+      "fallen_fraction": 1.0
+    },
+    {
+      "condition": "M20",
+      "cell": "baseline",
+      "M": 20,
+      "tau_hebb": 1,
+      "velocity_retention": 0.9919396042823792,
+      "convergence_ratio": 1.0462446367084894,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7193427681922913,
+      "v_post": 0.7135170102119446,
+      "dW_early": 0.9792682927109081,
+      "dW_late": 1.025761633497979,
+      "mean_reward": 0.018507348373532295,
+      "final_upright": 0.9851377606391907,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "M20",
+      "cell": "freeze_only",
+      "M": 20,
+      "tau_hebb": 1,
+      "velocity_retention": 0.11647243052721024,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7174422740936279,
+      "v_post": 0.08323556929826736,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.012628033757209778,
+      "final_upright": 0.9803848266601562,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "M20",
+      "cell": "lock_only",
+      "M": 20,
+      "tau_hebb": 1,
+      "velocity_retention": -0.0002478225214872509,
+      "convergence_ratio": 0.3263639866550966,
+      "fraction_converged": 1.0,
+      "v_pre": 0.7188428640365601,
+      "v_post": -0.00017806555842980742,
+      "dW_early": 0.9452402991544446,
+      "dW_late": 0.3103286262011043,
+      "mean_reward": 0.011346332728862762,
+      "final_upright": -1.0,
+      "fallen_fraction": 0.9090909090909091
+    },
+    {
+      "condition": "M20",
+      "cell": "both",
+      "M": 20,
+      "tau_hebb": 1,
+      "velocity_retention": -0.0019275174709036946,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7174686193466187,
+      "v_post": -0.0013727385085076094,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.011234207078814507,
+      "final_upright": -0.12894833087921143,
+      "fallen_fraction": 1.0
+    },
+    {
+      "condition": "M160",
+      "cell": "baseline",
+      "M": 160,
+      "tau_hebb": 1,
+      "velocity_retention": 0.9884884357452393,
+      "convergence_ratio": 1.011203251147803,
+      "fraction_converged": 0.0,
+      "v_pre": 0.798164963722229,
+      "v_post": 0.7891136407852173,
+      "dW_early": 0.13120176834995484,
+      "dW_late": 0.13242800513046185,
+      "mean_reward": 0.019394202157855034,
+      "final_upright": 0.9971349239349365,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "M160",
+      "cell": "freeze_only",
+      "M": 160,
+      "tau_hebb": 1,
+      "velocity_retention": 0.9844894409179688,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7972540259361267,
+      "v_post": 0.7849074602127075,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.019225193187594414,
+      "final_upright": 0.9965533018112183,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "M160",
+      "cell": "lock_only",
+      "M": 160,
+      "tau_hebb": 1,
+      "velocity_retention": 4.2993655370082706e-05,
+      "convergence_ratio": 0.7614161126623337,
+      "fraction_converged": 1.0,
+      "v_pre": 0.7989950180053711,
+      "v_post": 3.439264037297107e-05,
+      "dW_early": 0.12597741617681044,
+      "dW_late": 0.09591151671012976,
+      "mean_reward": 0.011611786670982838,
+      "final_upright": -0.9999998807907104,
+      "fallen_fraction": 1.0
+    },
+    {
+      "condition": "M160",
+      "cell": "both",
+      "M": 160,
+      "tau_hebb": 1,
+      "velocity_retention": -0.0008263349300250411,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7981331944465637,
+      "v_post": -0.000659696466755122,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.01153627224266529,
+      "final_upright": -0.9994384050369263,
+      "fallen_fraction": 1.0
+    }
+  ]
+}
