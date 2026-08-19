@@ -69,47 +69,52 @@ ROOT = ("/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/"
 # "M" key ONLY to override that -- see the note in build_net() for why the
 # sidecar is trusted over the filename.
 CONDITIONS = [
-    {"group": "M=1",   "label": "M1_s860896728",
+    {"group": "M=1",   "label": "860896728",
      "ckpt": f"{ROOT}/checkpoints/08:04-11:52_GO1_FINAL_HAN_499_860896728_M_1_benchmark.pickle"},
-     {"group": "M=1",   "label": "M1_s1396289849",
+     {"group": "M=1",   "label": "1396289849",
      "ckpt": f"{ROOT}/checkpoints/08:04-11:52_GO1_FINAL_HAN_499_1396289849_M_1_benchmark.pickle"},
-     {"group": "M=1",   "label": "M1_s1534702257",
-     "ckpt": f"{ROOT}/checkpoints/08:04-11:51_GO1_FINAL_HAN_499_1534702257_M_1_benchmark.pickle"},
-     {"group": "M=1",   "label": "M1_s138985974",
-     "ckpt": f"{ROOT}/checkpoints/08:12-16:16_GO1_FINAL_HAN_M_1_138985974_benchmark.pickle"},
-     {"group": "M=1",   "label": "M1_s2026669583",
-     "ckpt": f"{ROOT}/checkpoints/08:12-16:17_GO1_FINAL_HAN_M_1_2026669583_benchmark.pickle"},
+     {"group": "M=1",   "label": "297339698",
+     "ckpt": f"{ROOT}/checkpoints/08:17-13:33_GO1_FINAL_HAN_M_1_297339698_benchmark.pickle"},
+     {"group": "M=1",   "label": "1295751242",
+     "ckpt": f"{ROOT}/checkpoints/08:18-14:01_GO1_FINAL_HAN_M_1_1295751242_benchmark.pickle"},
+     {"group": "M=1",   "label": "489225843",
+     "ckpt": f"{ROOT}/checkpoints/08:18-14:05_GO1_FINAL_HAN_M_1_489225843_benchmark.pickle"},
 
 
-    {"group": "M=10",  "label": "M10_s46838495",
-     "ckpt": f"{ROOT}/checkpoints/08:06-13:33_GO1_FINAL_HAN_499_46838495_M_10_benchmark.pickle"},
-    {"group": "M=10",  "label": "M10_s1315706754",
+    {"group": "M=10",  "label": "930988644",
+     "ckpt": f"{ROOT}/checkpoints/08:06-13:32_GO1_FINAL_HAN_499_930988644_M_10_benchmark.pickle"},
+    {"group": "M=10",  "label": "1315706754",
      "ckpt": f"{ROOT}/checkpoints/08:07-14:17_GO1_FINAL_HAN_499_1315706754_M_10_benchmark.pickle"},
-     {"group": "M=10",  "label": "M_10_1302491059",
+     {"group": "M=10",  "label": "1302491059",
      "ckpt": f"{ROOT}/checkpoints/08:08-15:23_GO1_FINAL_HAN_M_10_1302491059_M_10_benchmark.pickle"},
-     {"group": "M=10",  "label": "M10_68914096",
+     {"group": "M=10",  "label": "68914096",
      "ckpt": f"{ROOT}/checkpoints/08:07-14:19_GO1_FINAL_HAN_499_68914096_M_10_benchmark.pickle"},
+     {"group": "M=10",  "label": "27294405",
+     "ckpt": f"{ROOT}/checkpoints/08:15-11:09_GO1_FINAL_HAN_M_10_27294405_benchmark.pickle"},
 
 
-    {"group": "M=20",  "label": "M20_s1853697842",
+    {"group": "M=20",  "label": "1853697842",
      "ckpt": f"{ROOT}/checkpoints/08:04-18:00_GO1_FINAL_HAN_499_1853697842_M_20_benchamrk.pickle"},
-     {"group": "M=20",  "label": "M_20_685059270",
+     {"group": "M=20",  "label": "685059270",
      "ckpt": f"{ROOT}/checkpoints/08:11-10:43_GO1_FINAL_HAN_M_20_685059270_M_20_benchmark.pickle"},
-     {"group": "M=20",  "label": "M_20_1919632181",
+     {"group": "M=20",  "label": "1919632181",
      "ckpt": f"{ROOT}/checkpoints/08:11-10:41_GO1_FINAL_HAN_M_20_1919632181_benchmark.pickle"},
-     {"group": "M=20",  "label": "M_20_641049713",
+     {"group": "M=20",  "label": "641049713",
      "ckpt": f"{ROOT}/checkpoints/08:11-10:40_GO1_FINAL_HAN_M_20_641049713_benchmark.pickle"},
-     {"group": "M=20",  "label": "M_20_935813944",
-     "ckpt": f"{ROOT}/checkpoints/08:11-10:42_GO1_FINAL_HAN_M_20_935813944_benchmark.pickle"},
+     {"group": "M=20",  "label": "1511497366",
+     "ckpt": f"{ROOT}/checkpoints/08:04-18:04_GO1_FINAL_HAN_499_1511497366_M_20_benchmark.pickle"},
 
-    {"group": "M=160", "label": "M160_s576310242",
+
+    {"group": "M=160", "label": "576310242",
      "ckpt": f"{ROOT}/checkpoints/08:04-00:56_GO1_FINAL_HAN_499_576310242_M_160_benchmark.pickle"},
-     {"group": "M=160", "label": "M_160_523277674",
-     "ckpt": f"{ROOT}/checkpoints/08:11-16:45_GO1_FINAL_HAN_M_160_523277674_benchmark.pickle"},
-     {"group": "M=160", "label": "M_160_1566955798",
-     "ckpt": f"{ROOT}/checkpoints/08:11-16:45_GO1_FINAL_HAN_M_160_1566955798_benchmark.pickle"},
-     {"group": "M=160", "label": "M_160_1816000886",
-     "ckpt": f"{ROOT}/checkpoints/08:11-16:45_GO1_FINAL_HAN_M_160_1816000886_benchmark.pickle"},
+     {"group": "M=160", "label": "756800567",
+     "ckpt": f"{ROOT}/checkpoints/08:14-14:35_GO1_FINAL_HAN_M_160_756800567_benchmark.pickle"},
+     {"group": "M=160", "label": "1042351053",
+     "ckpt": f"{ROOT}/checkpoints/08:14-14:35_GO1_FINAL_HAN_M_160_1042351053_behcnmark.pickle"},
+     {"group": "M=160", "label": "2126766829",
+     "ckpt": f"{ROOT}/checkpoints/08:14-14:37_GO1_FINAL_HAN_M_160_2126766829_benchmark.pickle"},
+    {"group": "M=160", "label": "602647351",
+     "ckpt": f"{ROOT}/checkpoints/08:15-11:04_GO1_FINAL_HAN_M_160_602647351_benchmark.pickle"},
 ]
 
 OUT_ROOT = f"{ROOT}/analysis"   # per-network directories are created under here
@@ -156,6 +161,7 @@ import matplotlib  # noqa: E402
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.collections import LineCollection  # noqa: E402
+from matplotlib.colors import LinearSegmentedColormap  # noqa: E402
 from sklearn.decomposition import PCA  # noqa: E402
 from mpl_toolkits.mplot3d.art3d import Line3DCollection  # noqa: E402
 
@@ -169,16 +175,47 @@ from hebbian_locomotion.networks.han_net import HANNet  # noqa: E402
 # ===========================================================================
 # Figure style
 # ===========================================================================
-OKABE_ITO = {
-    "black":  "#000000",
-    "orange": "#E69F00",
-    "sky":    "#56B4E9",
-    "green":  "#009E73",
-    "yellow": "#F0E442",
-    "blue":   "#0072B2",
-    "verm":   "#D55E00",
-    "purple": "#CC79A7",
-}
+try:
+    from cmcrameri import cm as cmc
+    _ROMA = cmc.roma
+except ImportError:
+    _ROMA = plt.get_cmap("Spectral")
+
+# Canvas
+BG   = "#F6F5F1"
+FG   = "#22252A"
+GRID = "#E4E2DC"
+
+# Unordered categorical (e.g. freeze x lock cells, distinct signals)
+CAT = ["#1A5E63", "#D9A441", "#B4553F", "#6E4A7E"]
+
+
+def ramp(n, start=0.22, stop=0.92):
+    """n ORDERED categorical colours (e.g. M values), sampled from roma.
+
+    Starts ~22% along so the lightest group stays legible on the off-white
+    canvas, and stops short of the far end so a two-colour ramp does not
+    reach the extremes.
+    """
+    if n == 1:
+        return [_ROMA(start)]
+    return [_ROMA(start + (stop - start) * i / (n - 1)) for i in range(n)]
+
+
+def tints(base_frac, k, spread=0.10):
+    """k dark-biased tints around a ramp position, for seeds within a group."""
+    return [_ROMA(min(0.98, max(0.02, base_frac + spread * (i / max(1, k - 1)))))
+            for i in range(k)]
+
+
+def traj_cmap():
+    """Continuous colormap for time-coloured trajectories.
+
+    roma trimmed to 0.03-0.97 so it never starts near-white and washes out
+    against the off-white canvas.
+    """
+    return LinearSegmentedColormap.from_list(
+        "roma_trim", [_ROMA(x) for x in np.linspace(0.03, 0.97, 256)])
 
 
 # ICLR 2027: text block is 5.5 in x 9 in, single column, 10 pt Times.
@@ -203,10 +240,27 @@ def set_pub_style():
         "ytick.labelsize": 9,
         "axes.linewidth": 0.8,
         "lines.linewidth": 1.2,
-        "xtick.direction": "in",
-        "ytick.direction": "in",
-        "xtick.top": True,
-        "ytick.right": True,
+        "axes.facecolor": BG,
+        "figure.facecolor": BG,
+        "savefig.facecolor": BG,
+        "text.color": FG,
+        "axes.labelcolor": FG,
+        "axes.edgecolor": FG,
+        "xtick.color": FG,
+        "ytick.color": FG,
+        "axes.spines.top": False,
+        "axes.spines.right": False,
+        "xtick.direction": "out",
+        "ytick.direction": "out",
+        "xtick.top": False,
+        "ytick.right": False,
+        "xtick.minor.visible": False,
+        "ytick.minor.visible": False,
+        "axes.grid": True,
+        "axes.grid.axis": "y",
+        "grid.color": GRID,
+        "grid.linewidth": 0.6,
+        "axes.axisbelow": True,
         "xtick.major.width": 0.8,
         "ytick.major.width": 0.8,
         "xtick.major.size": 3.5,
@@ -348,18 +402,18 @@ def fig_pca(pcs, outdir):
 
     pts = pcs[:, None, :2]
     segs = np.concatenate([pts[:-1], pts[1:]], axis=1)
-    lc = LineCollection(segs, cmap="viridis", linewidth=0.8)
+    lc = LineCollection(segs, cmap=traj_cmap(), linewidth=0.8)
     lc.set_array(np.arange(len(segs)))
     ax.add_collection(lc)
 
-    ax.plot(pcs[0, 0], pcs[0, 1], "x", color=OKABE_ITO["black"],
+    ax.plot(pcs[0, 0], pcs[0, 1], "x", color=FG,
             markersize=5, mew=1.2, label="start", zorder=5)
-    ax.plot(pcs[-1, 0], pcs[-1, 1], "*", color=OKABE_ITO["verm"],
+    ax.plot(pcs[-1, 0], pcs[-1, 1], "*", color=CAT[2],
             markersize=8, label="end", zorder=5)
 
     if 0 < FREEZE_STEP < len(pcs):
         ax.plot(pcs[FREEZE_STEP, 0], pcs[FREEZE_STEP, 1], "o",
-                color=OKABE_ITO["blue"], markersize=4, label="freeze", zorder=5)
+                color=CAT[0], markersize=4, label="freeze", zorder=5)
 
     ax.autoscale()
     ax.set_xlabel("PC 1")
@@ -389,7 +443,7 @@ def fig_pca_3d(pcs, evr, outdir, elev=22, azim=-58):
     steps = np.arange(len(pcs))
     pts = np.stack([pcs[:, 0], pcs[:, 1], steps], axis=1)[:, None, :]
     segs = np.concatenate([pts[:-1], pts[1:]], axis=1)
-    lc = Line3DCollection(segs, cmap="viridis", linewidth=0.7)
+    lc = Line3DCollection(segs, cmap=traj_cmap(), linewidth=0.7)
     lc.set_array(steps[:-1])
     ax.add_collection3d(lc)
 
@@ -398,16 +452,16 @@ def fig_pca_3d(pcs, evr, outdir, elev=22, azim=-58):
     floor = steps.min() - 0.04 * (steps.max() - steps.min())
     sh = np.stack([pcs[:, 0], pcs[:, 1], np.full(len(pcs), floor)], axis=1)[:, None, :]
     ssegs = np.concatenate([sh[:-1], sh[1:]], axis=1)
-    lcs = Line3DCollection(ssegs, colors="0.75", linewidth=0.4, alpha=0.6)
+    lcs = Line3DCollection(ssegs, colors=GRID, linewidth=0.4, alpha=0.9)
     ax.add_collection3d(lcs)
 
     ax.plot([pcs[0, 0]], [pcs[0, 1]], [steps[0]], "x",
-            color=OKABE_ITO["black"], markersize=5, mew=1.2, label="start")
+            color=FG, markersize=5, mew=1.2, label="start")
     ax.plot([pcs[-1, 0]], [pcs[-1, 1]], [steps[-1]], "*",
-            color=OKABE_ITO["verm"], markersize=8, label="end")
+            color=CAT[2], markersize=8, label="end")
     if 0 < FREEZE_STEP < len(pcs):
         ax.plot([pcs[FREEZE_STEP, 0]], [pcs[FREEZE_STEP, 1]], [FREEZE_STEP], "o",
-                color=OKABE_ITO["blue"], markersize=4, label="freeze")
+                color=CAT[0], markersize=4, label="freeze")
 
     pad = 0.05
     for lim, dat in ((ax.set_xlim, pcs[:, 0]), (ax.set_ylim, pcs[:, 1])):
@@ -428,10 +482,10 @@ def fig_pca_3d(pcs, evr, outdir, elev=22, azim=-58):
     # Lighten the default 3D furniture: panes and heavy grid dominate at
     # 5.5 in and read as chartjunk in print.
     for axis in (ax.xaxis, ax.yaxis, ax.zaxis):
-        axis.pane.set_facecolor("white")
-        axis.pane.set_edgecolor("0.85")
+        axis.pane.set_facecolor(BG)
+        axis.pane.set_edgecolor(GRID)
         axis.pane.set_alpha(1.0)
-        axis._axinfo["grid"].update(color="0.90", linewidth=0.5)
+        axis._axinfo["grid"].update(color=GRID, linewidth=0.5)
     ax.tick_params(pad=1)
     # No colour bar: the z axis already encodes step, so a bar would label the
     # same variable twice. Colour is kept only to make trace order readable
@@ -450,24 +504,24 @@ def fig_pca_time(pcs, dW, outdir):
     """
     fig, axes = plt.subplots(3, 1, figsize=(FIG_W_FULL, FIG_W_FULL * 0.72),
                              sharex=True)
-    axes[0].plot(pcs[:, 0], color=OKABE_ITO["blue"], lw=0.8)
+    axes[0].plot(pcs[:, 0], color=CAT[0], lw=0.8)
     axes[0].set_ylabel("PC 1")
-    axes[1].plot(pcs[:, 1], color=OKABE_ITO["green"], lw=0.8)
+    axes[1].plot(pcs[:, 1], color=CAT[3], lw=0.8)
     axes[1].set_ylabel("PC 2")
-    axes[2].plot(dW, color=OKABE_ITO["verm"], lw=0.8)
+    axes[2].plot(dW, color=CAT[2], lw=0.8)
     axes[2].set_ylabel(r"$\sum_k \Vert \Delta W_t^{(k)} \Vert_2$")
     axes[2].set_xlabel("step")
     for a in axes:
         if FREEZE_STEP > 0:
-            a.axvline(FREEZE_STEP, color=OKABE_ITO["black"], ls="--", lw=0.8)
+            a.axvline(FREEZE_STEP, color=FG, ls="--", lw=0.8)
         a.set_xlim(0, len(pcs))
     save_fig(fig, "pca_time", outdir)
 
 def fig_weight_change(dW, outdir):
     fig, ax = plt.subplots(figsize=(FIG_W_FULL, FIG_W_FULL * 0.40))
-    ax.plot(dW, color=OKABE_ITO["blue"])
+    ax.plot(dW, color=CAT[0])
     if FREEZE_STEP > 0:
-        ax.axvline(FREEZE_STEP, color=OKABE_ITO["verm"], ls="--", lw=0.8)
+        ax.axvline(FREEZE_STEP, color=FG, ls="--", lw=0.8)
     ax.set_xlabel("step")
     ax.set_ylabel(r"$\sum_k \Vert \Delta W_t^{(k)} \Vert_2$")
     ax.set_xlim(0, len(dW))
@@ -484,7 +538,7 @@ def fig_sample_weights(W_traj, outdir):
     for i in idx:
         ax.plot(W_traj[:, i], lw=0.6, alpha=0.85)
     if FREEZE_STEP > 0:
-        ax.axvline(FREEZE_STEP, color=OKABE_ITO["verm"], ls="--", lw=0.8)
+        ax.axvline(FREEZE_STEP, color=FG, ls="--", lw=0.8)
     ax.set_xlabel("step")
     ax.set_ylabel(r"$w_{ij}(t)$")
     ax.set_xlim(0, len(W_traj))
@@ -493,9 +547,9 @@ def fig_sample_weights(W_traj, outdir):
 
 def fig_reward(rewards, outdir):
     fig, ax = plt.subplots(figsize=(FIG_W_FULL, FIG_W_FULL * 0.40))
-    ax.plot(rewards, color=OKABE_ITO["green"])
+    ax.plot(rewards, color=CAT[3])
     if FREEZE_STEP > 0:
-        ax.axvline(FREEZE_STEP, color=OKABE_ITO["verm"], ls="--", lw=0.8,
+        ax.axvline(FREEZE_STEP, color=FG, ls="--", lw=0.8,
                    label="freeze")
         ax.legend(loc="best")
     ax.set_xlabel("step")
@@ -508,14 +562,14 @@ def fig_state(vx, z, outdir):
     """Forward velocity and body height -- the gait discriminator."""
     fig, axes = plt.subplots(2, 1, figsize=(FIG_W_FULL, FIG_W_FULL * 0.62),
                              sharex=True)
-    axes[0].plot(vx, color=OKABE_ITO["orange"])
+    axes[0].plot(vx, color=CAT[1])
     axes[0].set_ylabel(r"$v_x$ (m s$^{-1}$)")
-    axes[1].plot(z, color=OKABE_ITO["purple"])
+    axes[1].plot(z, color=CAT[3])
     axes[1].set_ylabel(r"$z$ (m)")
     axes[1].set_xlabel("step")
     for a in axes:
         if FREEZE_STEP > 0:
-            a.axvline(FREEZE_STEP, color=OKABE_ITO["verm"], ls="--", lw=0.8)
+            a.axvline(FREEZE_STEP, color=FG, ls="--", lw=0.8)
         a.set_xlim(0, len(vx))
     save_fig(fig, "state", outdir)
 
@@ -565,7 +619,7 @@ def analyse_one(env, cond, outdir, npz_dir):
     .npz goes to npz_dir, shared across all networks, so the whole set can be
     globbed by gait_spectrum.py without listing paths.
     """
-    label, ckpt = cond["label"], cond["ckpt"]
+    label, ckpt, group = cond["label"], cond["ckpt"], cond['group']
 
     solver, models_ckpt, run_cfg = load_checkpoint(ckpt)
     params = solver.mu if PARAM_SOURCE == "mu" else solver.best_mu
@@ -626,7 +680,7 @@ def analyse_one(env, cond, outdir, npz_dir):
     }
 
     # --- outputs ----------------------------------------------------------
-    npz_path = os.path.join(npz_dir, f"{label}_data.npz")
+    npz_path = os.path.join(npz_dir, f"{group}_{label}_data.npz")
     np.savez_compressed(
         npz_path,
         W_traj=W_traj.astype(np.float32),
@@ -690,7 +744,8 @@ def main():
     try:
         for k, cond in enumerate(todo, 1):
             label = cond["label"]
-            outdir = os.path.join(RUN_DIR, label)
+            group = cond['group']
+            outdir = os.path.join(RUN_DIR, f'{group}_{label}')
             os.makedirs(outdir, exist_ok=True)
             print(f"[{k}/{len(todo)}] {label}  [{cond.get('group')}]")
             try:

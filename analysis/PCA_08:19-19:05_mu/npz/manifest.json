@@ -1,0 +1,91 @@
+{
+  "tag": "08:19-19:05_mu",
+  "npz_dir": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:19-19:05_mu/npz",
+  "networks": [
+    {
+      "group": "M=1",
+      "label": "1295751242",
+      "npz": "1295751242_data.npz"
+    },
+    {
+      "group": "M=1",
+      "label": "1396289849",
+      "npz": "1396289849_data.npz"
+    },
+    {
+      "group": "M=1",
+      "label": "489225843",
+      "npz": "489225843_data.npz"
+    },
+    {
+      "group": "M=1",
+      "label": "860896728",
+      "npz": "860896728_data.npz"
+    },
+    {
+      "group": "M=10",
+      "label": "1302491059",
+      "npz": "1302491059_data.npz"
+    },
+    {
+      "group": "M=10",
+      "label": "1315706754",
+      "npz": "1315706754_data.npz"
+    },
+    {
+      "group": "M=10",
+      "label": "27294405",
+      "npz": "27294405_data.npz"
+    },
+    {
+      "group": "M=10",
+      "label": "68914096",
+      "npz": "68914096_data.npz"
+    },
+    {
+      "group": "M=160",
+      "label": "1042351053",
+      "npz": "1042351053_data.npz"
+    },
+    {
+      "group": "M=160",
+      "label": "2126766829",
+      "npz": "2126766829_data.npz"
+    },
+    {
+      "group": "M=160",
+      "label": "576310242",
+      "npz": "576310242_data.npz"
+    },
+    {
+      "group": "M=160",
+      "label": "602647351",
+      "npz": "602647351_data.npz"
+    },
+    {
+      "group": "M=160",
+      "label": "756800567",
+      "npz": "756800567_data.npz"
+    },
+    {
+      "group": "M=20",
+      "label": "1853697842",
+      "npz": "1853697842_data.npz"
+    },
+    {
+      "group": "M=20",
+      "label": "1919632181",
+      "npz": "1919632181_data.npz"
+    },
+    {
+      "group": "M=20",
+      "label": "641049713",
+      "npz": "641049713_data.npz"
+    },
+    {
+      "group": "M=20",
+      "label": "685059270",
+      "npz": "685059270_data.npz"
+    }
+  ]
+}

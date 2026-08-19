@@ -116,30 +116,34 @@ ROOT = ("/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/"
 #           are derived from it, so it must be the period of the same policy
 #           under the same undamaged conditions. Copy them from
 #           <TAG>_ablation_offsets.json rather than retyping.
+'''
+{"group": "M=1",   "label": "M1_s860896728",
+    "ckpt": f"{ROOT}/checkpoints/08:04-11:52_GO1_FINAL_HAN_499_860896728_M_1_benchmark.pickle",
+    "T_gait": 37.5},
+    {"group": "M=1",   "label": "M1_s1396289849",
+    "ckpt": f"{ROOT}/checkpoints/08:04-11:52_GO1_FINAL_HAN_499_1396289849_M_1_benchmark.pickle",
+    "T_gait": 56.25},
+    {"group": "M=1",   "label": "M1_s1534702257",
+    "ckpt": f"{ROOT}/checkpoints/08:04-11:51_GO1_FINAL_HAN_499_1534702257_M_1_benchmark.pickle",
+    "T_gait": 47.36},
+
+
+{"group": "M=10",  "label": "M10_s46838495",
+    "ckpt": f"{ROOT}/checkpoints/08:06-13:33_GO1_FINAL_HAN_499_46838495_M_10_benchmark.pickle",
+    "T_gait": 40.909},
+{"group": "M=10",  "label": "M10_s1315706754",
+    "ckpt": f"{ROOT}/checkpoints/08:07-14:17_GO1_FINAL_HAN_499_1315706754_M_10_benchmark.pickle",
+    "T_gait": 47.368},
+    {"group": "M=10",  "label": "M_10_1302491059",
+    "ckpt": f"{ROOT}/checkpoints/08:08-15:23_GO1_FINAL_HAN_M_10_1302491059_M_10_benchmark.pickle",
+    "T_gait": 44.999},
+
+'''
+
 CONDITIONS = [
+
     # T_gait in CONTROL STEPS from gait_spectrum.py. None -> falls back to
     # DEFAULT_T_GAIT, and the fallback is recorded in the JSON.
-    {"group": "M=1",   "label": "M1_s860896728",
-     "ckpt": f"{ROOT}/checkpoints/08:04-11:52_GO1_FINAL_HAN_499_860896728_M_1_benchmark.pickle",
-     "T_gait": 37.5},
-     {"group": "M=1",   "label": "M1_s1396289849",
-     "ckpt": f"{ROOT}/checkpoints/08:04-11:52_GO1_FINAL_HAN_499_1396289849_M_1_benchmark.pickle",
-     "T_gait": 56.25},
-     {"group": "M=1",   "label": "M1_s1534702257",
-     "ckpt": f"{ROOT}/checkpoints/08:04-11:51_GO1_FINAL_HAN_499_1534702257_M_1_benchmark.pickle",
-     "T_gait": 47.36},
-
-    {"group": "M=10",  "label": "M10_s46838495",
-     "ckpt": f"{ROOT}/checkpoints/08:06-13:33_GO1_FINAL_HAN_499_46838495_M_10_benchmark.pickle",
-     "T_gait": 40.909},
-    {"group": "M=10",  "label": "M10_s1315706754",
-     "ckpt": f"{ROOT}/checkpoints/08:07-14:17_GO1_FINAL_HAN_499_1315706754_M_10_benchmark.pickle",
-     "T_gait": 47.368},
-     {"group": "M=10",  "label": "M_10_1302491059",
-     "ckpt": f"{ROOT}/checkpoints/08:08-15:23_GO1_FINAL_HAN_M_10_1302491059_M_10_benchmark.pickle",
-     "T_gait": 44.999},
-
-
     {"group": "M=20",  "label": "M20_s1853697842",
      "ckpt": f"{ROOT}/checkpoints/08:04-18:00_GO1_FINAL_HAN_499_1853697842_M_20_benchamrk.pickle",
      "T_gait": 34.615},
@@ -152,11 +156,12 @@ CONDITIONS = [
      {"group": "M=20",  "label": "M_20_641049713",
      "ckpt": f"{ROOT}/checkpoints/08:11-10:40_GO1_FINAL_HAN_M_20_641049713_benchmark.pickle",
      "T_gait": 47.368},
-
-    {"group": "M=160", "label": "M160_s576310242",
-     "ckpt": f"{ROOT}/checkpoints/08:04-00:56_GO1_FINAL_HAN_499_576310242_M_160_benchmark.pickle",
-     "T_gait": 36.0},
 ]
+
+  #  {"group": "M=160", "label": "M160_s576310242",
+   #  "ckpt": f"{ROOT}/checkpoints/08:04-00:56_GO1_FINAL_HAN_499_576310242_M_160_benchmark.pickle",
+    # "T_gait": 36.0},
+
 
 RUN_TAG = "leglock_sweep_RL_hip_only"                 # prefix for every output file
 OUTDIR = f"{ROOT}/analysis/leglock_{current_time}_{RUN_TAG}"
