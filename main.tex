@@ -1,0 +1,743 @@
+
+\documentclass{article} % For LaTeX2e
+\usepackage{iclr2027_conference,times}
+\usepackage{graphicx}
+
+% Optional math commands from https://github.com/goodfeli/dlbook_notation.
+\input{math_commands.tex}
+
+\usepackage{hyperref}
+\usepackage{url}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\title{{\vspace{-14em} \includegraphics[scale=0.4]{ucl_logo.png}}\\
+{{\Huge Project Title}}\\
+{\large Optional Subtitle}\\
+}
+\date{Submission date: Day Month Year}
+\author{Candidate number: \#\#\#\#\# % In drafts sent to your supervisor, you can put your name here instead. But use candidate number in the final version
+\thanks{
+{\bf Disclaimer:}
+This report is submitted as part requirement for the MY DEGREE at UCL. It is
+substantially the result of my own work except where explicitly indicated in the text.
+\emph{Either:} The report may be freely copied and distributed provided the source is explicitly acknowledged
+\newline  %% \\ messes it up
+\emph{Or:}\newline
+The report will be distributed to the internal and external examiners, but thereafter may not be copied or distributed except with permission from the author.}
+\\ \\
+Name of your degree\\ \\
+Basile Confavreux}
+
+\title{Firing, Wiring, Walking, and Adapting: \\
+Hebbian Networks as a Substrate for Online Adaptation in a Robotic Locomotion Task}
+
+% Authors must not appear in the submitted version. They should be hidden
+% as long as the \iclrfinalcopy macro remains commented out below.
+% Non-anonymous submissions will be rejected without review.
+
+\author{Manuel de Castro Ribeiro Jardim \thanks{ Use footnote for providing further information
+about author (webpage, alternative address)---\emph{not} for acknowledging
+funding agencies.  Funding acknowledgements go at the end of the paper.} \\
+Gatsby Computational Neuroscience Unit\\
+University College London\\
+\texttt{manuel.jardim.25@ucl.ac.uk} \\
+\AND
+Coauthor \\
+Affiliation \\
+Address \\
+\texttt{email}
+}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to \LaTeX{} to determine where to break
+% the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
+% puts 3 of 4 authors names on the first line, and the last on the second
+% line, try using \AND instead of \And before the third author name.
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+\iclrfinalcopy % Uncomment for camera-ready version, but NOT for submission.
+\begin{document}
+
+\include{titlepage}
+
+\include{dedication}
+%\maketitle
+
+\begin{abstract}
+
+\end{abstract}
+
+
+\section{Introduction}
+
+\subsection{Research Questions and hypothesis}
+
+\section{Background}
+% Have to decide which goes in which section
+
+\subsection{Hebbian Plasticity}
+\label{subsec:hebbian_plasticity}
+
+The change in synaptic strength, a process denominated as synaptic plasticity, is a core concept in experimental neuroscience [CITE]. It characterises how synapses strengthen and weaken based on the activity of local neurons. These persistent changes in synaptic strength are thought to constitute the neural correlate of learning and memory [CITE]. This idea was first postulated by Hebb [CITE HEBB], and describes how the relationship of neurons that are local to each other is affected by their activity: 
+
+\begin{quote}
+    \textit{When an axon of cell A is near enough to excite cell B and repeatedly or persistently takes part in firing it, some growth process or metabolic change takes place in one or both cells such that A’s efficiency, as one of the cells firing B, is increased.}
+\end{quote}
+
+This is put more simply in the phrase: \textit{neurons that fire together, wire together} by Shatz [CITE SHATZ]. 
+
+This second sentence, often misattributed to Hebb, loses one of the most important ideas in Hebbs postulate, that of causal ordering. It is the timing of the activation of the post-synaptic neuron with respect to that of the pre-synaptic neuron that causes a strengthening of the synapse, often denominated as Long Term Potentiation (LTP), or a weakening of the synapse, denominated as Long Term Depression (LTD). Another core idea is that of locality, that this process occurs from local activity and not that of other neurons, or from some general reward signal associates with the neuronal activations. For this reason, it is often thought of as an Unsupervised Learning mechanism [CITE].   
+
+A Hebbian rule can be stated in general form, where the change in a synaptic
+weight depends only on that weight and on the firing rates of the two neurons
+it connects [CITE GERSTNER]:
+
+\begin{equation}
+    \frac{\mathrm{d}}{\mathrm{d}t} w_{ij} = F\!\left(w_{ij};\, v_i,\, v_j\right).
+    \label{eq:plasticity-general}
+\end{equation}
+
+Here $w_{ij}$ is the synapse from pre-synaptic neuron $j$ to post-synaptic
+neuron $i$, so $v_j$ is the pre-synaptic firing rate and $v_i$ the
+post-synaptic one, and $F$ is an as-yet undetermined function. If $F$ is
+sufficiently well behaved it can be expanded as a Taylor series about
+$v_i = v_j = 0$:
+
+\begin{equation}
+\begin{split}
+    \frac{\mathrm{d}}{\mathrm{d}t} w_{ij} = {} & c_0(w_{ij}) + c_1^{\mathrm{pre}}(w_{ij})\, v_j + c_1^{\mathrm{post}}(w_{ij})\, v_i + c_2^{\mathrm{pre}}(w_{ij})\, v_j^{2} \\
+    & + c_2^{\mathrm{post}}(w_{ij})\, v_i^{2} + c_{11}^{\mathrm{corr}}(w_{ij})\, v_i v_j + \mathcal{O}(v^3).
+\end{split}
+\label{eq:plasticity-taylor}
+\end{equation}
+
+Each coefficient may depend on the current weight, and the expansion is
+truncated after second order. Of the six terms, only the last requires both
+neurons to be active at once, and it is therefore the only strictly Hebbian
+one [CITE GERSTNER]. The remaining terms describe changes driven by pre-synaptic activity
+alone, by post-synaptic activity alone, or by neither.
+
+The rules used in this literature are stated in discrete time and in terms of
+unit activations $o$ rather than firing rates $v$, so that a weight is updated
+once per network step. A common model of update rule under this formulation is
+the \textit{ABCD} rule [CITE NAJARRO], defined as:
+
+\begin{equation}
+    \Delta w_{ij} = \eta_{ij} \left(
+        A_{ij}\, o_{i}\, o_{j}
+      + B_{ij}\, o_{i}
+      + C_{ij}\, o_{j}
+      + D_{ij}
+    \right),
+    \label{eq:abcd}
+\end{equation}
+
+where $o_i$ is the pre-synaptic activation and $o_j$ the post-synaptic one.
+Note that the index order is reversed with respect to
+Equation~\ref{eq:plasticity-taylor}, so the correspondence between the two is
+by role rather than by index: the correlation coefficient $A_{ij}$ corresponds
+to $c_{11}^{\mathrm{corr}}$, the pre-synaptic coefficient $B_{ij}$ to
+$c_1^{\mathrm{pre}}$, the post-synaptic coefficient $C_{ij}$ to
+$c_1^{\mathrm{post}}$, and the constant term $D_{ij}$ to $c_0$, each up to the
+learning rate $\eta_{ij}$ which is factored out. In this formulation quadratic
+terms are disregarded, focusing on the linear, bias and interaction terms. Each
+of the five coefficients is specific to a single synapse rather than shared
+across the network.
+
+One difference is worth noting. In Equation~\ref{eq:plasticity-taylor} the
+coefficients are functions of the weight, whereas the evolved coefficients
+$A,B,C,D$ are constant throughout an episode. Weight dependence is what
+stabilises rules such as Oja's, whose decay term is proportional to the weight
+itself [CITE OJA]. Without it the rule is purely additive and the weights are
+unbounded, which is the reason a separate normalisation step is required.
+
+The exact rule used in this thesis is described in
+Section~\ref{subsec:hebbian_networks_methods} and is an augmented version of
+Equation~\ref{eq:abcd}.
+
+
+\subsection{Evolution Strategies}
+\label{subsec:evolution_strategies}
+Evolution Strategies (ES) are a set of black-box optimisation (BBO) algorithms
+inspired by biological evolution [CITE]. They generally involve a population of
+parameter vectors, perturbing the parameters, evaluating their fitness
+(objective function value) on a set task, and recombining the highest scoring
+parameters into the next generation of parameter vectors. Black-box
+optimisation methods are advantageous when gradients of a network with respect
+to an objective function cannot easily be calculated. These algorithms are
+defined by querying objective functions only, and not making assumptions on
+their structure or on whether they are differentiable, smooth or continuous.
+The objective may also be stochastic, returning a different value each time the
+same parameter vector is evaluated, which is the case here as both the
+observation noise and the random weight initialisation differ between rollouts.
+These properties make BBO algorithms the right choice for the task studied in
+this thesis.
+
+Several different ES approaches exist, differing mainly in how the search
+distribution is represented and updated. The most widely used is the Covariance
+Matrix Adaptation Evolution Strategy (CMA-ES) [CITE HANSEN], which maintains a
+full covariance matrix over the parameters and adapts it from the successful
+perturbations of previous generations, allowing the search to elongate along
+directions that have proved productive. This adaptation is powerful in
+moderate dimensions but requires storing and factorising a matrix quadratic in
+the number of parameters, which is impractical for the $22{,}720$ evolved
+coefficients used here. The alternative is to keep the search distribution
+isotropic and rely on a large population instead, which is the approach taken
+by OpenAI-ES [CITE SALIMANS] and adopted in this thesis.
+
+The choice of a black-box method over Reinforcement Learning (RL), the more
+common optimiser for locomotion policies, is a practical one rather than a
+formal one. Plastic networks can be trained with gradients: differentiable
+plasticity backpropagates through the plastic updates themselves, and
+Backpropamine extends this to neuromodulated rules [CITE MICONI]. Doing so
+requires propagating gradients through every plastic update in the rollout,
+which is costly in both memory and computation and considerably more involved
+than evaluating a rollout and recording its return. The consequences of this
+for the specific networks used here are set out in
+Section~\ref{subsec:evolutionary_training}. The prior work this thesis builds
+on has not taken this route [CITE NAJARRO][CITE DITTRICH][CITE LEUNG], so an ES
+also keeps the comparison direct.
+
+OpenAI-ES is the black-box optimiser used here. There is no training-testing
+inner loop in this setting: the inner loop is a single rollout, in which the
+weights change through the plasticity rule alone and nothing is optimised. The
+outer loop is the multiple consecutive rollouts over which the parameters are
+optimised. OpenAI-ES perturbs a single parameter vector with Gaussian noise,
+evaluates the whole population, and takes a reward-weighted average of the
+perturbations as a gradient estimate. Because the perturbations are averaged
+directly rather than ranked, the magnitude of the fitness differences between
+individuals is retained in the update.
+
+A consequence of the Gaussian perturbation is that the objective actually being
+optimised is not the raw fitness $F$ but its convolution with a Gaussian
+kernel,
+\begin{equation}
+J_\sigma(\bm{\mu}) = \mathbb{E}_{\bm{\epsilon} \sim \mathcal{N}(0, I)}
+\left[ F(\bm{\mu} + \sigma \bm{\epsilon}) \right]
+= \left( F * \mathcal{N}(0, \sigma^2 I) \right)(\bm{\mu}),
+\label{eq:es-smoothed}
+\end{equation}
+which is smooth even where $F$ is not. Its gradient can be written without
+differentiating $F$,
+\begin{equation}
+\nabla_{\bm{\mu}} J_\sigma(\bm{\mu}) = \frac{1}{\sigma}\,
+\mathbb{E}_{\bm{\epsilon}} \left[ F(\bm{\mu} + \sigma \bm{\epsilon})\,
+\bm{\epsilon} \right] \approx \frac{1}{\lambda \sigma}
+\sum_{n=1}^{\lambda} F(\bm{\mu} + \sigma \bm{\epsilon}_n)\, \bm{\epsilon}_n,
+\label{eq:es-gradient}
+\end{equation}
+so the population average of Equation~\ref{eq:es-gradient} is an unbiased
+estimate of the gradient of the smoothed objective. As $F$ enters only as a
+scalar weight and is never differentiated, no gradient need be propagated
+through the plasticity rule or the normalisation step. As $\sigma$ decays over
+training, $J_\sigma$ sharpens towards $F$ itself, so the objective being
+optimised is not fixed but approaches the true fitness as the search narrows.
+
+\subsection{Boxcar filter}
+
+\subsection{Online Adaptation?}
+
+\section{Related Work}
+\label{sec:related_works}
+
+\subsection{Meta-learning through Hebbian Plasticity}
+\label{subsec:meta-learning_through_hebbian_plasticity}
+
+One of the first works to apply Hebbian networks to a locomotion task was a paper by Najarro and Risi named \textit{Meta-Learning through Hebbian Plasticity in Random Networks} [CITE]. This paper proposes a method that evolves synapse-specific learning rules in Hebbian networks allowing their weights to self-organise during the agent's lifetime. This feature of Hebbian plasticity is what the authors label as \textit{Meta-Learning}. This method is applied to a 2D navigation task and a 3D locomotion task. The approach proposed by the authors became commonplace in the literature that followed it and is used in this thesis.
+
+The approach is defined by using Evolution Strategies (ES) to learn synapse-specific learning rules, defined according to the ABCD model as shown in Section~\ref{subsec:hebbian_plasticity}. A population of Hebbian networks is initialised with random synapse-specific Hebbian coefficients, the network's weights are also randomly initialised and are evaluated on a particular task. A new generation is then created, once again with random weight initialisation, but with learning-rule parameters that, through ES, have been moved towards the better performing ones. The algorithm continues this loop with the aim of finding more effective learning rules that can perform the task with randomly initialised weights. The specific ES algorithm employed by the authors is a version of the ES algorithm by Salimans et al.\ [CITE] adapted to evolve the ABCD parameters instead of the weights of the network.
+
+[ADD EQUATION AND SHORT DESCRIPTION]
+
+The 2D navigation task uses a Convolutional Neural Network (CNN) [CITE] as a policy network to steer a car in a vision-based environment. The CNN contains both plastic and static weights, a choice the authors motivate by stating it is hard to interpret Hebbian plasticity in convolutional layers as the pre- and post-synaptic activity of a convolution filter is not defined. The Hebbian networks are compared against an evolved static-weight solution, a Proximal Policy Optimisation (PPO) trained network [CITE yujin tang] and a self-attention based network [CITE yujin tang]. Najarro and Risi find that the Hebbian network outperforms the static-weight solution, achieving a higher fitness score, and is on par with the PPO-trained network; however, it is outperformed by the self-attention network.
+
+The 3D locomotion task follows a similar setup, with a Hebbian network and a static-weight counterpart being evolved using the aforementioned ES algorithm. This task focused on adaptability, mainly the network's ability to deal with unseen damage to the robot. The authors created three versions of the four-legged Ant-v0 robot [CITE]: a version with no damage and one with damage to the right front leg that were both seen during training, and a version with damage to the left front leg that was unseen during training. The task is defined as moving away from its position along a fixed axis.
+
+The reported results are that, while the static networks achieved higher fitness scores on the seen morphologies, the Hebbian networks significantly outperformed on the unseen morphologies, with the static networks being unable to find a solution. The authors also found that the Hebbian networks were able to achieve comparable performance even if the weights were randomly sampled from different distributions. Through further testing, the paper reports that the Hebbian networks only require 30 to 80 timesteps for the weights to converge to an optimal value. This was found by freezing the update mechanism of the networks at different timesteps. The study also found that if the agent is frozen in place by saturating all its outputs to 1, the weights only take a few timesteps to recover and return to their optimal state. Lastly, it is shown that the network can handle temporary partial loss of its connections by zeroing out a subset of weights, which the network recovers from in a few timesteps.
+
+\subsection{Bio-inspired}
+\label{subsec:bio_inspired}
+
+A robotics-focused successor to this paper, authored by Leung et al., focused on the use of Hebbian networks for zero-shot sim-to-real transfer [CITE]. This is a traditionally difficult problem, where a policy trained in simulation must retain its abilities once deployed on hardware. Because simulators model real-world physics and dynamics imperfectly, such transfer often fails, a phenomenon called the \textit{sim-to-real gap} [CITE]. Leung et al. [CHECK IF CORRECT SOURCING] frame it as a difficulty at handling out-of-distribution scenarios, and tackle it with Hebbian networks, leveraging their ability to adapt. 
+
+In their study, they evolve Hebbian parameters in a feedforward neural network, the same method as Najarro and Risi. Two different layer-wise weight-normalisation steps are compared, one using the mean and standard deviation of weights in a layer; and one normalising by the largest weight-value in that layer. The impact of the different normalisation steps is evaluated and they find max-normalisation to yield the best performance. 
+
+To provide a fair comparison, three types of networks are used, a standard feedforward network (FF network), a long short-term memory network (LSTM network) [CITE] and the feedforward Hebbian network. The LSTM is used as a comparison because of its ability for within-episode adaptation, a feature of its recurrent hidden- and cell-states [CITE]. All three see their parameters evolved using Evolution Strategies, the authors motivate not having used a PPO-trained policy network as a comparison by citing the facts that reward functions designed for ES do not transfer well to RL tasks [CITE], and using a different reward function would invalidate the comparison. The architecture of the LSTM is set so that the number of trainable parameters matches those of the Hebbian network, while the standard FF network matches the layer sizes of the feedforward Hebbian network. This methodological design choice motivated the LSTM and Hebbian network comparison that are used in this thesis. 
+
+Their findings demonstrate that the Hebbian networks allow for zero-shot sim-to-real transfer. They test this using two separate bio-inspired robot morphologies and find it to be true for both. The deployed network is also tested in its ability to adapt to unseen terrain, where it is found that it successfully manages to navigate an uneven terrain made up of small wooden blocks. While walking velocity diminished, this reinforces their hypothesis of Hebbian plasticity being a better mechanism for dealing with out-of-distribution disturbances. This is not the case for the LSTM and FF network. Leung et al. find that these networks fail to retain walking speed in the real world, a clear example of the sim-to-real gap, where the networks overfit to the virtual environments used in simulation.
+
+A test is performed on the robot's ability to deal with morphological damage, where a leg's actuators are locked in place, this is performed on two different legs individually, and then combined. They find that the robot manages to retain some walking speed even under damage. This aspect of their study was a main motivator of the work done in this thesis. 
+
+A successive finding of Leung et al. is that Hebbian networks display a limit-cycle attractor behaviour. When performing PCA, the network displays a predictable pattern in its weight space indicating a stable attractor. They also find that different principal components contribute to different aspects of adaptation, shown by higher spread in PC3, of 16.45 when the robot walks over unseen, uneven terrain, versus 7.48 on seen terrain.   
+
+\subsection{HANs}
+\label{subsec:HANs}
+
+A subsequent study by Dittrich et al.\ took the existing approaches and built on them by focusing on the impact of using averaged activations over a window size for the weight updates, together with changing the frequency of the updates [CITE HAN PAPER]. In this work the term Hebbian Attractor Networks (HAN) is coined, referring to Hebbian networks that display attractor dynamics in their weight-space arising from a layer-wise max-normalisation, the same normalisation step as in the work by Leung et al.\ and employed in this thesis. The authors characterise the different emergent attractor regimes by analysing the impact of the size of the averaging window, and the update frequency. The update rate is expressed either as a Hebbian update frequency $f_{\mathrm{hebb}}$, relative to the network inference frequency $f_{\mathrm{NN}}$, or equivalently as an update interval $\tau_{\mathrm{hebb}}$, the number of inference steps between successive Hebbian updates, such that $\tau_{\mathrm{hebb}} = f_{\mathrm{NN}} / f_{\mathrm{hebb}}$.
+
+The study tests the HANs on locomotion tasks across three separate training regimes, which differ in the robot used, the optimiser, and the set of comparison networks. The first and most extensive uses four standard continuous-control benchmarks from Gymnasium [CITE]: Walker2d-v5, HalfCheetah-v5, Hopper-v5 and Swimmer-v5. ES using evosax [CITE] is their main optimiser, on which they evolve the different HANs and Hebbian networks. Multi-Layer Perceptrons are also employed to serve as a benchmark, analogous to the FF networks used by Leung et al., along with Gated Recurrent Unit networks (GRU) [CITE], a network similar to LSTMs but simpler, that do not keep track of the cell state but maintain a hidden state only. The motivation is the same as with LSTMs for Leung et al., GRUs allow for adaptation through a recurrent hidden state instead of through plasticity, and therefore serve as a useful comparison. [ADD PPO SENTENCE]. The second regime uses the Unitree Go1 [CITE] simulated in MuJoCo XLA [CITE], optimised with OpenAI-ES and reported without any comparison networks. It is from this hardware choice that the Go1 was chosen as a suitable robot for this thesis. [CHECK: third regime is Ant-v5 [CITE] for morphological damage --- introduce here or at the point where those results are reported.]
+
+In their findings, Dittrich et al.\ report that HANs generally outperform MLPs and GRUs. However, when compared to PPO-trained policy networks, HANs achieve similar or better results in simpler environments such as Swimmer and Hopper, but in more complex environments, such as HalfCheetah or Walker2D, underperform compared to PPO. From here the authors analyse the weight-space dynamics of the different Hebbian networks and HANs. They compare a Hebbian network with no layer-wise max-norm step applied at each update, condition~(A); a HAN with window size $M = 1$ and weight-updates at each timestep, $\tau_{\mathrm{hebb}} = 1$, condition~(B); and a HAN with window size $M = 10$ and with weight-update every 4 timesteps, $\tau_{\mathrm{hebb}} = 4$, condition~(E). They demonstrate that Hebbian networks without max-norm do not exhibit attractor behaviour and that their weights diverge indefinitely; that HANs with $M = 1$ and $\tau_{\mathrm{hebb}} = 1$ have high sustained plasticity and stable, oscillatory patterns in their weight space under PCA; and the HANs with $M = 10$ and $\tau_{\mathrm{hebb}} = 4$ have reduced plasticity after a short initial phase and that past this phase their weights remain within a small region of the weight space. [CHECK: confirm the (A)/(B)/(E) labels and the exact $M$ and $\tau_{\mathrm{hebb}}$ of condition (E) against the paper's conditions table --- Figure 4 and Section IV-E disagree.]
+
+Dittrich et al.\ further analyse this attractor behaviour by singling out the HalfCheetah task, testing whether different networks stabilise. Network plasticity at a given timestep is quantified as the total weight change
+\begin{equation}
+    \Delta_t W = \sum_k \left\lVert W_t^{(k)} - W_{t-1}^{(k)} \right\rVert_2 ,
+    \label{eq:total-weight-change}
+\end{equation}
+the $\ell_2$ distance between successive weight matrices, summed over the layers $k$ of the network. This is measured by comparing the difference in total weight change in the first 5\% of the rollout versus the remainder, where a network is deemed stable if
+\begin{equation}
+    \overline{\Delta W}_{\mathrm{late}} < \rho \cdot \overline{\Delta W}_{\mathrm{early}} ,
+    \label{eq:han-convergence}
+\end{equation}
+with $\overline{\Delta W}_{\mathrm{early}}$ and $\overline{\Delta W}_{\mathrm{late}}$ the mean of $\Delta_t W$ over the early and late portions of the rollout respectively, and the threshold factor set to $\rho = 0.9$. The stabilisation is assessed over an ablation grid of window lengths $M = 1, 2, 4, 10, 20$ and Hebbian update frequencies $f_{\mathrm{hebb}} = 1, 5, 10, 20$~Hz, with 16 randomly initialised evolutions per combination. The results show that convergence depends on the choice of $\tau_{\mathrm{hebb}}$ and $M$, with higher convergence emerging at lower update frequencies, higher averaging windows or a combination of both. In this thesis we single out the window size and disregard update frequencies. Through a Fourier analysis, they demonstrate that HANs in condition~(B) have their weights and locomotion pattern coupled, with a freezing of the plasticity resulting in the robot's inability to walk. This is not the case for HANs in condition~(E), indicating a more robust attractor behaviour.
+
+From here the authors report the results from the second regime of experiments. It focused on the Go1 and assessed whether the results seen in the MuJoCo benchmarks would generalise to high-dimensional quadrupedal locomotion. In condition~(B) successful locomotion only arose in 36.7\% of the runs, while in condition~(E) it was 41.7\%. Dittrich et al.\ find that the results transfer to the Go1, with condition~(B) generating oscillatory weight trajectories every time sustained locomotion was produced, and condition~(E) producing fixed-point attractors in 36.0\% of the runs that produced sustained locomotion, the other 64.0\% remained limit-cycle. The experiments conducted in this thesis are inspired by this experimental.
+
+The last analysis comes from a third experimental regime, based on the paper by Najarro and Risi, where they test the ability of HANs in conditions~(B) and~(E) to deal with morphological damage. In line with the Najarro and Risi paper, this is evaluated using the Ant-v5 by shortening the distal shin of one of the four limbs. Here, they use three scenarios for training: no ablation, front-right mutilated or front-left mutilated; and for testing, two unseen scenarios: rear-left mutilated or rear-right mutilated. A PPO-trained network is used as a baseline. Dittrich et al.\ find that while the PPO baseline outperforms the HANs during training, the HANs are better suited at handling the unseen mutilations. HANs in both conditions converge to limit-cycle attractors with no significant differences between conditions.
+
+It is from the findings of these three papers that this thesis builds upon. Focusing on online adaption ... 
+
+\section{Methods}
+\label{sec:methods}
+
+This section covers in detail the methodological approach at answering the research question. The different implementation details and analytical techniques are described extensively and cover all the design and methodological choices made.  
+
+[ADD NOTATION DETAILS]
+
+\subsection{Task and environment}
+\label{subsec:task_and_environment}
+
+A forward-walking task was chosen to test the hypothesis. During training, the
+ABCD parameters of the network, as defined in Equation~\ref{eq:abcd_average}, are evolved to produce locomotion along the
+global $x$-axis at a forward speed of $1.0\,\mathrm{m\,s^{-1}}$. Simulation,
+training and evaluation were performed in Isaac Lab [CITE ISAACLAB], using the
+Unitree Go1 quadruped ("Go1") [CITE IF NOT CITED YET]. Physics is integrated at $200\,\mathrm{Hz}$
+and the policy is queried every fourth step, giving a control interval of
+$\Delta t = 0.02\,\mathrm{s}$. Episodes run for $500$ control steps
+($10\,\mathrm{s}$) on flat terrain.
+
+\subsubsection{Observation space}
+
+At each control step $t$ the policy receives the observation vector
+$\mathbf{o}_t \in \mathbb{R}^{33}$:
+\begin{equation}
+\mathbf{o}_t = \left[\, \mathbf{v}^{b}_t,\; \boldsymbol{\omega}^{b}_t,\;
+\mathbf{q}_t - \mathbf{q}^{\mathrm{def}},\; \dot{\mathbf{q}}_t,\;
+\mathbf{g}^{b}_t \,\right],
+\label{eq:obs}
+\end{equation}
+where superscript $b$ denotes the trunk body frame. Independent additive
+uniform noise is applied to every term at every step. Refer to Table\ref{tab:obs} for notations.
+
+\begin{table}[h]
+\caption{Observation space, totalling 33 dimensions. Noise is additive and
+drawn independently per element per step from $\mathcal{U}(-\epsilon,
+\epsilon)$.}
+\label{tab:obs}
+\begin{center}
+\begin{tabular}{llcc}
+\multicolumn{1}{c}{\bf SYMBOL} & \multicolumn{1}{c}{\bf QUANTITY}
+& \multicolumn{1}{c}{\bf DIM.} & \multicolumn{1}{c}{\bf NOISE $\epsilon$} \\
+\hline \\
+$\mathbf{v}^{b}_t$ & Trunk linear velocity (body frame) & 3 & $0.05$ \\
+$\boldsymbol{\omega}^{b}_t$ & Trunk angular velocity (body frame) & 3 & $0.05$ \\
+$\mathbf{q}_t - \mathbf{q}^{\mathrm{def}}$ & Joint angles relative to default
+stance & 12 & $0.01$ \\
+$\dot{\mathbf{q}}_t$ & Joint velocities & 12 & $0.01$ \\
+$\mathbf{g}^{b}_t$ & Gravity direction in body frame & 3 & $0.05$ \\
+\end{tabular}
+\end{center}
+\end{table}
+
+\subsubsection{Action space}
+\label{subsec:action_space}
+The policy outputs $\mathbf{a}_t \in (-1, 1)^{12}$, one value per actuated
+joint, bounded by the $\tanh$ nonlinearity of the output layer. Following
+Dittrich et al. [CITE AND DOUBLE CHECK], the raw output is passed through a first-order low-pass filter
+before reaching the robot,
+\begin{equation}
+\tilde{\mathbf{a}}_t = \alpha\,\mathbf{a}_t
++ (1 - \alpha)\,\tilde{\mathbf{a}}_{t-1},
+\qquad \alpha = 0.1,
+\label{eq:act-filter}
+\end{equation}
+which suppresses high-frequency chatter in the commanded joint targets. The
+filtered action is then mapped to a joint position target as
+\begin{equation}
+\mathbf{q}^{\mathrm{des}}_t = \mathbf{q}^{\mathrm{def}}
++ s\,\tilde{\mathbf{a}}_t, \qquad s = 0.5,
+\label{eq:act}
+\end{equation}
+and tracked by the Go1's learned actuator network. Parametrising actions as a
+scaled offset from the default stance means $\tilde{\mathbf{a}}_t = \mathbf{0}$
+holds a stable standing configuration, so an untrained network does not
+collapse the legs; the scale $s$ bounds each joint target to within
+$0.5\,\mathrm{rad}$ ($\approx 29^\circ$) of its default value, which is a
+deliberate restriction of the reachable gait space rather than a unit
+conversion alone.
+
+\subsubsection{Reward}
+\label{subsec:reward}
+
+The reward function used in this thesis was adapted from the Dittrich et al. [CITE PROPERLY] paper described in Section~\ref{subsec:HANs} and augmented through trial and error. 
+
+Let $v_x$ and $v_z$ denote the forward and vertical components of the
+body-frame linear velocity, $\omega_z$ the yaw rate, and $g_z$ the vertical
+component of the body-frame gravity vector. The per-step reward is the
+weighted sum
+\begin{equation}
+r_t = w_v\, r^{\mathrm{vel}}_t + w_h\, r^{\mathrm{alive}}_t
+    + w_\psi\, r^{\mathrm{yaw}}_t + w_a\, r^{\mathrm{air}}_t
+    + w_z\, r^{z}_t .
+\label{eq:reward}
+\end{equation}
+
+$r^{\mathrm{vel}}_t$ is the velocity tracking term, a Gaussian kernel on the forward speed error:
+\begin{equation}
+r^{\mathrm{vel}}_t = \exp\!\left(
+-\frac{\left(v_x - v^\star\right)^2}{s_v^2}\right),
+\label{eq:r-vel}
+\end{equation}
+which retains meaningful slope from standstill, allowing the evolutionary
+search to bootstrap.
+
+$r^{\mathrm{alive}}_t$ is an upright bonus:
+\begin{equation}
+r^{\mathrm{alive}}_t = \mathbb{1}\!\left[-g_z > 0.9\right],
+\label{eq:r-alive}
+\end{equation}
+and $r^{\mathrm{yaw}}_t$ is a yaw-rate cost that stabilises heading:
+\begin{equation}
+r^{\mathrm{yaw}}_t = -\left(1 - \exp\!\left(
+-\frac{\omega_z^2}{s_\psi^2}\right)\right),
+\label{eq:r-yaw}
+\end{equation}
+which vanishes rather than saturating for a stationary robot, so that standing
+still earns no reward.
+
+$r^{z}_t$ is a vertical-velocity cost that suppresses ballistic
+and porpoising solutions,
+\begin{equation}
+r^{z}_t = -\left(1 - \exp\!\left(
+-\frac{v_z^2}{s_z^2}\right)\right).
+\label{eq:r-vz}
+\end{equation}
+
+$r^{\mathrm{air}}_t$, a swing-duration term is paid at touchdown. Writing $\mathcal{F}$ for
+the set of four feet, $c^{(i)}_t \in \{0, 1\}$ for the first-contact indicator
+of foot $i$ and $T^{(i)}_{\mathrm{air}}$ for the duration of the swing
+preceding that contact,
+\begin{equation}
+r^{\mathrm{air}}_t = \left[
+\frac{1}{|\mathcal{F}|}\sum_{i \in \mathcal{F}} c^{(i)}_t
+\exp\!\left(-\frac{\bigl(T^{(i)}_{\mathrm{air}} - t^\star\bigr)^2}
+{s_t^2}\right)\right]
+\cdot \sigma\!\left(\frac{v_x - v_{\mathrm{min}}}{\kappa}\right),
+\label{eq:r-air}
+\end{equation}
+where $\sigma(\cdot)$ is the logistic function. The tent on swing duration
+penalises both shuffling and bounding relative to a clean step, while the
+logistic gate on forward speed prevents a stationary robot from collecting
+reward by stepping in place. Replacing an earlier hard velocity threshold with
+this gate raised the rate at which independent evolutionary runs discovered a
+walking gait from approximately one in eight to four in five.
+
+
+All reward coefficients and constants are listed in
+Table~\ref{tab:reward-params}. Fitness is the mean per-step reward over the
+episode, scaled by a constant factor,
+\begin{equation}
+F = \frac{100}{T} \sum_{t=1}^{T} r_t,
+\label{eq:fitness}
+\end{equation}
+where $T$ is the episode length. Rollouts are never terminated early, so every
+individual is evaluated over the same horizon regardless of whether it falls,
+and the mean and the sum are therefore proportional; the mean form is used so
+that fitness values remain comparable if the horizon is changed.
+
+\begin{table}[t]
+\caption{Reward weights and constants.}
+\label{tab:reward-params}
+\begin{center}
+\begin{tabular}{llr}
+\multicolumn{1}{c}{\bf TERM} & \multicolumn{1}{c}{\bf PARAMETER}
+& \multicolumn{1}{c}{\bf VALUE} \\
+\hline \\
+Velocity tracking & Weight $w_v$ & $1.0$ \\
+                  & Target speed $v^\star$ & $1.0\,\mathrm{m\,s^{-1}}$ \\
+                  & Width $s_v$ & $0.8$ \\
+[0.5em]
+Upright bonus     & Weight $w_h$ & $0.1$ \\
+[0.5em]
+Yaw-rate penalty  & Weight $w_\psi$ & $0.5$ \\
+                  & Width $s_\psi$ & $1.0$ \\
+[0.5em]
+Air-time          & Weight $w_a$ & $1.0$ \\
+                  & Target swing $t^\star$ & $0.20\,\mathrm{s}$ \\
+                  & Tolerance $s_t$ & $0.10\,\mathrm{s}$ \\
+                  & Gate threshold $v_{\mathrm{min}}$ & $0.10\,\mathrm{m\,s^{-1}}$ \\
+                  & Gate sharpness $\kappa$ & $0.05$ \\
+[0.5em]
+Vertical velocity & Weight $w_z$ & $0.2$ \\
+                  & Width $s_z$ & $1.0$ \\
+\end{tabular}
+\end{center}
+\end{table}
+
+\subsection{Policy architectures}
+\label{subsec:policy_architectures}
+
+Two types of networks were used, Hebbian networks whose weights change at inference time based on evolved Hebbian rules, and LSTMs which have memory mechanisms that allow them to keep track of past states. The LSTMs were selected as a baseline following [CITELEUNG]; their recurrent mechanisms that allow the network to adapt in the activation-space make them comparable in function to Hebbian networks that allow for adaptation in the weight-space. 
+
+The architecture of the Hebbian network was motivated by Dittrich et al. [CITE PROPERLY] with the following layer widths $33 \rightarrow 64 \rightarrow 32 \rightarrow 12$. The LSTM networks are made up of three consecutive LSTM blocks and were built to match the number of evolved parameters of the Hebbian networks. Their implementation follows that of Leung et al. [CITE PROPERLY] and is further described in Section~\ref{subsec:lstm}.
+
+\subsubsection{Hebbian Networks}
+\label{subsec:hebbian_networks_methods}
+
+Hebbian networks are standard feedforward networks traditionally characterised by a set of evolved $A,B,C,D,\eta$ parameters as described in Section~\ref{subsec:hebbian_plasticity}. These parameters define weight changes based on pre-synaptic and post-synaptic activations. The learning rule used in this thesis differs from the standard \textit{ABCD} learning rule, and follows instead the Dittrich et al. [FIX CITATION] formulation as defined in Equation~\ref{eq:abcd_average}. Here the learning rule averages the pre- and post-synaptic activations over length $M$, where $M$ defines the number of previous activations used in averaging. $M$ is a fixed hyperparameter, the case of $M=1$ recovers the instantaneous $ABCD$ rule from Section~\ref{subsec:hebbian_plasticity}. These averaged activations are only used for the weight updates, not during the forward pass, and are formulated as such:
+
+\begin{equation}
+\bar{o}_i^{k}(t) = \frac{1}{M} \sum_{m=0}^{M-1} o_i^{k}(t - m),
+\qquad t \geq M.
+\label{eq:movavg}
+\end{equation}
+
+The synapse-wise update rule is therefore defined as follows:
+
+\begin{equation}
+\Delta w_{ij}^{k}(t) = \eta_{ij}^{k}\left(
+A_{ij}^{k}\, \bar{o}_i^{k-1}(t)\, \bar{o}_j^{k}(t)
++ B_{ij}^{k}\, \bar{o}_i^{k-1}(t)
++ C_{ij}^{k}\, \bar{o}_j^{k}(t)
++ D_{ij}^{k}\right),
+\label{eq:abcd_average}
+\end{equation}
+
+where $w_{ij}^{k}$ is the weight connecting pre-synaptic neuron $i$ in layer
+$k-1$ to post-synaptic neuron $j$ in layer $k$, and $\bar{o}_i^{k-1}$ and $\bar{o}_j^{k}$
+are the corresponding moving averages of activations. There is a correlation coefficient $A_{ij}^{k}$, pre-synaptic coefficient $B_{ij}^{k}$, post-synaptic coefficient $C_{ij}^{k}$, constant term
+$D_{ij}^{k}$ and learning rate $\eta_{ij}^{k}$. These five coefficients are the
+evolved parameters and remain fixed throughout an episode; the weights
+themselves are not evolved, but are re-initialised at the start of every
+rollout from $\mathcal{U}(-0.01, 0.01)$ and thereafter evolve only through
+repeated application of Equation~\ref{eq:abcd_average}. 
+
+A layer-wise max-normalisation is applied after each update:
+
+\begin{equation}
+w_{ij}^{k} \leftarrow \frac{w_{ij}^{k}}
+{\max_{i',j'} \left| w_{i'j'}^{k} \right|}.
+\label{eq:maxnorm}
+\end{equation}
+
+This rescales each layer so its largest-magnitude weight is exactly $ \pm1$, constraining the weights and preserving relative structure within the layer [CITE]. 
+
+Dittrich et al. [CITE] introduce a delayed weight-update parametrised by $\tau$; in this thesis the averaging window size is isolated, which corresponds to setting $\tau = 1$ in their framework, meaning the weight updates happen at every time-step. Each of the five coefficients is defined per-synapse, so $A^{k}$, $B^{k}$,
+$C^{k}$, $D^{k}$ and $\eta^{k}$ are each matrices of the same shape as the
+weight matrix $W^{k}$ they act on, that is $n_{k} \times n_{k+1}$ for a layer
+mapping $n_{k}$ inputs to $n_{k+1}$ outputs. There are therefore a total of
+$5 \sum_{k} n_{k} n_{k+1} = 22{,}720$ evolved parameters per individual.
+
+\subsubsection{LSTM}
+\label{subsec:lstm}
+
+\subsection{Evolutionary Training}
+\label{subsec:evolutionary_training}
+While Reinforcement Learning (RL) is the standard when optimising a 
+policy network for a locomotion task [CITE], applying it to Hebbian networks is not trivial. The weights of a
+Hebbian network are not free parameters but are produced by the repeated
+application of Equation~\ref{eq:abcd_average} over the course of an episode, so
+back-propagating an error to the evolved coefficients means differentiating
+through every update in the rollout. For a 500-step episode this unrolls into a
+computational graph 500 layers deep, whose intermediate activations must all be
+retained, and through which gradients are prone to vanishing or exploding in
+the same manner as in a very deep recurrent network. The layer-wise
+max-normalisation of Equation~\ref{eq:maxnorm} compounds this, as the maximum
+is not smoothly differentiable and couples every synapse in a layer through a
+single term. 
+
+The standard OpenAI Evolutionary Strategies (ES) algorithm, as described in Section~\ref{subsec:evolution_strategies}, was employed here instead, making LSTMs and Hebbian networks comparable under a uniform optimiser. The algorithm iterates 500 times, at each iteration initiating a population of 4096 policies, each with the evolved parameters and
+some added Gaussian noise. The policies carry out the locomotion task for 500
+time-steps and a reward metric is calculated for each policy based on the function defined in Section~\ref{subsec:reward}. Every condition was trained five times from independent random seeds, giving five Hebbian networks for each value of $M$ and five LSTMs.
+The hyper-parameters used in the algorithm are stated in Table~\ref{tab:es-params}.
+
+\begin{table}[h]
+\caption{Evolution strategy configuration. All conditions share these
+settings; only the network class and its plasticity hyperparameters differ.}
+\label{tab:es-params}
+\begin{center}
+\begin{tabular}{llr}
+\multicolumn{1}{c}{\bf GROUP} & \multicolumn{1}{c}{\bf PARAMETER}
+& \multicolumn{1}{c}{\bf VALUE} \\
+\hline \\
+Search        & Algorithm & OpenES \\
+              & Population size $\lambda$ & $4096$ \\
+              & Antithetic sampling & Yes \\
+              & Rank-based fitness shaping & No \\
+              & Weight decay & $0$ \\
+              & Gradient optimiser & Adam ($\beta_1 = 0.99$, $\beta_2 = 0.999$) \\
+[0.5em]
+Perturbation  & Initial $\sigma$ & $0.2$ \\
+              & $\sigma$ decay & $0.995$ \\
+              & $\sigma$ floor & $0.01$ \\
+[0.5em]
+Step size     & Initial learning rate & $0.1$ \\
+              & Learning-rate decay & $0.999$ \\
+              & Learning-rate floor & $0.001$ \\
+[0.5em]
+Budget        & Generations & $500$ \\
+              & Episode length & $500$ steps ($10\,\mathrm{s}$) \\
+              & Parallel environments & $4096$ \\
+              & Seeds per condition & $5$ \\
+              & Fitness & $100 \sum_t r_t / T$ \\
+[0.5em]
+\end{tabular}
+\end{center}
+\end{table}
+
+\subsection{Gait period measurement}
+\label{subsec:gait_period_measurement}
+
+The characterisation of walking gaits and analyses of the perturbations on different networks are all performed through the lens of gait period and frequency. For each trained network a series of analyses are performed to characterise its gait period because a single group-level period cannot be assumed. The gait period defines one full gait cycle, analogous to a human taking two steps forward, one step with the left foot and one with the right foot.
+
+Prior to calculating the dominant frequencies, the first 2 seconds of the signals are discarded. Signals undergo linear detrending to avoid capturing any trends in the data that may be mistaken for low frequencies in the signals, and they are Hann-windowed to ensure no discontinuities exist at their seams. 
+
+To measure the gait frequency, a Discrete Fourier Transform is performed on two signals: the body height tracked using the z-coordinate of the body of the robot, $z$, and the forward velocity ${v_x}$. The peak frequency for each signal is selected and a ratio is computed to validate signal choice:
+
+\begin{equation}
+\rho = \frac{f_z}{f_{v_x}}.
+\label{eq:gait-ratio}
+\end{equation}
+
+A lunge is characterised by a ratio of $\rho \approx 1$, as a coupled forward speed and body height frequency generally describe a robot lunging forward cyclically. Once this is established, the frequency of the gait becomes the frequency of the z-coordinate, $f_{\text{gait}} = f_z$, and the duration of a gait cycle is given by:
+
+\begin{equation}
+T_{\text{gait}} = {\frac{1}{f_{\text{gait}}}}.  
+\label{eq:gait-time}
+\end{equation}
+
+\subsection{Temporal averaging as filtering}
+\label{sec:temporak_filtering}
+
+The moving average used in the weight updates is a linear filter applied to the
+activations over time. This means $M$ determines which frequencies reach the
+Hebbian update and which are suppressed. As the activations of a walking
+network are dominated by the gait rhythm, the relationship between $M$ and
+$T_{\text{gait}}$ determines whether the update is driven periodically at all.
+
+Written as a convolution, the filter has impulse response
+\begin{equation}
+h[n] = \frac{1}{M}, \qquad n = 0, \dots, M-1,
+\label{eq:boxcar-impulse}
+\end{equation}
+and zero elsewhere. Summing the resulting geometric series gives the magnitude
+response
+\begin{equation}
+|H(f)| = \left| \frac{\sin(\pi f M \Delta t)}
+{M \sin(\pi f \Delta t)} \right|,
+\label{eq:boxcar-response}
+\end{equation}
+where $\Delta t = 0.02$ s is the control interval. Two properties of this
+response are relevant here. The first is that $|H(0)| = 1$, so a moving average
+never removes the mean of a signal regardless of the window length. The second
+is that the numerator vanishes whenever $f M \Delta t$ is a non-zero integer,
+giving exact zeros at
+\begin{equation}
+f_k = \frac{k}{M \Delta t}, \qquad k = 1, 2, \dots
+\label{eq:boxcar-nulls}
+\end{equation}
+The response is therefore a comb, with evenly spaced nulls whose spacing is set
+by the window length alone and a first null at $1/(M\Delta t)$.
+
+Any component of the activation signal sitting at a null is removed exactly and
+does not reach the weight update. What matters is where these nulls fall
+relative to $f_{\text{gait}}$, which is described by the dimensionless window
+\begin{equation}
+\hat{M} = \frac{M \Delta t}{T_{\text{gait}}},
+\label{eq:mhat}
+\end{equation}
+the length of the averaging window measured in gait cycles. A null coincides
+with the gait frequency when $\hat{M}$ is a positive integer, as a window
+spanning a whole number of gait cycles averages the periodic component to zero.
+A window much shorter than one cycle, $\hat{M} \ll 1$, passes the rhythm
+through largely unchanged.
+
+This gives a prediction that can be tested directly. Where
+$|H(f_{\text{gait}})|$ is close to zero the periodic drive is suppressed, the
+update is left to the non-periodic residual and the constant term
+$D_{ij}^{k}$, and the plastic weights are expected to settle. Where
+$|H(f_{\text{gait}})|$ is close to one the rhythm passes into the update and
+the weights are expected to oscillate along with the body. The correlation term
+of Equation~\ref{eq:abcd_average} uses the product of two averaged activations,
+$\bar{o}_i \bar{o}_j$, rather than the average of their product, so both
+factors are attenuated and the term is suppressed by
+$|H(f_{\text{gait}})|^2$. Had the rule averaged the product instead, its
+constant component would have passed unattenuated for any $M$, as
+$|H(0)| = 1$.
+
+One qualification is needed. Equation~\ref{eq:mhat} depends on
+$T_{\text{gait}}$, which is a property of the evolved gait rather than of the
+architecture, and which differs considerably between networks trained under
+identical settings. No single value of $M$ is on-null for every network in its
+group. $M$ was set as an experimental condition, but $|H(f_{\text{gait}})|$ was
+measured for each network after training. Comparisons between $M$ groups are
+therefore controlled, while the relationship between $|H(f_{\text{gait}})|$ and
+the observed weight dynamics is correlational and is treated as such.
+
+\subsection{Perturbation Protocol}
+\label{subsec:perturbation_protocol}
+
+The methods described in this sub-section are what provide evidence of within-lifetime adaptation of the different networks. Two main forms of perturbation were employed, both on successfully evolved networks: a freezing of updates during the forward pass, and a locking of different leg joints. These perturbations were applied on their own and combined, and the impact is assessed by measuring how much forward speed the networks retained after the ablations. The LSTM was used only as a comparison for the Hebbian networks' ability to deal with morphological damage. No cell-state or hidden-state freezing was applied, for freezing the LSTMs ability for recurrence is not a clear analogue of freezing weight updates.
+
+The update freeze applied to the Hebbian networks stops the Hebbian updates, meaning weights are frozen at a set time-step and do not change for the rest of the run. This demonstrates to what degree a network's ability to walk depended on its plasticity. A network whose gait collapses under frozen updates relied entirely on its plasticity to walk as opposed to having settled on a set of weights that generated the walk. 
+
+The joint lock ablation is performed on one of four joints: rear-left hip, front-right hip, rear-right calf, front-left calf. The lock is compliant rather than kinematic: the joint is not pinned, but held by overriding the efforts computed by the Go1's learned actuator model with a stiff position-derivative term. The hold target is the angle the joint occupies at the instant the lock engages, so the damage is a loss of actuation from wherever the gait happened to be, rather than a displacement to some canonical pose. 
+
+The timing of this lock is crucial as the same joint damage at two different points in a network's gait cycle can have significantly different impact. If a joint is locked mid-lunge as opposed to at a more stable point in the network's gait, the impact will be significantly more destructive and harder to adapt to. To understand this impact, the lock occurs at timestep $t_0 = 500$ and is performed $N = 5$ times for each network, at
+
+\begin{equation}
+t_k = t_0 + \left\lfloor \frac{k\,T_{\text{gait}}}{N \Delta t} \right\rceil,
+\qquad k = 0, \dots, N-1,
+\label{eq:ablation-strata}
+\end{equation}
+
+where $t_k$ are the network-specific timesteps at which each lock occurs, $T_{\text{gait}}$ is that network's own measured gait period, $\Delta t = 0.02$ s is the control interval, and $\lfloor \cdot \rceil$ denotes rounding to the nearest step. Dividing by $\Delta t$ converts the period from seconds into control steps, so the $N$ locks are spaced evenly across one full cycle of that network's own gait. The spacing is $T_{\text{gait}}/N$ rather than $T_{\text{gait}}/(N-1)$ because the latter would place the final lock a whole period after the first, repeating the same phase and leaving one point of the cycle unsampled. 
+
+Approaching it in this structured manner allows for fairer comparisons across networks, an understanding of the degree to which the networks can adapt, and when in the gait cycle this adaptation is most effective. The combination of freezing the network updates and causing morphological damage is necessary for assessing whether networks demonstrate online adaptation. A policy that is able to maintain its gait under both conditions demonstrates robustness as opposed to ability to adapt, for its adaptation mechanism has been frozen. To confidently characterise a network as possessing some degree of online adaptation, all three perturbations must be carried out, and interpreted together.
+
+The freeze step was not stratified across the gait cycle and was instead applied at a fixed point mid-rollout. The phase at which a freeze is applied can only matter to the extent that the weights differ across the gait cycle, and that variation is itself governed by $M$: at large $M$ the weight trajectory converges to a point, so the weights at one phase are close to the weights at every other, while at small $M$ the trajectory does not settle and no phase yields a weight matrix that supports walking. The freeze is in this respect unlike the joint lock, whose effect depends on the mechanical configuration of the body at the instant it engages and therefore varies across the cycle for every network.
+
+\subsection{Analytical methods}
+
+
+\section{Results}
+
+- Task results - speeds achieved, what percentage of networks, number of runs etc. 
+- PCA results, impact of averaging window size.
+- Frequency results, as well as H(f)
+- Ablation study, freeze-only, lock-only and freeze-and lock. 
+- PCA with freeze/ablation? 
+- Relationship between M size, gait frequency and task success/adaptability
+
+\section{Discussion}
+
+
+\section{Conclusion}
+
+
+\bibliography{iclr2027_conference}
+\bibliographystyle{iclr2027_conference}
+
+\appendix
+\section{Appendix}
+You may include other additional sections here.
+
+
+\end{document}
