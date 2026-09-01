@@ -32,14 +32,17 @@ Edit the CONFIG block, then:
 # Directory of *_data.npz files written by pca.py. Every file in it is
 # analysed; the label is the filename with "_data" stripped. Groups come from
 # manifest.json in the same directory when present, else from the label.
-NPZ_DIR = ("/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/"
-           "isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/"
-           "PCA_08:13-18:58_mu/npz")
+NPZ_DIR = ("/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:27-14:42_mu/npz")
+
+from datetime import datetime
+current_time = datetime.now().strftime("%m:%d-%H:%M")
+
+TAG = f"{current_time}_gait_frequency"
 
 OUTDIR = ("/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/"
-          "isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/spectrum")
+          f"isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/spectrum/{TAG}")
 
-TAG = "gait_frequency"
+TAG = 'gait_frequency'
 
 DT = 0.02            # control step, s (decimation 4 x sim.dt 0.005)
 SKIP_STEPS = 100     # drop the startup transient before transforming

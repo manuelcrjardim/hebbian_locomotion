@@ -4,6 +4,7 @@ import torch
 import numpy as np
 import pickle
 import copy
+import random
 import cv2
 import matplotlib.pyplot as plt
 
@@ -28,6 +29,20 @@ from hebbian_locomotion.networks.ES_classes import OpenES
 
 
 current_time = datetime.now().strftime("%m:%d-%H:%M")
+
+# --- Seeding -----------------------------------------------------------
+# Draws a fresh seed from OS entropy on every launch. Set RUN_SEED only
+# when you deliberately want to re-run a specific configuration.
+_env_seed = os.environ.get("RUN_SEED")
+SEED = int(_env_seed) if _env_seed is not None else random.SystemRandom().randint(0, 2**31 - 1)
+
+random.seed(SEED)
+torch.manual_seed(SEED)          # LSTMNet init + reset_weights()
+torch.cuda.manual_seed_all(SEED)
+np.random.seed(SEED)             # OpenES.ask() -> np.random.randn
+
+print(f"[INFO] Seed: {SEED} ({'explicit' if _env_seed else 'auto'})")
+# -----------------------------------------------------------------------
 
 
 # ======================================================================
@@ -73,7 +88,7 @@ def build_run_cfg(env_cfg, models, solver, *,
                   episode_length_train, initial_episode_length,
                   fall_z_threshold, growth_factor,
                   action_filter_alpha, reward_scaling,
-                  obs_dim, action_dim, timestamp, seed=None):
+                  obs_dim, action_dim, timestamp, seed=SEED):
     """Assemble a plain, JSON-serialisable record of everything that shaped a run:
     reward terms (off the live env cfg), ES hyperparameters (off the solver),
     network architecture / plasticity params (off the model), and the hand-set
@@ -167,8 +182,13 @@ def main():
     # ES parameters (paper: sigma_init=0.1, decay=0.999, lr=0.1, lr_decay=0.999)
     LEARNING_RATE = 0.1
     LEARNING_RATE_DECAY = 0.999
+    LEARNING_RATE_LIMIT = 0.001
     SIGMA_INIT = 0.2
     SIGMA_DECAY = 0.995
+    SIGMA_LIMIT = 0.01
+    RANK_FITNESS = False
+    ANTITHETIC = True
+    WEIGHT_DECAY = 0.0
 
     # Size HIDDEN so the LSTM's evolved-param count matches the plain HebbianNet
     # ([33,64,32,12] -> ~22,720 evolved params). For the 3-stack SeqLSTMs at
@@ -178,6 +198,7 @@ def main():
 
     print("[INFO] Initializing Environment...")
     env_cfg = Go1EnvCfg()
+    env_cfg.seed = SEED
     env_cfg.scene.num_envs = POPSIZE
     env = ManagerBasedRLEnv(cfg=env_cfg)
 
@@ -185,7 +206,7 @@ def main():
     obs_dim = env.observation_manager.group_obs_dim["policy"][0]
     action_dim = 12
 
-    run_name = f"{current_time}_{ROBOT}_{REWARD}_{MODEL}"
+    run_name = f"{current_time}_{ROBOT}_{REWARD}_{MODEL}_{SEED}"
 
     base_dir = "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/tensorboard"
     custom_log_dir = os.path.join(base_dir, run_name)
@@ -209,12 +230,15 @@ def main():
     solver = OpenES(
         n_params,
         popsize=POPSIZE,
-        rank_fitness=True,
-        antithetic=True,
+        rank_fitness=RANK_FITNESS,
+        antithetic=ANTITHETIC,
         learning_rate=LEARNING_RATE,
         learning_rate_decay=LEARNING_RATE_DECAY,
+        learning_rate_limit=LEARNING_RATE_LIMIT,
         sigma_init=SIGMA_INIT,
-        sigma_decay=SIGMA_DECAY
+        sigma_decay=SIGMA_DECAY,
+        sigma_limit=SIGMA_LIMIT,
+        weight_decay=WEIGHT_DECAY
     )
     solver.set_mu(models.get_a_model_params())
 
@@ -232,7 +256,7 @@ def main():
         reward_scaling="total / current_length * 100",
         obs_dim=obs_dim, action_dim=action_dim,
         timestamp=current_time,
-        seed=None,                                     # wire in a SEED constant if you seed
+        seed=SEED,
     )
 
     # Readable sidecar you can `cat` on the cluster without unpickling / Isaac.
@@ -370,23 +394,6 @@ def main():
         new_length = min(EPISODE_LENGTH_TRAIN, int(last_fall * GROWTH_FACTOR))
         current_length = max(current_length, new_length)
 
-        # FIX 3: Correct Matplotlib plotting logic
-        if epoch % 25 == 0:
-            plt.figure(figsize=(8, 6))
-            # Ensure tensor is moved to CPU and converted to numpy for plotting
-            plt.plot(tracked_step_rewards.cpu().numpy(), label="Agent 0 Reward")
-            plt.title(f"Step Rewards - Epoch {epoch}")
-            plt.xlabel("Simulation Step")
-            plt.ylabel("Reward")
-            plt.legend()
-            # plt.axis("equal") <- REMOVED: This forces X and Y axes to share the same scale, 
-            # which ruins line graphs where X is 500 steps and Y is small reward numbers.
-            plt.grid(True)
-            plt.tight_layout()
-            plt.savefig(PLOT_OUTPUT, dpi=150)
-            plt.close() # <-- ADDED: Crucial to prevent a memory leak by closing the figure!
-            print(f"Saved plot to {PLOT_OUTPUT}")
-
 
         # G. Tell: pass fitness back to the ES optimizer
         total_rewards_cpu = total_rewards.cpu().numpy()
@@ -413,10 +420,6 @@ def main():
         # internals). get_states() returns (h, c), each (popsize, 3*hidden), as
         # left at the end of the rollout — watch these for blow-up / saturation.
         h_state, c_state = models.get_states()
-        # Evolved (fixed-within-rollout) weights, flattened across the 3 blocks.
-        evolved_w = torch.cat(
-            [t.flatten() for blk in models.get_weights() for t in blk.values()]
-        ).cpu().numpy()
 
         # ES Optimizer Health[cite: 5]
         reward_std = fit_arr.std()
@@ -430,7 +433,6 @@ def main():
         writer.add_scalar("Internals/Max_Abs_Hidden_State",  h_state.abs().max().item(),  epoch)
         writer.add_scalar("Internals/Max_Abs_Cell_State",    c_state.abs().max().item(),  epoch)
         writer.add_scalar("Internals/Mean_Abs_Hidden_State", h_state.abs().mean().item(), epoch)
-        writer.add_histogram("Internals/Evolved_Weights", evolved_w, epoch)
         
         writer.add_scalar("Rewards/Reward_Std_Dev", reward_std, epoch)
         writer.add_scalar("Rewards/Mu_Step_Size", step_size, epoch)
@@ -469,7 +471,7 @@ def main():
 
         print(f"Epoch {epoch:03d} | Mean: {mean_reward:>8.2f} | Best: {best_reward:>8.2f} | Sigma: {solver.sigma:.4f} | LR: {solver.learning_rate:.6f}")
 
-        if (epoch + 1) % SAVE_EVERY == 0:
+        if (epoch + 1) % SAVE_EVERY == 0 and avg_velocity > 0.55:
             save_path = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/{run_name}_{epoch}.pickle"
             print(f"  -> Saving checkpoint to {save_path}")
             with open(save_path, 'wb') as f:

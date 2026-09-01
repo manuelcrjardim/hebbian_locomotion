@@ -1,0 +1,30 @@
+{
+  "tag": "08:19-20:06_mu",
+  "group": "M=160",
+  "label": "2126766829",
+  "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:14-14:37_GO1_FINAL_HAN_M_160_2126766829_benchmark.pickle",
+  "M": 160,
+  "M_source": "run_cfg",
+  "tau_hebb": 1,
+  "architecture": [
+    33,
+    64,
+    32,
+    12
+  ],
+  "param_source": "mu",
+  "steps": 1000,
+  "freeze_step": 0,
+  "rho": 0.9,
+  "convergence_ratio": NaN,
+  "dW_early_mean": 0.0,
+  "dW_late_mean": 0.0,
+  "converged_fixed_point": false,
+  "explained_variance_pc1": 1.0,
+  "explained_variance_pc2": 1.0019345160222612e-25,
+  "mean_reward": 0.003993392960866913,
+  "total_reward": 3.993392960866913,
+  "mean_vx": -0.005086386662595032,
+  "z_range": 0.34173158556222916,
+  "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:19-20:06_mu/npz/M=160_2126766829_data.npz"
+}

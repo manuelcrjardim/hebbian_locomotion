@@ -7,18 +7,142 @@
   "acf_min": 0.3,
   "acf_tol": 0.2,
   "group_median_T_gait_steps": {
-    "M=1": 47.368421052631575,
-    "M=10": 46.18421052631578,
+    "M=1": 42.85714285714286,
+    "M=10": 30.000000000000004,
     "M=160": 36.0,
     "M=20": 50.154798761609904
   },
-  "global_median_T_gait_steps": 47.368421052631575,
-  "n_substituted": 0,
+  "global_median_T_gait_steps": 37.5,
+  "n_substituted": 1,
   "networks": [
     {
       "group": "M=1",
-      "label": "M1_s1396289849",
-      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:13-18:58_mu/npz/M1_s1396289849_data.npz",
+      "label": "1295751242",
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:27-14:42_mu/npz/M=1_1295751242_data.npz",
+      "n_analysed": 900,
+      "duration_s": 18.0,
+      "freq_resolution_hz": 0.05555555555555555,
+      "weight_signal": "W_traj",
+      "f_peak_z_hz": 1.1666666666666665,
+      "f_peak_vx_hz": 1.1666666666666665,
+      "f_peak_weights_hz": 1.1666666666666665,
+      "prom_z": 0.9901666366253186,
+      "acf_peak_z": 0.9435509841162693,
+      "T_gait_steps_acf": 44.0,
+      "prom_vx": 0.9952010471335144,
+      "prom_weights": 0.9837311618272151,
+      "f_gait_hz": 1.1666666666666665,
+      "T_gait_s": 0.8571428571428572,
+      "T_gait_steps": 42.85714285714286,
+      "peak_ok": true,
+      "harmonic_flag": null,
+      "period_flag": null,
+      "harmonics_z": [
+        {
+          "harmonic": 1,
+          "freq_hz": 1.1666666666666665,
+          "amplitude": 0.03512598396318229
+        },
+        {
+          "harmonic": 2,
+          "freq_hz": 2.333333333333333,
+          "amplitude": 0.006461820139454214
+        },
+        {
+          "harmonic": 3,
+          "freq_hz": 3.5,
+          "amplitude": 0.0018185990342598918
+        }
+      ],
+      "harmonics_weights": [
+        {
+          "harmonic": 1,
+          "freq_hz": 1.1666666666666665,
+          "amplitude": 0.04033549881684238
+        },
+        {
+          "harmonic": 2,
+          "freq_hz": 2.333333333333333,
+          "amplitude": 0.016366702730723288
+        },
+        {
+          "harmonic": 3,
+          "freq_hz": 3.5,
+          "amplitude": 0.006249847151710626
+        }
+      ],
+      "codynamic_rel_err": 0.0,
+      "T_gait_steps_used": 42.85714285714286,
+      "t_gait_source": "measured",
+      "ablation": {
+        "t_ablate_base": 500,
+        "n_ablations": 5,
+        "offsets_steps": [
+          0,
+          9,
+          17,
+          26,
+          34
+        ],
+        "steps": [
+          500,
+          509,
+          517,
+          526,
+          534
+        ],
+        "phases_deg": [
+          0.0,
+          75.6,
+          142.8,
+          218.4,
+          285.6
+        ],
+        "spacing_steps": 8.571428571428573
+      },
+      "candidate_windows": [
+        {
+          "M": 1,
+          "window_s": 0.02,
+          "M_hat": 0.02333333333333333,
+          "gain_at_f_gait": 1.0
+        },
+        {
+          "M": 10,
+          "window_s": 0.2,
+          "M_hat": 0.2333333333333333,
+          "gain_at_f_gait": 0.9136360978312574
+        },
+        {
+          "M": 20,
+          "window_s": 0.4,
+          "M_hat": 0.4666666666666666,
+          "gain_at_f_gait": 0.6789639384726573
+        },
+        {
+          "M": 50,
+          "window_s": 1.0,
+          "M_hat": 1.1666666666666665,
+          "gain_at_f_gait": 0.13654077233186213
+        },
+        {
+          "M": 110,
+          "window_s": 2.2,
+          "M_hat": 2.5666666666666664,
+          "gain_at_f_gait": 0.12141548078068347
+        },
+        {
+          "M": 160,
+          "window_s": 3.2,
+          "M_hat": 3.733333333333333,
+          "gain_at_f_gait": 0.06341848026569406
+        }
+      ]
+    },
+    {
+      "group": "M=1",
+      "label": "1396289849",
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:27-14:42_mu/npz/M=1_1396289849_data.npz",
       "n_analysed": 900,
       "duration_s": 18.0,
       "freq_resolution_hz": 0.05555555555555555,
@@ -26,11 +150,11 @@
       "f_peak_z_hz": 0.8888888888888888,
       "f_peak_vx_hz": 0.8888888888888888,
       "f_peak_weights_hz": 0.8888888888888888,
-      "prom_z": 0.9967050568049906,
-      "acf_peak_z": 0.9350673645054918,
+      "prom_z": 0.9955613871481397,
+      "acf_peak_z": 0.9353864669822349,
       "T_gait_steps_acf": 55.0,
-      "prom_vx": 0.9972349484267891,
-      "prom_weights": 0.9820051264776412,
+      "prom_vx": 0.9970477204007295,
+      "prom_weights": 0.9829568960327862,
       "f_gait_hz": 0.8888888888888888,
       "T_gait_s": 1.125,
       "T_gait_steps": 56.25,
@@ -41,34 +165,34 @@
         {
           "harmonic": 1,
           "freq_hz": 0.8888888888888888,
-          "amplitude": 0.057035024539081075
+          "amplitude": 0.06052972929890411
         },
         {
           "harmonic": 2,
           "freq_hz": 1.7777777777777777,
-          "amplitude": 0.006668251096023601
+          "amplitude": 0.009527596987890989
         },
         {
           "harmonic": 3,
           "freq_hz": 2.6666666666666665,
-          "amplitude": 0.0015227676991526387
+          "amplitude": 0.00226490478401828
         }
       ],
       "harmonics_weights": [
         {
           "harmonic": 1,
           "freq_hz": 0.8888888888888888,
-          "amplitude": 0.0378923452083575
+          "amplitude": 0.04031492170732054
         },
         {
           "harmonic": 2,
           "freq_hz": 1.7777777777777777,
-          "amplitude": 0.015897131107020738
+          "amplitude": 0.02016618914178939
         },
         {
           "harmonic": 3,
           "freq_hz": 2.6666666666666665,
-          "amplitude": 0.006003539691704999
+          "amplitude": 0.00990037400178665
         }
       ],
       "codynamic_rel_err": 0.0,
@@ -141,132 +265,256 @@
     },
     {
       "group": "M=1",
-      "label": "M1_s1534702257",
-      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:13-18:58_mu/npz/M1_s1534702257_data.npz",
+      "label": "2113178504",
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:27-14:42_mu/npz/M=1_2113178504_data.npz",
       "n_analysed": 900,
       "duration_s": 18.0,
       "freq_resolution_hz": 0.05555555555555555,
       "weight_signal": "W_traj",
-      "f_peak_z_hz": 1.0555555555555556,
-      "f_peak_vx_hz": 1.0555555555555556,
-      "f_peak_weights_hz": 1.0555555555555556,
-      "prom_z": 0.9953094915402533,
-      "acf_peak_z": 0.912749054327471,
-      "T_gait_steps_acf": 48.0,
-      "prom_vx": 0.9985093075650245,
-      "prom_weights": 0.98444189863304,
-      "f_gait_hz": 1.0555555555555556,
-      "T_gait_s": 0.9473684210526315,
-      "T_gait_steps": 47.368421052631575,
+      "f_peak_z_hz": 1.5,
+      "f_peak_vx_hz": 0.7222222222222222,
+      "f_peak_weights_hz": 0.7222222222222222,
+      "prom_z": 0.9894423158401274,
+      "acf_peak_z": 0.913243019882666,
+      "T_gait_steps_acf": 68.0,
+      "prom_vx": 0.995414611476728,
+      "prom_weights": 0.9838688190684808,
+      "f_gait_hz": 1.5,
+      "T_gait_s": 0.6666666666666666,
+      "T_gait_steps": 33.33333333333333,
       "peak_ok": true,
-      "harmonic_flag": null,
-      "period_flag": null,
+      "harmonic_flag": "f_z ~ 2*f_vx (z may track half-strides)",
+      "period_flag": "FFT/ACF period disagree: FFT 33.3 vs ACF 68.0 steps (ratio 2.04)",
       "harmonics_z": [
         {
           "harmonic": 1,
-          "freq_hz": 1.0555555555555556,
-          "amplitude": 0.04771519793874734
+          "freq_hz": 1.5,
+          "amplitude": 0.029445914968611167
         },
         {
           "harmonic": 2,
-          "freq_hz": 2.111111111111111,
-          "amplitude": 0.005730117039096125
+          "freq_hz": 3.0,
+          "amplitude": 0.0007592529426050192
         },
         {
           "harmonic": 3,
-          "freq_hz": 3.1666666666666665,
-          "amplitude": 0.0011737504565305398
+          "freq_hz": 4.5,
+          "amplitude": 0.0005245279828049411
         }
       ],
       "harmonics_weights": [
         {
           "harmonic": 1,
-          "freq_hz": 1.0555555555555556,
-          "amplitude": 0.04037144362005095
+          "freq_hz": 1.5,
+          "amplitude": 0.023137119170734688
         },
         {
           "harmonic": 2,
-          "freq_hz": 2.111111111111111,
-          "amplitude": 0.016821719670896153
+          "freq_hz": 3.0,
+          "amplitude": 0.009174997423633403
         },
         {
           "harmonic": 3,
-          "freq_hz": 3.1666666666666665,
-          "amplitude": 0.0051161775510442375
+          "freq_hz": 4.5,
+          "amplitude": 0.003638752385258061
         }
       ],
-      "codynamic_rel_err": 0.0,
-      "T_gait_steps_used": 47.368421052631575,
+      "codynamic_rel_err": 0.5185185185185185,
+      "T_gait_steps_used": 33.33333333333333,
       "t_gait_source": "measured",
       "ablation": {
         "t_ablate_base": 500,
         "n_ablations": 5,
         "offsets_steps": [
           0,
-          9,
-          19,
-          28,
-          38
+          7,
+          13,
+          20,
+          27
         ],
         "steps": [
           500,
-          509,
-          519,
-          528,
-          538
+          507,
+          513,
+          520,
+          527
         ],
         "phases_deg": [
           0.0,
-          68.4,
-          144.4,
-          212.8,
-          288.8
+          75.6,
+          140.4,
+          216.0,
+          291.6
         ],
-        "spacing_steps": 9.473684210526315
+        "spacing_steps": 6.666666666666666
       },
       "candidate_windows": [
         {
           "M": 1,
           "window_s": 0.02,
-          "M_hat": 0.021111111111111112,
+          "M_hat": 0.030000000000000006,
           "gain_at_f_gait": 1.0
         },
         {
           "M": 10,
           "window_s": 0.2,
-          "M_hat": 0.21111111111111114,
-          "gain_at_f_gait": 0.9289652059254038
+          "M_hat": 0.30000000000000004,
+          "gain_at_f_gait": 0.8596658104335466
         },
         {
           "M": 20,
           "window_s": 0.4,
-          "M_hat": 0.4222222222222223,
-          "gain_at_f_gait": 0.732034571995701
+          "M_hat": 0.6000000000000001,
+          "gain_at_f_gait": 0.5052988852728956
         },
         {
           "M": 50,
           "window_s": 1.0,
-          "M_hat": 1.0555555555555556,
-          "gain_at_f_gait": 0.05240318635808858
+          "M_hat": 1.5000000000000002,
+          "gain_at_f_gait": 0.21252107592566227
         },
         {
           "M": 110,
           "window_s": 2.2,
-          "M_hat": 2.3222222222222224,
-          "gain_at_f_gait": 0.11632826950496761
+          "M_hat": 3.3000000000000003,
+          "gain_at_f_gait": 0.07815143731214058
         },
         {
           "M": 160,
           "window_s": 3.2,
-          "M_hat": 3.377777777777778,
-          "gain_at_f_gait": 0.08743863053278833
+          "M_hat": 4.800000000000001,
+          "gain_at_f_gait": 0.039036485697010424
         }
       ]
     },
     {
       "group": "M=1",
-      "label": "M1_s860896728",
-      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:13-18:58_mu/npz/M1_s860896728_data.npz",
+      "label": "489225843",
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:27-14:42_mu/npz/M=1_489225843_data.npz",
+      "n_analysed": 900,
+      "duration_s": 18.0,
+      "freq_resolution_hz": 0.05555555555555555,
+      "weight_signal": "W_traj",
+      "f_peak_z_hz": 0.9444444444444444,
+      "f_peak_vx_hz": 0.9444444444444444,
+      "f_peak_weights_hz": 0.9444444444444444,
+      "prom_z": 0.9931706840440162,
+      "acf_peak_z": 0.9347408406041258,
+      "T_gait_steps_acf": 54.0,
+      "prom_vx": 0.9998723683899783,
+      "prom_weights": 0.9805691463545809,
+      "f_gait_hz": 0.9444444444444444,
+      "T_gait_s": 1.0588235294117647,
+      "T_gait_steps": 52.94117647058823,
+      "peak_ok": true,
+      "harmonic_flag": null,
+      "period_flag": null,
+      "harmonics_z": [
+        {
+          "harmonic": 1,
+          "freq_hz": 0.9444444444444444,
+          "amplitude": 0.058966215499573406
+        },
+        {
+          "harmonic": 2,
+          "freq_hz": 1.8888888888888888,
+          "amplitude": 0.01759786546626076
+        },
+        {
+          "harmonic": 3,
+          "freq_hz": 2.833333333333333,
+          "amplitude": 0.004750972721320709
+        }
+      ],
+      "harmonics_weights": [
+        {
+          "harmonic": 1,
+          "freq_hz": 0.9444444444444444,
+          "amplitude": 0.046040690026154615
+        },
+        {
+          "harmonic": 2,
+          "freq_hz": 1.8888888888888888,
+          "amplitude": 0.026598369235186253
+        },
+        {
+          "harmonic": 3,
+          "freq_hz": 2.833333333333333,
+          "amplitude": 0.015648598563541533
+        }
+      ],
+      "codynamic_rel_err": 0.0,
+      "T_gait_steps_used": 52.94117647058823,
+      "t_gait_source": "measured",
+      "ablation": {
+        "t_ablate_base": 500,
+        "n_ablations": 5,
+        "offsets_steps": [
+          0,
+          11,
+          21,
+          32,
+          42
+        ],
+        "steps": [
+          500,
+          511,
+          521,
+          532,
+          542
+        ],
+        "phases_deg": [
+          0.0,
+          74.8,
+          142.8,
+          217.6,
+          285.6
+        ],
+        "spacing_steps": 10.588235294117647
+      },
+      "candidate_windows": [
+        {
+          "M": 1,
+          "window_s": 0.02,
+          "M_hat": 0.01888888888888889,
+          "gain_at_f_gait": 1.0
+        },
+        {
+          "M": 10,
+          "window_s": 0.2,
+          "M_hat": 0.1888888888888889,
+          "gain_at_f_gait": 0.9428883773419624
+        },
+        {
+          "M": 20,
+          "window_s": 0.4,
+          "M_hat": 0.3777777777777778,
+          "gain_at_f_gait": 0.7816898915419427
+        },
+        {
+          "M": 50,
+          "window_s": 1.0,
+          "M_hat": 0.9444444444444445,
+          "gain_at_f_gait": 0.05855970183188362
+        },
+        {
+          "M": 110,
+          "window_s": 2.2,
+          "M_hat": 2.077777777777778,
+          "gain_at_f_gait": 0.03708353465888537
+        },
+        {
+          "M": 160,
+          "window_s": 3.2,
+          "M_hat": 3.0222222222222226,
+          "gain_at_f_gait": 0.007351283422217017
+        }
+      ]
+    },
+    {
+      "group": "M=1",
+      "label": "860896728",
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:27-14:42_mu/npz/M=1_860896728_data.npz",
       "n_analysed": 900,
       "duration_s": 18.0,
       "freq_resolution_hz": 0.05555555555555555,
@@ -274,11 +522,11 @@
       "f_peak_z_hz": 1.3333333333333333,
       "f_peak_vx_hz": 1.3333333333333333,
       "f_peak_weights_hz": 1.3333333333333333,
-      "prom_z": 0.9983683747332069,
-      "acf_peak_z": 0.9580137611880665,
+      "prom_z": 0.9988767873246241,
+      "acf_peak_z": 0.9575491340360773,
       "T_gait_steps_acf": 37.0,
-      "prom_vx": 0.998334162957506,
-      "prom_weights": 0.9954593813938195,
+      "prom_vx": 0.9987980318068662,
+      "prom_weights": 0.9932578189203386,
       "f_gait_hz": 1.3333333333333333,
       "T_gait_s": 0.75,
       "T_gait_steps": 37.5,
@@ -289,34 +537,34 @@
         {
           "harmonic": 1,
           "freq_hz": 1.3333333333333333,
-          "amplitude": 0.04714649793373211
+          "amplitude": 0.046994771811743954
         },
         {
           "harmonic": 2,
           "freq_hz": 2.6666666666666665,
-          "amplitude": 0.009577095310883832
+          "amplitude": 0.009542816498009265
         },
         {
           "harmonic": 3,
           "freq_hz": 4.0,
-          "amplitude": 0.0027805533481034964
+          "amplitude": 0.002698027753708947
         }
       ],
       "harmonics_weights": [
         {
           "harmonic": 1,
           "freq_hz": 1.3333333333333333,
-          "amplitude": 0.05232372742477261
+          "amplitude": 0.052179257426704054
         },
         {
           "harmonic": 2,
           "freq_hz": 2.6666666666666665,
-          "amplitude": 0.02074925081715379
+          "amplitude": 0.02059610741734395
         },
         {
           "harmonic": 3,
           "freq_hz": 4.0,
-          "amplitude": 0.011774332722260075
+          "amplitude": 0.01155294624089128
         }
       ],
       "codynamic_rel_err": 0.0,
@@ -389,380 +637,380 @@
     },
     {
       "group": "M=10",
-      "label": "M10_68914096",
-      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:13-18:58_mu/npz/M10_68914096_data.npz",
+      "label": "1146876823",
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:27-14:42_mu/npz/M=10_1146876823_data.npz",
       "n_analysed": 900,
       "duration_s": 18.0,
       "freq_resolution_hz": 0.05555555555555555,
       "weight_signal": "W_traj",
-      "f_peak_z_hz": 0.7222222222222222,
-      "f_peak_vx_hz": 0.7222222222222222,
-      "f_peak_weights_hz": 0.7222222222222222,
-      "prom_z": 0.9964183625061936,
-      "acf_peak_z": 0.9189242022089018,
-      "T_gait_steps_acf": 69.0,
-      "prom_vx": 0.9988226404815083,
-      "prom_weights": 0.9941126922304404,
-      "f_gait_hz": 0.7222222222222222,
-      "T_gait_s": 1.3846153846153846,
-      "T_gait_steps": 69.23076923076923,
+      "f_peak_z_hz": 1.722222222222222,
+      "f_peak_vx_hz": 0.8333333333333333,
+      "f_peak_weights_hz": 0.8333333333333333,
+      "prom_z": 0.9978064226941293,
+      "acf_peak_z": 0.9280365503865927,
+      "T_gait_steps_acf": 59.0,
+      "prom_vx": 0.9979115250002666,
+      "prom_weights": 0.988919747471793,
+      "f_gait_hz": 1.722222222222222,
+      "T_gait_s": 0.5806451612903226,
+      "T_gait_steps": 29.03225806451613,
       "peak_ok": true,
-      "harmonic_flag": null,
-      "period_flag": null,
+      "harmonic_flag": "f_z ~ 2*f_vx (z may track half-strides)",
+      "period_flag": "FFT/ACF period disagree: FFT 29.0 vs ACF 59.0 steps (ratio 2.03)",
       "harmonics_z": [
         {
           "harmonic": 1,
-          "freq_hz": 0.7222222222222222,
-          "amplitude": 0.023709586383493887
+          "freq_hz": 1.722222222222222,
+          "amplitude": 0.025881442396304643
         },
         {
           "harmonic": 2,
-          "freq_hz": 1.4444444444444444,
-          "amplitude": 0.012178149407770757
+          "freq_hz": 3.444444444444444,
+          "amplitude": 0.0008480586291512815
         },
         {
           "harmonic": 3,
-          "freq_hz": 2.1666666666666665,
-          "amplitude": 0.007139955969226148
+          "freq_hz": 5.166666666666666,
+          "amplitude": 0.00034355054327341045
         }
       ],
       "harmonics_weights": [
         {
           "harmonic": 1,
-          "freq_hz": 0.7222222222222222,
-          "amplitude": 0.057872371071677975
+          "freq_hz": 1.722222222222222,
+          "amplitude": 0.035196551819581166
         },
         {
           "harmonic": 2,
-          "freq_hz": 1.4444444444444444,
-          "amplitude": 0.0344716379947222
+          "freq_hz": 3.444444444444444,
+          "amplitude": 0.009063806587590413
         },
         {
           "harmonic": 3,
-          "freq_hz": 2.1666666666666665,
-          "amplitude": 0.011306060455533277
+          "freq_hz": 5.166666666666666,
+          "amplitude": 0.001490366843718712
         }
       ],
-      "codynamic_rel_err": 0.0,
-      "T_gait_steps_used": 69.23076923076923,
+      "codynamic_rel_err": 0.5161290322580645,
+      "T_gait_steps_used": 29.03225806451613,
       "t_gait_source": "measured",
       "ablation": {
         "t_ablate_base": 500,
         "n_ablations": 5,
         "offsets_steps": [
           0,
-          14,
-          28,
-          42,
-          55
+          6,
+          12,
+          17,
+          23
         ],
         "steps": [
           500,
-          514,
-          528,
-          542,
-          555
+          506,
+          512,
+          517,
+          523
         ],
         "phases_deg": [
           0.0,
-          72.8,
-          145.6,
-          218.4,
-          286.0
+          74.4,
+          148.8,
+          210.8,
+          285.2
         ],
-        "spacing_steps": 13.846153846153845
+        "spacing_steps": 5.806451612903226
       },
       "candidate_windows": [
         {
           "M": 1,
           "window_s": 0.02,
-          "M_hat": 0.014444444444444446,
+          "M_hat": 0.034444444444444444,
           "gain_at_f_gait": 1.0
         },
         {
           "M": 10,
           "window_s": 0.2,
-          "M_hat": 0.14444444444444446,
-          "gain_at_f_gait": 0.9663630304512055
+          "M_hat": 0.3444444444444444,
+          "gain_at_f_gait": 0.8175489447014239
         },
         {
           "M": 20,
           "window_s": 0.4,
-          "M_hat": 0.2888888888888889,
-          "gain_at_f_gait": 0.8685613383331642
+          "M_hat": 0.6888888888888888,
+          "gain_at_f_gait": 0.38381598072293355
         },
         {
           "M": 50,
           "window_s": 1.0,
-          "M_hat": 0.7222222222222223,
-          "gain_at_f_gait": 0.33773985123566835
+          "M_hat": 1.722222222222222,
+          "gain_at_f_gait": 0.14186092835667868
         },
         {
           "M": 110,
           "window_s": 2.2,
-          "M_hat": 1.588888888888889,
-          "gain_at_f_gait": 0.19264036719646546
+          "M_hat": 3.7888888888888888,
+          "gain_at_f_gait": 0.05182366567255751
         },
         {
           "M": 160,
           "window_s": 3.2,
-          "M_hat": 2.3111111111111113,
-          "gain_at_f_gait": 0.11422274065600117
+          "M_hat": 5.51111111111111,
+          "gain_at_f_gait": 0.05783546233249441
         }
       ]
     },
     {
       "group": "M=10",
-      "label": "M10_s1315706754",
-      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:13-18:58_mu/npz/M10_s1315706754_data.npz",
+      "label": "1331919846",
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:27-14:42_mu/npz/M=10_1331919846_data.npz",
       "n_analysed": 900,
       "duration_s": 18.0,
       "freq_resolution_hz": 0.05555555555555555,
       "weight_signal": "W_traj",
-      "f_peak_z_hz": 1.0555555555555556,
-      "f_peak_vx_hz": 1.0555555555555556,
-      "f_peak_weights_hz": 1.0555555555555556,
-      "prom_z": 0.9987146993804118,
-      "acf_peak_z": 0.9425820795852056,
-      "T_gait_steps_acf": 48.0,
-      "prom_vx": 0.9989492330695061,
-      "prom_weights": 0.9961351497519032,
-      "f_gait_hz": 1.0555555555555556,
-      "T_gait_s": 0.9473684210526315,
-      "T_gait_steps": 47.368421052631575,
+      "f_peak_z_hz": 1.6666666666666665,
+      "f_peak_vx_hz": 0.8333333333333333,
+      "f_peak_weights_hz": 0.8333333333333333,
+      "prom_z": 0.9915904991524377,
+      "acf_peak_z": 0.9216663847964051,
+      "T_gait_steps_acf": 61.0,
+      "prom_vx": 0.9922762613541374,
+      "prom_weights": 0.9850611128267507,
+      "f_gait_hz": 1.6666666666666665,
+      "T_gait_s": 0.6000000000000001,
+      "T_gait_steps": 30.000000000000004,
       "peak_ok": true,
-      "harmonic_flag": null,
-      "period_flag": null,
+      "harmonic_flag": "f_z ~ 2*f_vx (z may track half-strides)",
+      "period_flag": "FFT/ACF period disagree: FFT 30.0 vs ACF 61.0 steps (ratio 2.03)",
       "harmonics_z": [
         {
           "harmonic": 1,
-          "freq_hz": 1.0555555555555556,
-          "amplitude": 0.048466080318235225
+          "freq_hz": 1.6666666666666665,
+          "amplitude": 0.02497073060404872
         },
         {
           "harmonic": 2,
-          "freq_hz": 2.111111111111111,
-          "amplitude": 0.01288267747082286
+          "freq_hz": 3.333333333333333,
+          "amplitude": 0.0018625689152493052
         },
         {
           "harmonic": 3,
-          "freq_hz": 3.1666666666666665,
-          "amplitude": 0.0032035517863778363
+          "freq_hz": 5.0,
+          "amplitude": 0.0004410073909225356
         }
       ],
       "harmonics_weights": [
         {
           "harmonic": 1,
-          "freq_hz": 1.0555555555555556,
-          "amplitude": 0.058162818403287894
+          "freq_hz": 1.6666666666666665,
+          "amplitude": 0.03436813416504684
         },
         {
           "harmonic": 2,
-          "freq_hz": 2.111111111111111,
-          "amplitude": 0.014390900068401467
+          "freq_hz": 3.333333333333333,
+          "amplitude": 0.010936717079197493
         },
         {
           "harmonic": 3,
-          "freq_hz": 3.1666666666666665,
-          "amplitude": 0.007149497646375936
+          "freq_hz": 5.0,
+          "amplitude": 0.0018047508162023925
         }
       ],
-      "codynamic_rel_err": 0.0,
-      "T_gait_steps_used": 47.368421052631575,
+      "codynamic_rel_err": 0.5,
+      "T_gait_steps_used": 30.000000000000004,
       "t_gait_source": "measured",
       "ablation": {
         "t_ablate_base": 500,
         "n_ablations": 5,
         "offsets_steps": [
           0,
-          9,
+          6,
+          12,
+          18,
+          24
+        ],
+        "steps": [
+          500,
+          506,
+          512,
+          518,
+          524
+        ],
+        "phases_deg": [
+          0.0,
+          72.0,
+          144.0,
+          216.0,
+          288.0
+        ],
+        "spacing_steps": 6.000000000000001
+      },
+      "candidate_windows": [
+        {
+          "M": 1,
+          "window_s": 0.02,
+          "M_hat": 0.033333333333333326,
+          "gain_at_f_gait": 1.0
+        },
+        {
+          "M": 10,
+          "window_s": 0.2,
+          "M_hat": 0.3333333333333333,
+          "gain_at_f_gait": 0.8285067786435466
+        },
+        {
+          "M": 20,
+          "window_s": 0.4,
+          "M_hat": 0.6666666666666666,
+          "gain_at_f_gait": 0.41425338932177336
+        },
+        {
+          "M": 50,
+          "window_s": 1.0,
+          "M_hat": 1.6666666666666665,
+          "gain_at_f_gait": 0.1657013557287094
+        },
+        {
+          "M": 110,
+          "window_s": 2.2,
+          "M_hat": 3.666666666666666,
+          "gain_at_f_gait": 0.07531879805850436
+        },
+        {
+          "M": 160,
+          "window_s": 3.2,
+          "M_hat": 5.333333333333333,
+          "gain_at_f_gait": 0.051781673665221614
+        }
+      ]
+    },
+    {
+      "group": "M=10",
+      "label": "27294405",
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:27-14:42_mu/npz/M=10_27294405_data.npz",
+      "n_analysed": 900,
+      "duration_s": 18.0,
+      "freq_resolution_hz": 0.05555555555555555,
+      "weight_signal": "W_traj",
+      "f_peak_z_hz": 1.611111111111111,
+      "f_peak_vx_hz": 0.8333333333333333,
+      "f_peak_weights_hz": 0.8333333333333333,
+      "prom_z": 0.9934713142890867,
+      "acf_peak_z": 0.9206228525410088,
+      "T_gait_steps_acf": 61.0,
+      "prom_vx": 0.9988780543268672,
+      "prom_weights": 0.9877222590816657,
+      "f_gait_hz": 1.611111111111111,
+      "T_gait_s": 0.6206896551724138,
+      "T_gait_steps": 31.03448275862069,
+      "peak_ok": true,
+      "harmonic_flag": "f_z ~ 2*f_vx (z may track half-strides)",
+      "period_flag": "FFT/ACF period disagree: FFT 31.0 vs ACF 61.0 steps (ratio 1.97)",
+      "harmonics_z": [
+        {
+          "harmonic": 1,
+          "freq_hz": 1.611111111111111,
+          "amplitude": 0.026179298500007518
+        },
+        {
+          "harmonic": 2,
+          "freq_hz": 3.222222222222222,
+          "amplitude": 0.002544386185863584
+        },
+        {
+          "harmonic": 3,
+          "freq_hz": 4.833333333333333,
+          "amplitude": 0.0009736102595467857
+        }
+      ],
+      "harmonics_weights": [
+        {
+          "harmonic": 1,
+          "freq_hz": 1.611111111111111,
+          "amplitude": 0.03253807123738386
+        },
+        {
+          "harmonic": 2,
+          "freq_hz": 3.222222222222222,
+          "amplitude": 0.012139762399492177
+        },
+        {
+          "harmonic": 3,
+          "freq_hz": 4.833333333333333,
+          "amplitude": 0.0026775046139700487
+        }
+      ],
+      "codynamic_rel_err": 0.48275862068965514,
+      "T_gait_steps_used": 31.03448275862069,
+      "t_gait_source": "measured",
+      "ablation": {
+        "t_ablate_base": 500,
+        "n_ablations": 5,
+        "offsets_steps": [
+          0,
+          6,
+          12,
           19,
-          28,
-          38
+          25
         ],
         "steps": [
           500,
-          509,
+          506,
+          512,
           519,
-          528,
-          538
+          525
         ],
         "phases_deg": [
           0.0,
-          68.4,
-          144.4,
-          212.8,
-          288.8
+          69.6,
+          139.2,
+          220.4,
+          290.0
         ],
-        "spacing_steps": 9.473684210526315
+        "spacing_steps": 6.206896551724138
       },
       "candidate_windows": [
         {
           "M": 1,
           "window_s": 0.02,
-          "M_hat": 0.021111111111111112,
+          "M_hat": 0.03222222222222222,
           "gain_at_f_gait": 1.0
         },
         {
           "M": 10,
           "window_s": 0.2,
-          "M_hat": 0.21111111111111114,
-          "gain_at_f_gait": 0.9289652059254038
+          "M_hat": 0.3222222222222222,
+          "gain_at_f_gait": 0.8391838210944637
         },
         {
           "M": 20,
           "window_s": 0.4,
-          "M_hat": 0.4222222222222223,
-          "gain_at_f_gait": 0.732034571995701
+          "M_hat": 0.6444444444444444,
+          "gain_at_f_gait": 0.44469967303078783
         },
         {
           "M": 50,
           "window_s": 1.0,
-          "M_hat": 1.0555555555555556,
-          "gain_at_f_gait": 0.05240318635808858
+          "M_hat": 1.6111111111111112,
+          "gain_at_f_gait": 0.18597408513489164
         },
         {
           "M": 110,
           "window_s": 2.2,
-          "M_hat": 2.3222222222222224,
-          "gain_at_f_gait": 0.11632826950496761
+          "M_hat": 3.5444444444444443,
+          "gain_at_f_gait": 0.0890833846035567
         },
         {
           "M": 160,
           "window_s": 3.2,
-          "M_hat": 3.377777777777778,
-          "gain_at_f_gait": 0.08743863053278833
+          "M_hat": 5.155555555555555,
+          "gain_at_f_gait": 0.029035273893915844
         }
       ]
     },
     {
       "group": "M=10",
-      "label": "M10_s46838495",
-      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:13-18:58_mu/npz/M10_s46838495_data.npz",
-      "n_analysed": 900,
-      "duration_s": 18.0,
-      "freq_resolution_hz": 0.05555555555555555,
-      "weight_signal": "W_traj",
-      "f_peak_z_hz": 1.222222222222222,
-      "f_peak_vx_hz": 1.222222222222222,
-      "f_peak_weights_hz": 1.222222222222222,
-      "prom_z": 0.9973813579692483,
-      "acf_peak_z": 0.9512339761633555,
-      "T_gait_steps_acf": 41.0,
-      "prom_vx": 0.9974188372207545,
-      "prom_weights": 0.9905584272650302,
-      "f_gait_hz": 1.222222222222222,
-      "T_gait_s": 0.8181818181818182,
-      "T_gait_steps": 40.909090909090914,
-      "peak_ok": true,
-      "harmonic_flag": null,
-      "period_flag": null,
-      "harmonics_z": [
-        {
-          "harmonic": 1,
-          "freq_hz": 1.222222222222222,
-          "amplitude": 0.03195495345251745
-        },
-        {
-          "harmonic": 2,
-          "freq_hz": 2.444444444444444,
-          "amplitude": 0.01967142435976934
-        },
-        {
-          "harmonic": 3,
-          "freq_hz": 3.6666666666666665,
-          "amplitude": 0.005129417268380996
-        }
-      ],
-      "harmonics_weights": [
-        {
-          "harmonic": 1,
-          "freq_hz": 1.222222222222222,
-          "amplitude": 0.05983988375584785
-        },
-        {
-          "harmonic": 2,
-          "freq_hz": 2.444444444444444,
-          "amplitude": 0.013545364655781851
-        },
-        {
-          "harmonic": 3,
-          "freq_hz": 3.6666666666666665,
-          "amplitude": 0.010042804868700688
-        }
-      ],
-      "codynamic_rel_err": 0.0,
-      "T_gait_steps_used": 40.909090909090914,
-      "t_gait_source": "measured",
-      "ablation": {
-        "t_ablate_base": 500,
-        "n_ablations": 5,
-        "offsets_steps": [
-          0,
-          8,
-          16,
-          25,
-          33
-        ],
-        "steps": [
-          500,
-          508,
-          516,
-          525,
-          533
-        ],
-        "phases_deg": [
-          0.0,
-          70.4,
-          140.8,
-          220.0,
-          290.4
-        ],
-        "spacing_steps": 8.181818181818183
-      },
-      "candidate_windows": [
-        {
-          "M": 1,
-          "window_s": 0.02,
-          "M_hat": 0.024444444444444442,
-          "gain_at_f_gait": 1.0
-        },
-        {
-          "M": 10,
-          "window_s": 0.2,
-          "M_hat": 0.2444444444444444,
-          "gain_at_f_gait": 0.9054577298746643
-        },
-        {
-          "M": 20,
-          "window_s": 0.4,
-          "M_hat": 0.4888888888888888,
-          "gain_at_f_gait": 0.6513317826231294
-        },
-        {
-          "M": 50,
-          "window_s": 1.0,
-          "M_hat": 1.222222222222222,
-          "gain_at_f_gait": 0.16756927854299558
-        },
-        {
-          "M": 110,
-          "window_s": 2.2,
-          "M_hat": 2.6888888888888887,
-          "gain_at_f_gait": 0.09823775651312298
-        },
-        {
-          "M": 160,
-          "window_s": 3.2,
-          "M_hat": 3.9111111111111105,
-          "gain_at_f_gait": 0.022455100330631472
-        }
-      ]
-    },
-    {
-      "group": "M=10",
-      "label": "M_10_1302491059",
-      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:13-18:58_mu/npz/M_10_1302491059_data.npz",
+      "label": "617764346",
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:27-14:42_mu/npz/M=10_617764346_data.npz",
       "n_analysed": 900,
       "duration_s": 18.0,
       "freq_resolution_hz": 0.05555555555555555,
@@ -770,11 +1018,11 @@
       "f_peak_z_hz": 1.1111111111111112,
       "f_peak_vx_hz": 1.1111111111111112,
       "f_peak_weights_hz": 1.1111111111111112,
-      "prom_z": 0.9989580211553624,
-      "acf_peak_z": 0.9379127423291619,
+      "prom_z": 0.9997686801404136,
+      "acf_peak_z": 0.9494683804716503,
       "T_gait_steps_acf": 44.0,
-      "prom_vx": 0.9955257205179842,
-      "prom_weights": 0.9911475034855293,
+      "prom_vx": 0.9967822448092368,
+      "prom_weights": 0.996719453466829,
       "f_gait_hz": 1.1111111111111112,
       "T_gait_s": 0.8999999999999999,
       "T_gait_steps": 44.99999999999999,
@@ -785,34 +1033,34 @@
         {
           "harmonic": 1,
           "freq_hz": 1.1111111111111112,
-          "amplitude": 0.028057338903514483
+          "amplitude": 0.04281349908418802
         },
         {
           "harmonic": 2,
           "freq_hz": 2.2222222222222223,
-          "amplitude": 0.015079371489889604
+          "amplitude": 0.010229746652817088
         },
         {
           "harmonic": 3,
           "freq_hz": 3.333333333333333,
-          "amplitude": 0.001579716077564577
+          "amplitude": 0.0005213456499643111
         }
       ],
       "harmonics_weights": [
         {
           "harmonic": 1,
           "freq_hz": 1.1111111111111112,
-          "amplitude": 0.058638092166039275
+          "amplitude": 0.05899643367718487
         },
         {
           "harmonic": 2,
           "freq_hz": 2.2222222222222223,
-          "amplitude": 0.015041199555022157
+          "amplitude": 0.02341969934994226
         },
         {
           "harmonic": 3,
           "freq_hz": 3.333333333333333,
-          "amplitude": 0.006268884444823942
+          "amplitude": 0.004575423248931627
         }
       ],
       "codynamic_rel_err": 0.0,
@@ -884,21 +1132,393 @@
       ]
     },
     {
+      "group": "M=10",
+      "label": "689362957",
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:27-14:42_mu/npz/M=10_689362957_data.npz",
+      "n_analysed": 900,
+      "duration_s": 18.0,
+      "freq_resolution_hz": 0.05555555555555555,
+      "weight_signal": "W_traj",
+      "f_peak_z_hz": 1.8333333333333333,
+      "f_peak_vx_hz": 0.9444444444444444,
+      "f_peak_weights_hz": 0.9444444444444444,
+      "prom_z": 0.9965948050350883,
+      "acf_peak_z": 0.9253165406414238,
+      "T_gait_steps_acf": 54.0,
+      "prom_vx": 0.9940849532830878,
+      "prom_weights": 0.9871279287889938,
+      "f_gait_hz": 1.8333333333333333,
+      "T_gait_s": 0.5454545454545455,
+      "T_gait_steps": 27.272727272727277,
+      "peak_ok": true,
+      "harmonic_flag": "f_z ~ 2*f_vx (z may track half-strides)",
+      "period_flag": "FFT/ACF period disagree: FFT 27.3 vs ACF 54.0 steps (ratio 1.98)",
+      "harmonics_z": [
+        {
+          "harmonic": 1,
+          "freq_hz": 1.8333333333333333,
+          "amplitude": 0.020094192728330344
+        },
+        {
+          "harmonic": 2,
+          "freq_hz": 3.6666666666666665,
+          "amplitude": 0.0021050249307022774
+        },
+        {
+          "harmonic": 3,
+          "freq_hz": 5.5,
+          "amplitude": 0.00016783238183506511
+        }
+      ],
+      "harmonics_weights": [
+        {
+          "harmonic": 1,
+          "freq_hz": 1.8333333333333333,
+          "amplitude": 0.036811643233239474
+        },
+        {
+          "harmonic": 2,
+          "freq_hz": 3.6666666666666665,
+          "amplitude": 0.012277275599346875
+        },
+        {
+          "harmonic": 3,
+          "freq_hz": 5.5,
+          "amplitude": 0.0040034433933735765
+        }
+      ],
+      "codynamic_rel_err": 0.48484848484848486,
+      "T_gait_steps_used": 27.272727272727277,
+      "t_gait_source": "measured",
+      "ablation": {
+        "t_ablate_base": 500,
+        "n_ablations": 5,
+        "offsets_steps": [
+          0,
+          5,
+          11,
+          16,
+          22
+        ],
+        "steps": [
+          500,
+          505,
+          511,
+          516,
+          522
+        ],
+        "phases_deg": [
+          0.0,
+          66.0,
+          145.2,
+          211.2,
+          290.4
+        ],
+        "spacing_steps": 5.454545454545455
+      },
+      "candidate_windows": [
+        {
+          "M": 1,
+          "window_s": 0.02,
+          "M_hat": 0.03666666666666666,
+          "gain_at_f_gait": 1.0
+        },
+        {
+          "M": 10,
+          "window_s": 0.2,
+          "M_hat": 0.3666666666666666,
+          "gain_at_f_gait": 0.7948217384241649
+        },
+        {
+          "M": 20,
+          "window_s": 0.4,
+          "M_hat": 0.7333333333333332,
+          "gain_at_f_gait": 0.3232831257303166
+        },
+        {
+          "M": 50,
+          "window_s": 1.0,
+          "M_hat": 1.833333333333333,
+          "gain_at_f_gait": 0.08700407098243337
+        },
+        {
+          "M": 110,
+          "window_s": 2.2,
+          "M_hat": 4.033333333333332,
+          "gain_at_f_gait": 0.008267638034385107
+        },
+        {
+          "M": 160,
+          "window_s": 3.2,
+          "M_hat": 5.866666666666665,
+          "gain_at_f_gait": 0.02211733985332724
+        }
+      ]
+    },
+    {
       "group": "M=160",
-      "label": "M160_s576310242",
-      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:13-18:58_mu/npz/M160_s576310242_data.npz",
+      "label": "1042351053",
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:27-14:42_mu/npz/M=160_1042351053_data.npz",
+      "n_analysed": 900,
+      "duration_s": 18.0,
+      "freq_resolution_hz": 0.05555555555555555,
+      "weight_signal": "W_traj",
+      "f_peak_z_hz": 1.3333333333333333,
+      "f_peak_vx_hz": 1.3333333333333333,
+      "f_peak_weights_hz": 1.3333333333333333,
+      "prom_z": 0.9980065901093322,
+      "acf_peak_z": 0.9560017480616088,
+      "T_gait_steps_acf": 37.0,
+      "prom_vx": 0.9901686837775211,
+      "prom_weights": 0.9915941632824691,
+      "f_gait_hz": 1.3333333333333333,
+      "T_gait_s": 0.75,
+      "T_gait_steps": 37.5,
+      "peak_ok": true,
+      "harmonic_flag": null,
+      "period_flag": null,
+      "harmonics_z": [
+        {
+          "harmonic": 1,
+          "freq_hz": 1.3333333333333333,
+          "amplitude": 0.040820490380531815
+        },
+        {
+          "harmonic": 2,
+          "freq_hz": 2.6666666666666665,
+          "amplitude": 0.010020820593667254
+        },
+        {
+          "harmonic": 3,
+          "freq_hz": 4.0,
+          "amplitude": 0.001870016288417028
+        }
+      ],
+      "harmonics_weights": [
+        {
+          "harmonic": 1,
+          "freq_hz": 1.3333333333333333,
+          "amplitude": 0.0075093559960125065
+        },
+        {
+          "harmonic": 2,
+          "freq_hz": 2.6666666666666665,
+          "amplitude": 0.0029198661391846483
+        },
+        {
+          "harmonic": 3,
+          "freq_hz": 4.0,
+          "amplitude": 0.0007100349848629235
+        }
+      ],
+      "codynamic_rel_err": 0.0,
+      "T_gait_steps_used": 37.5,
+      "t_gait_source": "measured",
+      "ablation": {
+        "t_ablate_base": 500,
+        "n_ablations": 5,
+        "offsets_steps": [
+          0,
+          8,
+          15,
+          22,
+          30
+        ],
+        "steps": [
+          500,
+          508,
+          515,
+          522,
+          530
+        ],
+        "phases_deg": [
+          0.0,
+          76.8,
+          144.0,
+          211.2,
+          288.0
+        ],
+        "spacing_steps": 7.5
+      },
+      "candidate_windows": [
+        {
+          "M": 1,
+          "window_s": 0.02,
+          "M_hat": 0.02666666666666667,
+          "gain_at_f_gait": 1.0
+        },
+        {
+          "M": 10,
+          "window_s": 0.2,
+          "M_hat": 0.26666666666666666,
+          "gain_at_f_gait": 0.8881022692304494
+        },
+        {
+          "M": 20,
+          "window_s": 0.4,
+          "M_hat": 0.5333333333333333,
+          "gain_at_f_gait": 0.5942564099188486
+        },
+        {
+          "M": 50,
+          "window_s": 1.0,
+          "M_hat": 1.3333333333333333,
+          "gain_at_f_gait": 0.20699037386638494
+        },
+        {
+          "M": 110,
+          "window_s": 2.2,
+          "M_hat": 2.933333333333333,
+          "gain_at_f_gait": 0.02258789429664361
+        },
+        {
+          "M": 160,
+          "window_s": 3.2,
+          "M_hat": 4.266666666666667,
+          "gain_at_f_gait": 0.05550639182690304
+        }
+      ]
+    },
+    {
+      "group": "M=160",
+      "label": "2126766829",
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:27-14:42_mu/npz/M=160_2126766829_data.npz",
+      "n_analysed": 900,
+      "duration_s": 18.0,
+      "freq_resolution_hz": 0.05555555555555555,
+      "weight_signal": "W_traj",
+      "f_peak_z_hz": 1.0555555555555556,
+      "f_peak_vx_hz": 1.0555555555555556,
+      "f_peak_weights_hz": 1.0555555555555556,
+      "prom_z": 0.9975090899073378,
+      "acf_peak_z": 0.9430790399203048,
+      "T_gait_steps_acf": 48.0,
+      "prom_vx": 0.999450746428226,
+      "prom_weights": 0.9883827258527447,
+      "f_gait_hz": 1.0555555555555556,
+      "T_gait_s": 0.9473684210526315,
+      "T_gait_steps": 47.368421052631575,
+      "peak_ok": true,
+      "harmonic_flag": null,
+      "period_flag": null,
+      "harmonics_z": [
+        {
+          "harmonic": 1,
+          "freq_hz": 1.0555555555555556,
+          "amplitude": 0.030088994669913778
+        },
+        {
+          "harmonic": 2,
+          "freq_hz": 2.111111111111111,
+          "amplitude": 0.007930390391358406
+        },
+        {
+          "harmonic": 3,
+          "freq_hz": 3.1666666666666665,
+          "amplitude": 0.0017099751475807415
+        }
+      ],
+      "harmonics_weights": [
+        {
+          "harmonic": 1,
+          "freq_hz": 1.0555555555555556,
+          "amplitude": 0.007240575855061718
+        },
+        {
+          "harmonic": 2,
+          "freq_hz": 2.111111111111111,
+          "amplitude": 0.0015705398604133128
+        },
+        {
+          "harmonic": 3,
+          "freq_hz": 3.1666666666666665,
+          "amplitude": 0.00010023703629558024
+        }
+      ],
+      "codynamic_rel_err": 0.0,
+      "T_gait_steps_used": 47.368421052631575,
+      "t_gait_source": "measured",
+      "ablation": {
+        "t_ablate_base": 500,
+        "n_ablations": 5,
+        "offsets_steps": [
+          0,
+          9,
+          19,
+          28,
+          38
+        ],
+        "steps": [
+          500,
+          509,
+          519,
+          528,
+          538
+        ],
+        "phases_deg": [
+          0.0,
+          68.4,
+          144.4,
+          212.8,
+          288.8
+        ],
+        "spacing_steps": 9.473684210526315
+      },
+      "candidate_windows": [
+        {
+          "M": 1,
+          "window_s": 0.02,
+          "M_hat": 0.021111111111111112,
+          "gain_at_f_gait": 1.0
+        },
+        {
+          "M": 10,
+          "window_s": 0.2,
+          "M_hat": 0.21111111111111114,
+          "gain_at_f_gait": 0.9289652059254038
+        },
+        {
+          "M": 20,
+          "window_s": 0.4,
+          "M_hat": 0.4222222222222223,
+          "gain_at_f_gait": 0.732034571995701
+        },
+        {
+          "M": 50,
+          "window_s": 1.0,
+          "M_hat": 1.0555555555555556,
+          "gain_at_f_gait": 0.05240318635808858
+        },
+        {
+          "M": 110,
+          "window_s": 2.2,
+          "M_hat": 2.3222222222222224,
+          "gain_at_f_gait": 0.11632826950496761
+        },
+        {
+          "M": 160,
+          "window_s": 3.2,
+          "M_hat": 3.377777777777778,
+          "gain_at_f_gait": 0.08743863053278833
+        }
+      ]
+    },
+    {
+      "group": "M=160",
+      "label": "576310242",
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:27-14:42_mu/npz/M=160_576310242_data.npz",
       "n_analysed": 900,
       "duration_s": 18.0,
       "freq_resolution_hz": 0.05555555555555555,
       "weight_signal": "W_traj",
       "f_peak_z_hz": 1.3888888888888888,
       "f_peak_vx_hz": 1.3888888888888888,
-      "f_peak_weights_hz": 1.3888888888888888,
-      "prom_z": 0.9981118365117865,
-      "acf_peak_z": 0.9476202306844043,
+      "f_peak_weights_hz": 1.3333333333333333,
+      "prom_z": 0.9984733412339813,
+      "acf_peak_z": 0.9508862507210913,
       "T_gait_steps_acf": 37.0,
-      "prom_vx": 0.9976913661629895,
-      "prom_weights": 0.992881233929929,
+      "prom_vx": 0.9993726297267915,
+      "prom_weights": 0.9918747414698099,
       "f_gait_hz": 1.3888888888888888,
       "T_gait_s": 0.72,
       "T_gait_steps": 36.0,
@@ -909,37 +1529,37 @@
         {
           "harmonic": 1,
           "freq_hz": 1.3888888888888888,
-          "amplitude": 0.03572664897363869
+          "amplitude": 0.034655388668325765
         },
         {
           "harmonic": 2,
           "freq_hz": 2.7777777777777777,
-          "amplitude": 0.007080548761900279
+          "amplitude": 0.005934831971698469
         },
         {
           "harmonic": 3,
           "freq_hz": 4.166666666666666,
-          "amplitude": 0.0015066502798862153
+          "amplitude": 0.0008796699856648826
         }
       ],
       "harmonics_weights": [
         {
           "harmonic": 1,
           "freq_hz": 1.3888888888888888,
-          "amplitude": 0.007221868687634369
+          "amplitude": 0.0068434711275113125
         },
         {
           "harmonic": 2,
           "freq_hz": 2.7777777777777777,
-          "amplitude": 0.001142559079298376
+          "amplitude": 0.0011052569765386852
         },
         {
           "harmonic": 3,
           "freq_hz": 4.166666666666666,
-          "amplitude": 0.00014038837620331253
+          "amplitude": 3.748308827338449e-05
         }
       ],
-      "codynamic_rel_err": 0.0,
+      "codynamic_rel_err": 0.04000000000000002,
       "T_gait_steps_used": 36.0,
       "t_gait_source": "measured",
       "ablation": {
@@ -1008,9 +1628,9 @@
       ]
     },
     {
-      "group": "M=20",
-      "label": "M20_s1853697842",
-      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:13-18:58_mu/npz/M20_s1853697842_data.npz",
+      "group": "M=160",
+      "label": "602647351",
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:27-14:42_mu/npz/M=160_602647351_data.npz",
       "n_analysed": 900,
       "duration_s": 18.0,
       "freq_resolution_hz": 0.05555555555555555,
@@ -1018,11 +1638,11 @@
       "f_peak_z_hz": 1.4444444444444444,
       "f_peak_vx_hz": 1.4444444444444444,
       "f_peak_weights_hz": 1.4444444444444444,
-      "prom_z": 0.9990021657739261,
-      "acf_peak_z": 0.9604149924678757,
-      "T_gait_steps_acf": 35.0,
-      "prom_vx": 0.9975187412649477,
-      "prom_weights": 0.9932816341518895,
+      "prom_z": 0.9977567468182672,
+      "acf_peak_z": 0.9535169588469545,
+      "T_gait_steps_acf": 34.0,
+      "prom_vx": 0.9969898093643987,
+      "prom_weights": 0.9926993723454615,
       "f_gait_hz": 1.4444444444444444,
       "T_gait_s": 0.6923076923076923,
       "T_gait_steps": 34.61538461538461,
@@ -1033,34 +1653,158 @@
         {
           "harmonic": 1,
           "freq_hz": 1.4444444444444444,
-          "amplitude": 0.0360313478279498
+          "amplitude": 0.041805202162614956
         },
         {
           "harmonic": 2,
           "freq_hz": 2.888888888888889,
-          "amplitude": 0.01165255196140418
+          "amplitude": 0.0087337722532195
         },
         {
           "harmonic": 3,
           "freq_hz": 4.333333333333333,
-          "amplitude": 0.0012394943691401933
+          "amplitude": 0.002325296522059572
         }
       ],
       "harmonics_weights": [
         {
           "harmonic": 1,
           "freq_hz": 1.4444444444444444,
-          "amplitude": 0.05154916231259917
+          "amplitude": 0.008568548295503397
         },
         {
           "harmonic": 2,
           "freq_hz": 2.888888888888889,
-          "amplitude": 0.010644557962887748
+          "amplitude": 0.001908971984883082
         },
         {
           "harmonic": 3,
           "freq_hz": 4.333333333333333,
-          "amplitude": 0.004200735389680337
+          "amplitude": 0.00015009613505191177
+        }
+      ],
+      "codynamic_rel_err": 0.0,
+      "T_gait_steps_used": 34.61538461538461,
+      "t_gait_source": "measured",
+      "ablation": {
+        "t_ablate_base": 500,
+        "n_ablations": 5,
+        "offsets_steps": [
+          0,
+          7,
+          14,
+          21,
+          28
+        ],
+        "steps": [
+          500,
+          507,
+          514,
+          521,
+          528
+        ],
+        "phases_deg": [
+          0.0,
+          72.8,
+          145.6,
+          218.4,
+          291.2
+        ],
+        "spacing_steps": 6.9230769230769225
+      },
+      "candidate_windows": [
+        {
+          "M": 1,
+          "window_s": 0.02,
+          "M_hat": 0.02888888888888889,
+          "gain_at_f_gait": 1.0
+        },
+        {
+          "M": 10,
+          "window_s": 0.2,
+          "M_hat": 0.2888888888888889,
+          "gain_at_f_gait": 0.8694563829994797
+        },
+        {
+          "M": 20,
+          "window_s": 0.4,
+          "M_hat": 0.5777777777777778,
+          "gain_at_f_gait": 0.5352907994887701
+        },
+        {
+          "M": 50,
+          "window_s": 1.0,
+          "M_hat": 1.4444444444444446,
+          "gain_at_f_gait": 0.21731870611277793
+        },
+        {
+          "M": 110,
+          "window_s": 2.2,
+          "M_hat": 3.177777777777778,
+          "gain_at_f_gait": 0.053153599358561524
+        },
+        {
+          "M": 160,
+          "window_s": 3.2,
+          "M_hat": 4.622222222222223,
+          "gain_at_f_gait": 0.06393836607538565
+        }
+      ]
+    },
+    {
+      "group": "M=160",
+      "label": "756800567",
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:27-14:42_mu/npz/M=160_756800567_data.npz",
+      "n_analysed": 900,
+      "duration_s": 18.0,
+      "freq_resolution_hz": 0.05555555555555555,
+      "weight_signal": "W_traj",
+      "f_peak_z_hz": 1.4444444444444444,
+      "f_peak_vx_hz": 1.4444444444444444,
+      "f_peak_weights_hz": 1.4444444444444444,
+      "prom_z": 0.999413158052264,
+      "acf_peak_z": 0.9523282810347427,
+      "T_gait_steps_acf": 35.0,
+      "prom_vx": 0.997900195993474,
+      "prom_weights": 0.9939870453342049,
+      "f_gait_hz": 1.4444444444444444,
+      "T_gait_s": 0.6923076923076923,
+      "T_gait_steps": 34.61538461538461,
+      "peak_ok": true,
+      "harmonic_flag": null,
+      "period_flag": null,
+      "harmonics_z": [
+        {
+          "harmonic": 1,
+          "freq_hz": 1.4444444444444444,
+          "amplitude": 0.03605771688942776
+        },
+        {
+          "harmonic": 2,
+          "freq_hz": 2.888888888888889,
+          "amplitude": 0.0051423898477078985
+        },
+        {
+          "harmonic": 3,
+          "freq_hz": 4.333333333333333,
+          "amplitude": 0.001400128753460684
+        }
+      ],
+      "harmonics_weights": [
+        {
+          "harmonic": 1,
+          "freq_hz": 1.4444444444444444,
+          "amplitude": 0.0067245224187339105
+        },
+        {
+          "harmonic": 2,
+          "freq_hz": 2.888888888888889,
+          "amplitude": 0.0012746789622443346
+        },
+        {
+          "harmonic": 3,
+          "freq_hz": 4.333333333333333,
+          "amplitude": 0.00025735847163404043
         }
       ],
       "codynamic_rel_err": 0.0,
@@ -1133,8 +1877,256 @@
     },
     {
       "group": "M=20",
-      "label": "M_20_1919632181",
-      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:13-18:58_mu/npz/M_20_1919632181_data.npz",
+      "label": "1298619277",
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:27-14:42_mu/npz/M=20_1298619277_data.npz",
+      "n_analysed": 900,
+      "duration_s": 18.0,
+      "freq_resolution_hz": 0.05555555555555555,
+      "weight_signal": "W_traj",
+      "f_peak_z_hz": 0.5555555555555556,
+      "f_peak_vx_hz": 0.8888888888888888,
+      "f_peak_weights_hz": 1.5,
+      "prom_z": 0.7996100029095442,
+      "acf_peak_z": -0.2233274927894162,
+      "T_gait_steps_acf": 240.0,
+      "prom_vx": 0.9302489361898185,
+      "prom_weights": 0.8069953949648538,
+      "f_gait_hz": 0.5555555555555556,
+      "T_gait_s": 1.7999999999999998,
+      "T_gait_steps": 89.99999999999999,
+      "peak_ok": false,
+      "harmonic_flag": null,
+      "period_flag": "FFT/ACF period disagree: FFT 90.0 vs ACF 240.0 steps (ratio 2.67)",
+      "harmonics_z": [
+        {
+          "harmonic": 1,
+          "freq_hz": 0.5555555555555556,
+          "amplitude": 0.023621480922858342
+        },
+        {
+          "harmonic": 2,
+          "freq_hz": 1.1111111111111112,
+          "amplitude": 0.006870301083426415
+        },
+        {
+          "harmonic": 3,
+          "freq_hz": 1.6666666666666665,
+          "amplitude": 0.0005124888964331703
+        }
+      ],
+      "harmonics_weights": [
+        {
+          "harmonic": 1,
+          "freq_hz": 0.5555555555555556,
+          "amplitude": 0.015875702236719687
+        },
+        {
+          "harmonic": 2,
+          "freq_hz": 1.1111111111111112,
+          "amplitude": 0.012960500775299779
+        },
+        {
+          "harmonic": 3,
+          "freq_hz": 1.6666666666666665,
+          "amplitude": 0.0038903167597485085
+        }
+      ],
+      "codynamic_rel_err": 1.7,
+      "T_gait_steps_used": 50.154798761609904,
+      "t_gait_source": "group_median(M=20)",
+      "ablation": {
+        "t_ablate_base": 500,
+        "n_ablations": 5,
+        "offsets_steps": [
+          0,
+          10,
+          20,
+          30,
+          40
+        ],
+        "steps": [
+          500,
+          510,
+          520,
+          530,
+          540
+        ],
+        "phases_deg": [
+          0.0,
+          71.8,
+          143.6,
+          215.3,
+          287.1
+        ],
+        "spacing_steps": 10.03095975232198
+      },
+      "candidate_windows": [
+        {
+          "M": 1,
+          "window_s": 0.02,
+          "M_hat": 0.019938271604938274,
+          "gain_at_f_gait": 1.0
+        },
+        {
+          "M": 10,
+          "window_s": 0.2,
+          "M_hat": 0.19938271604938274,
+          "gain_at_f_gait": 0.9800145435941455
+        },
+        {
+          "M": 20,
+          "window_s": 0.4,
+          "M_hat": 0.39876543209876547,
+          "gain_at_f_gait": 0.9209124348782884
+        },
+        {
+          "M": 50,
+          "window_s": 1.0,
+          "M_hat": 0.9969135802469137,
+          "gain_at_f_gait": 0.5643678826701445
+        },
+        {
+          "M": 110,
+          "window_s": 2.2,
+          "M_hat": 2.19320987654321,
+          "gain_at_f_gait": 0.16743862452332514
+        },
+        {
+          "M": 160,
+          "window_s": 3.2,
+          "M_hat": 3.1901234567901238,
+          "gain_at_f_gait": 0.11511405435978597
+        }
+      ]
+    },
+    {
+      "group": "M=20",
+      "label": "1853697842",
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:27-14:42_mu/npz/M=20_1853697842_data.npz",
+      "n_analysed": 900,
+      "duration_s": 18.0,
+      "freq_resolution_hz": 0.05555555555555555,
+      "weight_signal": "W_traj",
+      "f_peak_z_hz": 1.4444444444444444,
+      "f_peak_vx_hz": 1.4444444444444444,
+      "f_peak_weights_hz": 1.4444444444444444,
+      "prom_z": 0.9983443906751155,
+      "acf_peak_z": 0.9609688515748436,
+      "T_gait_steps_acf": 35.0,
+      "prom_vx": 0.9997491276699767,
+      "prom_weights": 0.991746993775831,
+      "f_gait_hz": 1.4444444444444444,
+      "T_gait_s": 0.6923076923076923,
+      "T_gait_steps": 34.61538461538461,
+      "peak_ok": true,
+      "harmonic_flag": null,
+      "period_flag": null,
+      "harmonics_z": [
+        {
+          "harmonic": 1,
+          "freq_hz": 1.4444444444444444,
+          "amplitude": 0.03600874658789019
+        },
+        {
+          "harmonic": 2,
+          "freq_hz": 2.888888888888889,
+          "amplitude": 0.011628607046427932
+        },
+        {
+          "harmonic": 3,
+          "freq_hz": 4.333333333333333,
+          "amplitude": 0.0012058659037796798
+        }
+      ],
+      "harmonics_weights": [
+        {
+          "harmonic": 1,
+          "freq_hz": 1.4444444444444444,
+          "amplitude": 0.05157359102590255
+        },
+        {
+          "harmonic": 2,
+          "freq_hz": 2.888888888888889,
+          "amplitude": 0.010646776208959588
+        },
+        {
+          "harmonic": 3,
+          "freq_hz": 4.333333333333333,
+          "amplitude": 0.004206891053220384
+        }
+      ],
+      "codynamic_rel_err": 0.0,
+      "T_gait_steps_used": 34.61538461538461,
+      "t_gait_source": "measured",
+      "ablation": {
+        "t_ablate_base": 500,
+        "n_ablations": 5,
+        "offsets_steps": [
+          0,
+          7,
+          14,
+          21,
+          28
+        ],
+        "steps": [
+          500,
+          507,
+          514,
+          521,
+          528
+        ],
+        "phases_deg": [
+          0.0,
+          72.8,
+          145.6,
+          218.4,
+          291.2
+        ],
+        "spacing_steps": 6.9230769230769225
+      },
+      "candidate_windows": [
+        {
+          "M": 1,
+          "window_s": 0.02,
+          "M_hat": 0.02888888888888889,
+          "gain_at_f_gait": 1.0
+        },
+        {
+          "M": 10,
+          "window_s": 0.2,
+          "M_hat": 0.2888888888888889,
+          "gain_at_f_gait": 0.8694563829994797
+        },
+        {
+          "M": 20,
+          "window_s": 0.4,
+          "M_hat": 0.5777777777777778,
+          "gain_at_f_gait": 0.5352907994887701
+        },
+        {
+          "M": 50,
+          "window_s": 1.0,
+          "M_hat": 1.4444444444444446,
+          "gain_at_f_gait": 0.21731870611277793
+        },
+        {
+          "M": 110,
+          "window_s": 2.2,
+          "M_hat": 3.177777777777778,
+          "gain_at_f_gait": 0.053153599358561524
+        },
+        {
+          "M": 160,
+          "window_s": 3.2,
+          "M_hat": 4.622222222222223,
+          "gain_at_f_gait": 0.06393836607538565
+        }
+      ]
+    },
+    {
+      "group": "M=20",
+      "label": "1919632181",
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:27-14:42_mu/npz/M=20_1919632181_data.npz",
       "n_analysed": 900,
       "duration_s": 18.0,
       "freq_resolution_hz": 0.05555555555555555,
@@ -1142,11 +2134,11 @@
       "f_peak_z_hz": 0.7222222222222222,
       "f_peak_vx_hz": 0.7222222222222222,
       "f_peak_weights_hz": 0.7222222222222222,
-      "prom_z": 0.9920119494895703,
-      "acf_peak_z": 0.9202517969231473,
+      "prom_z": 0.9962706670563026,
+      "acf_peak_z": 0.9140836779780068,
       "T_gait_steps_acf": 70.0,
-      "prom_vx": 0.9985354257655634,
-      "prom_weights": 0.9920790336147861,
+      "prom_vx": 0.9984526328870676,
+      "prom_weights": 0.9932342726308362,
       "f_gait_hz": 0.7222222222222222,
       "T_gait_s": 1.3846153846153846,
       "T_gait_steps": 69.23076923076923,
@@ -1157,34 +2149,34 @@
         {
           "harmonic": 1,
           "freq_hz": 0.7222222222222222,
-          "amplitude": 0.021072088442344674
+          "amplitude": 0.020809557010562994
         },
         {
           "harmonic": 2,
           "freq_hz": 1.4444444444444444,
-          "amplitude": 0.020484587481675552
+          "amplitude": 0.02044286400240958
         },
         {
           "harmonic": 3,
           "freq_hz": 2.1666666666666665,
-          "amplitude": 0.005902916132901799
+          "amplitude": 0.005957111982151376
         }
       ],
       "harmonics_weights": [
         {
           "harmonic": 1,
           "freq_hz": 0.7222222222222222,
-          "amplitude": 0.06487459228290411
+          "amplitude": 0.06480226143290779
         },
         {
           "harmonic": 2,
           "freq_hz": 1.4444444444444444,
-          "amplitude": 0.028280399582935087
+          "amplitude": 0.028095463913960124
         },
         {
           "harmonic": 3,
           "freq_hz": 2.1666666666666665,
-          "amplitude": 0.011247704649496084
+          "amplitude": 0.011154062353106868
         }
       ],
       "codynamic_rel_err": 0.0,
@@ -1257,8 +2249,8 @@
     },
     {
       "group": "M=20",
-      "label": "M_20_641049713",
-      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:13-18:58_mu/npz/M_20_641049713_data.npz",
+      "label": "641049713",
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:27-14:42_mu/npz/M=20_641049713_data.npz",
       "n_analysed": 900,
       "duration_s": 18.0,
       "freq_resolution_hz": 0.05555555555555555,
@@ -1266,11 +2258,11 @@
       "f_peak_z_hz": 1.0555555555555556,
       "f_peak_vx_hz": 1.0555555555555556,
       "f_peak_weights_hz": 1.0555555555555556,
-      "prom_z": 0.9946145270293942,
-      "acf_peak_z": 0.9388729959642476,
+      "prom_z": 0.9932800674336718,
+      "acf_peak_z": 0.9389219897378908,
       "T_gait_steps_acf": 48.0,
-      "prom_vx": 0.999554338541869,
-      "prom_weights": 0.9880333922778071,
+      "prom_vx": 0.9974456628277,
+      "prom_weights": 0.9885222345487478,
       "f_gait_hz": 1.0555555555555556,
       "T_gait_s": 0.9473684210526315,
       "T_gait_steps": 47.368421052631575,
@@ -1281,34 +2273,34 @@
         {
           "harmonic": 1,
           "freq_hz": 1.0555555555555556,
-          "amplitude": 0.018148721948529907
+          "amplitude": 0.01767798039214024
         },
         {
           "harmonic": 2,
           "freq_hz": 2.111111111111111,
-          "amplitude": 0.01136982136900203
+          "amplitude": 0.010530054791737522
         },
         {
           "harmonic": 3,
           "freq_hz": 3.1666666666666665,
-          "amplitude": 0.002573566859493461
+          "amplitude": 0.0020386049430311183
         }
       ],
       "harmonics_weights": [
         {
           "harmonic": 1,
           "freq_hz": 1.0555555555555556,
-          "amplitude": 0.05049330803600383
+          "amplitude": 0.049387726120977145
         },
         {
           "harmonic": 2,
           "freq_hz": 2.111111111111111,
-          "amplitude": 0.01276724185781497
+          "amplitude": 0.011706325410833456
         },
         {
           "harmonic": 3,
           "freq_hz": 3.1666666666666665,
-          "amplitude": 0.004633283917702597
+          "amplitude": 0.003648798145699129
         }
       ],
       "codynamic_rel_err": 0.0,
@@ -1381,8 +2373,8 @@
     },
     {
       "group": "M=20",
-      "label": "M_20_685059270",
-      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:13-18:58_mu/npz/M_20_685059270_data.npz",
+      "label": "685059270",
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:27-14:42_mu/npz/M=20_685059270_data.npz",
       "n_analysed": 900,
       "duration_s": 18.0,
       "freq_resolution_hz": 0.05555555555555555,
@@ -1390,11 +2382,11 @@
       "f_peak_z_hz": 0.9444444444444444,
       "f_peak_vx_hz": 0.9444444444444444,
       "f_peak_weights_hz": 0.9444444444444444,
-      "prom_z": 0.9934767497802252,
-      "acf_peak_z": 0.9321808657969068,
+      "prom_z": 0.9987204380882742,
+      "acf_peak_z": 0.930970975828812,
       "T_gait_steps_acf": 53.0,
-      "prom_vx": 0.9943425918402563,
-      "prom_weights": 0.9924227452435288,
+      "prom_vx": 0.9989410165589444,
+      "prom_weights": 0.9936695625787719,
       "f_gait_hz": 0.9444444444444444,
       "T_gait_s": 1.0588235294117647,
       "T_gait_steps": 52.94117647058823,
@@ -1405,34 +2397,34 @@
         {
           "harmonic": 1,
           "freq_hz": 0.9444444444444444,
-          "amplitude": 0.025483689232633475
+          "amplitude": 0.025670926586344355
         },
         {
           "harmonic": 2,
           "freq_hz": 1.8888888888888888,
-          "amplitude": 0.009259186481512577
+          "amplitude": 0.009291564792860184
         },
         {
           "harmonic": 3,
           "freq_hz": 2.833333333333333,
-          "amplitude": 0.005890700994269328
+          "amplitude": 0.005651732875792248
         }
       ],
       "harmonics_weights": [
         {
           "harmonic": 1,
           "freq_hz": 0.9444444444444444,
-          "amplitude": 0.05218765907155792
+          "amplitude": 0.0520831497372575
         },
         {
           "harmonic": 2,
           "freq_hz": 1.8888888888888888,
-          "amplitude": 0.01723836469280021
+          "amplitude": 0.017051800801705805
         },
         {
           "harmonic": 3,
           "freq_hz": 2.833333333333333,
-          "amplitude": 0.00632023476768328
+          "amplitude": 0.0062114153697508025
         }
       ],
       "codynamic_rel_err": 0.0,

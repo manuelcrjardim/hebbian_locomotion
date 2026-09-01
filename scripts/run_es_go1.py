@@ -178,7 +178,7 @@ def main():
 
     ROBOT = 'GO1'
     MODEL = 'HAN' 
-    M = 100
+    M = 10
     REWARD = f'FINAL'
     # ES parameters (paper: sigma_init=0.1, decay=0.999, lr=0.1, lr_decay=0.999)
     LEARNING_RATE = 0.1

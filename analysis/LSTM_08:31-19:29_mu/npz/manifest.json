@@ -1,0 +1,31 @@
+{
+  "tag": "08:31-19:29_mu",
+  "npz_dir": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/LSTM_08:31-19:29_mu/npz",
+  "networks": [
+    {
+      "group": "LSTM",
+      "label": "SEED1",
+      "npz": "LSTM_SEED1_data.npz"
+    },
+    {
+      "group": "LSTM",
+      "label": "SEED2",
+      "npz": "LSTM_SEED2_data.npz"
+    },
+    {
+      "group": "LSTM",
+      "label": "SEED4",
+      "npz": "LSTM_SEED4_data.npz"
+    },
+    {
+      "group": "LSTM",
+      "label": "SEED5",
+      "npz": "LSTM_SEED5_data.npz"
+    },
+    {
+      "group": "LSTM",
+      "label": "SEED6",
+      "npz": "LSTM_SEED6_data.npz"
+    }
+  ]
+}

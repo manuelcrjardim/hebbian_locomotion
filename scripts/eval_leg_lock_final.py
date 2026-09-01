@@ -141,23 +141,72 @@ ROOT = ("/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/"
 '''
 
 CONDITIONS = [
+    {"group": "M=1",   "label": "860896728",
+     "ckpt": f"{ROOT}/checkpoints/08:04-11:52_GO1_FINAL_HAN_499_860896728_M_1_benchmark.pickle",
+     'T_gait': 37.5},
+     {"group": "M=1",   "label": "1396289849",
+     "ckpt": f"{ROOT}/checkpoints/08:04-11:52_GO1_FINAL_HAN_499_1396289849_M_1_benchmark.pickle",
+     'T_gait': 56.25},
+     {"group": "M=1",   "label": "1295751242",
+     "ckpt": f"{ROOT}/checkpoints/08:18-14:01_GO1_FINAL_HAN_M_1_1295751242_benchmark.pickle",
+     'T_gait': 42.857},
+     {"group": "M=1",   "label": "489225843",
+     "ckpt": f"{ROOT}/checkpoints/08:18-14:05_GO1_FINAL_HAN_M_1_489225843_benchmark.pickle",
+     'T_gait':52.941},
+    {"group": "M=1",   "label": "2113178504",
+     "ckpt": f"{ROOT}/checkpoints/08:26-19:37_GO1_FINAL_HAN_M_1_2113178504_benchmark.pickle",
+     'T_gait': 33.333},
 
-    # T_gait in CONTROL STEPS from gait_spectrum.py. None -> falls back to
-    # DEFAULT_T_GAIT, and the fallback is recorded in the JSON.
-    {"group": "M=20",  "label": "M20_s1853697842",
+
+    {"group": "M=10",  "label": "617764346",
+     "ckpt": f"{ROOT}/checkpoints/08:21-16:22_GO1_FINAL_HAN_M_10_617764346_benchmark.pickle",
+     'T_gait': 44.999},
+     {"group": "M=10",  "label": "1146876823",
+     "ckpt": f"{ROOT}/checkpoints/08:23-16:38_GO1_FINAL_HAN_M_10_1146876823_benchmark.pickle",
+     'T_gait': 29.032}, 
+     {"group": "M=10",  "label": "1331919846",
+     "ckpt": f"{ROOT}/checkpoints/08:23-16:39_GO1_FINAL_HAN_M_10_1331919846_benchmark.pickle",
+     'T_gait': 30.000}, 
+     {"group": "M=10",  "label": "27294405", 
+     "ckpt": f"{ROOT}/checkpoints/08:15-11:09_GO1_FINAL_HAN_M_10_27294405_benchmark.pickle",
+     'T_gait': 31.034}, 
+    {"group": "M=10",  "label": "689362957",
+     "ckpt": f"{ROOT}/checkpoints/08:26-19:50_GO1_FINAL_HAN_M_10_689362957_benchmark.pickle",
+     'T_gait': 27.2727},
+
+
+    {"group": "M=20",  "label": "1853697842",
      "ckpt": f"{ROOT}/checkpoints/08:04-18:00_GO1_FINAL_HAN_499_1853697842_M_20_benchamrk.pickle",
-     "T_gait": 34.615},
-     {"group": "M=20",  "label": "M_20_685059270",
+     'T_gait': 34.615},
+     {"group": "M=20",  "label": "685059270",
      "ckpt": f"{ROOT}/checkpoints/08:11-10:43_GO1_FINAL_HAN_M_20_685059270_M_20_benchmark.pickle",
-     "T_gait": 52.941},
-     {"group": "M=20",  "label": "M_20_1919632181",
+     'T_gait': 52.941},
+     {"group": "M=20",  "label": "1919632181",
      "ckpt": f"{ROOT}/checkpoints/08:11-10:41_GO1_FINAL_HAN_M_20_1919632181_benchmark.pickle",
-     "T_gait": 69.230},
-     {"group": "M=20",  "label": "M_20_641049713",
+     'T_gait': 69.230},
+     {"group": "M=20",  "label": "641049713",
      "ckpt": f"{ROOT}/checkpoints/08:11-10:40_GO1_FINAL_HAN_M_20_641049713_benchmark.pickle",
-     "T_gait": 47.368},
+     'T_gait': 47.368},
+     {"group": "M=20",  "label": "1298619277",
+     "ckpt": f"{ROOT}/checkpoints/08:26-16:50_GO1_FINAL_HAN_M_20_1298619277_benchmark.pickle",
+     'T_gait': 89.999},
+     
+    {"group": "M=160", "label": "576310242",
+     "ckpt": f"{ROOT}/checkpoints/08:04-00:56_GO1_FINAL_HAN_499_576310242_M_160_benchmark.pickle",
+     'T_gait': 36.0},
+     {"group": "M=160", "label": "756800567",
+     "ckpt": f"{ROOT}/checkpoints/08:14-14:35_GO1_FINAL_HAN_M_160_756800567_benchmark.pickle",
+     'T_gait': 34.615},
+     {"group": "M=160", "label": "1042351053",
+     "ckpt": f"{ROOT}/checkpoints/08:14-14:35_GO1_FINAL_HAN_M_160_1042351053_behcnmark.pickle",
+     'T_gait': 37.5},
+     {"group": "M=160", "label": "2126766829",
+     "ckpt": f"{ROOT}/checkpoints/08:14-14:37_GO1_FINAL_HAN_M_160_2126766829_benchmark.pickle",
+     'T_gait': 47.368},
+    {"group": "M=160", "label": "602647351",
+     "ckpt": f"{ROOT}/checkpoints/08:15-11:04_GO1_FINAL_HAN_M_160_602647351_benchmark.pickle",
+     'T_gait': 34.61},
 ]
-
   #  {"group": "M=160", "label": "M160_s576310242",
    #  "ckpt": f"{ROOT}/checkpoints/08:04-00:56_GO1_FINAL_HAN_499_576310242_M_160_benchmark.pickle",
     # "T_gait": 36.0},
@@ -165,9 +214,13 @@ CONDITIONS = [
 
 RUN_TAG = "leglock_sweep_RL_hip_only"                 # prefix for every output file
 OUTDIR = f"{ROOT}/analysis/leglock_{current_time}_{RUN_TAG}"
+# Per-cell arrays are spilled here as each cell finishes, then merged into the
+# run-level npz at the end. Keeping them on disk rather than in `results` is
+# what bounds the resident set over a long sweep.
+CELL_DIR = f"{OUTDIR}/cells"
 
 PARAM_SOURCE = "mu"          # "mu" or "best_mu"; mu is the converged solution
-NUM_REPEATS = 5             # parallel copies of the SAME network PER STRATUM;
+NUM_REPEATS = 4             # parallel copies of the SAME network PER STRATUM;
                              # total repeats per cell = NUM_REPEATS * N_ABLATIONS
 STEPS = 1000                 # control steps; 1000 = 20 s at 50 Hz, as in HAN
 
@@ -193,7 +246,7 @@ CELLS = {
 
 # --- damage model; fix once, identical across EVERY condition and cell ---
 LOCK_MODE = "stuck"          # "stuck" (Leung: leg stops following commands) or "limp"
-LEG_PATTERNS = ["RL_hip_joint"]     # confirm names with inspect_robot.py
+LEG_PATTERNS = ["RR_calf_joint"]     # confirm names with inspect_robot.py
 HOLD_POSITION = "default"    # "current" = no step change in target at damage onset
 STUCK_STIFFNESS = 8.0       # ignored if perturbation_go1 overrides the target
 STUCK_DAMPING = 1.0
@@ -218,9 +271,11 @@ ROLLOUT_SEED = 0
 HEADLESS = True
 # ===========================================================================
 
+import gc
 import json
 import os
 import pickle
+import resource
 
 from isaaclab.app import AppLauncher
 
@@ -286,15 +341,15 @@ def roma_at(x):
     return ROMA[i] if i >= len(ROMA) - 1 else _lerp_hex(ROMA[i], ROMA[i + 1], x - i)
 
 
-def ramp_colors(n, lo=0.05, hi=0.95):
+def ramp_colors(n, lo=0.22, hi=0.92):
     """n colours along roma, for an ORDERED variable.
 
-    Sampling stops short of both ends: the extremes of roma are very dark and
-    very light respectively, and the light end is unreadable as a thin line on
-    an off-white ground.
+    Starts ~22% along and stops short of the far end: the extremes of roma are
+    very dark and very light respectively, and the light end is unreadable as a
+    thin line on an off-white ground.
     """
     if n == 1:
-        return [roma_at(0.5)]
+        return [roma_at(lo)]
     return [roma_at(lo + (hi - lo) * i / (n - 1)) for i in range(n)]
 
 
@@ -331,7 +386,7 @@ def set_pub_style():
         "text.color": FG, "axes.labelcolor": FG, "axes.edgecolor": FG,
         "xtick.color": FG, "ytick.color": FG,
         "axes.spines.top": False, "axes.spines.right": False,
-        "axes.grid": True, "axes.axisbelow": True,
+        "axes.grid": True, "axes.grid.axis": "y", "axes.axisbelow": True,
         "grid.color": GRID, "grid.linewidth": 0.6,
         "xtick.direction": "out",
         "ytick.direction": "out",
@@ -467,6 +522,45 @@ def load_checkpoint(path):
     return data[0], data[1], run_cfg
 
 
+def load_spec(path):
+    """Read a checkpoint down to the few values a rollout actually needs.
+
+    The pickled `models_ckpt` is the TRAINING-time network, built at the ES
+    population size (4096), so its A/B/C/D/lr tensors and -- for a large M --
+    its activation ring buffers run to roughly a gigabyte. build_network reads
+    three scalars off it and nothing else, and run_cell is called once per
+    stratum, so loading the checkpoint inside the rollout unpickles and
+    discards that gigabyte twenty times per network. The allocator does not
+    return blocks that size to the OS, so the resident set ratchets upward
+    across the sweep even though nothing is logically retained.
+
+    Loading once per network and keeping only (params, sizes, M, tau) removes
+    the repeated allocation entirely.
+    """
+    solver, models_ckpt, _ = load_checkpoint(path)
+    params = np.array(solver.mu if PARAM_SOURCE == "mu" else solver.best_mu,
+                      dtype=np.float32, copy=True)
+
+    sizes = list(models_ckpt.architecture)
+    M = NET_M if NET_M is not None else getattr(models_ckpt, "M", None)
+    tau = NET_TAU_HEBB if NET_TAU_HEBB is not None else getattr(
+        models_ckpt, "tau_hebb", None)
+    if M is None:
+        raise ValueError(
+            f"No M found in checkpoint {path} and NET_M is None. Set NET_M "
+            f"explicitly or re-save the checkpoint with its hyperparameters.")
+    M, tau = int(M), int(tau if tau is not None else 1)
+
+    # Drop the training-size object before returning, and hand its GPU blocks
+    # back rather than waiting for the next unpickle to demand fresh ones.
+    del solver, models_ckpt
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+
+    return {"params": params, "sizes": sizes, "M": M, "tau": tau}
+
+
 def build_network(models_ckpt, popsize):
     """Instantiate the right class with hyperparameters read from the checkpoint.
 
@@ -548,7 +642,7 @@ def compute_measures(vx, dW, event_step):
 # ===========================================================================
 # One rollout
 # ===========================================================================
-def run_cell(env, robot, ckpt_path, do_freeze, do_lock, step_dt, verbose_lock,
+def run_cell(env, robot, spec, do_freeze, do_lock, step_dt, verbose_lock,
              event_step):
     """Run ONE stratum of one cell: all envs share this stratum's event_step.
 
@@ -558,13 +652,15 @@ def run_cell(env, robot, ckpt_path, do_freeze, do_lock, step_dt, verbose_lock,
     actuator -- so staggering them per env would mean changing both. Running
     them separately keeps the damage model exactly as validated.
     """
-    solver, models_ckpt, _ = load_checkpoint(ckpt_path)
-    params = np.asarray(solver.mu if PARAM_SOURCE == "mu" else solver.best_mu)
+    # `spec` is the small dict from load_spec(): params plus three scalars.
+    # The checkpoint is read once per network in main(), not once per stratum.
+    M, tau = spec["M"], spec["tau"]
 
-    # Rebuilt every cell: freeze_network() shadows a method on HebbianNet
+    # Rebuilt every stratum: freeze_network() shadows a method on HebbianNet
     # instances, and a stale activation buffer would leak across cells.
-    model, M, tau = build_network(models_ckpt, NUM_REPEATS)
-    model.set_a_model_params(params)
+    model = HANNet(NUM_REPEATS, sizes=spec["sizes"], norm_mode=NORM_MODE,
+                   M=M, tau_hebb=tau)
+    model.set_a_model_params(spec["params"])
 
     obs, _ = env.reset()
     model.reset_weights()
@@ -615,9 +711,97 @@ def run_cell(env, robot, ckpt_path, do_freeze, do_lock, step_dt, verbose_lock,
     leg_lock.restore(robot)
 
     traces = {k: np.asarray(v) for k, v in
-              (("vx", vx_l), ("z", z_l), ("rew", rew_l),
-               ("up", up_l), ("dW", dW_l))}
-    return traces, compute_measures(traces["vx"], traces["dW"], event_step), M, tau
+              ((("vx", vx_l), ("z", z_l), ("rew", rew_l),
+                ("up", up_l), ("dW", dW_l)))}
+    measures = compute_measures(traces["vx"], traces["dW"], event_step)
+
+    # run_cell is called once per stratum -- 20 times per network for a full
+    # 2x2 x 5 strata sweep -- and each call builds a fresh network with its own
+    # A/B/C/D/lr tensors, one_array, and (for HANNet at large M) activation
+    # ring buffers. freeze_network() shadows a method on the model instance,
+    # which is exactly the kind of reference that keeps a dead object alive, so
+    # drop the references explicitly and hand the blocks back to the allocator
+    # rather than trusting refcounting to do it before the next call.
+    del model, prev_W, vx_l, z_l, rew_l, up_l, dW_l
+    if "cur_W" in dir():
+        del cur_W
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+
+    return traces, measures, M, tau
+
+
+def rss_gb():
+    """Peak resident set of this process, in GiB.
+
+    Reported after every cell so a run that is drifting upward is visible in
+    the log long before the OOM killer intervenes.
+    """
+    return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / (1024 ** 2)
+
+
+def reduce_traces(traces):
+    """Collapse pooled traces to the three curves the figures actually draw.
+
+    fig_traces_group plots only the median and the 25-75 percentile band of
+    each trace, so a full (T x repeats*strata) array is retained for the whole
+    sweep in order to recompute three (T,) curves at the very end. Doing the
+    reduction here instead makes the in-memory cost per cell independent of
+    NUM_REPEATS and N_ABLATIONS, which is what stops the resident set growing
+    without bound as networks accumulate. The full arrays are still written to
+    disk first, so nothing is lost -- only the copy held in RAM is reduced.
+    """
+    out = {}
+    for name, arr in traces.items():
+        out[name] = {
+            "med": np.median(arr, axis=1),
+            "lo": np.nanpercentile(arr, 25, axis=1),
+            "hi": np.nanpercentile(arr, 75, axis=1),
+        }
+    return out
+
+
+def spill_cell(key, traces, meas, strata, pre, post):
+    """Write one cell's full arrays to its own npz and return its path.
+
+    Each cell is written as it completes rather than assembling one payload
+    dict at the end of the sweep: that dict was a second full copy of every
+    trace in the run, materialised at the moment memory was already at its
+    peak. The per-cell files are recombined by merge_npz() once the figures
+    are done.
+    """
+    path = os.path.join(CELL_DIR, f"{key}.npz")
+    payload = {}
+    for name, arr in traces.items():
+        payload[name] = arr.astype(np.float32)
+    for name, arr in meas.items():
+        payload[f"per_repeat_{name}"] = np.atleast_1d(arr)
+    payload["align"] = np.array([pre, post])
+    for st in strata:
+        for name, arr in st["measures"].items():
+            payload[f"stratum{st['k']}_{name}"] = np.atleast_1d(arr)
+    payload["stratum_event_steps"] = np.array([st["event_step"] for st in strata])
+    payload["stratum_phases_deg"] = np.array([st["phase_deg"] for st in strata])
+    np.savez_compressed(path, **payload)
+    return path
+
+
+def merge_npz():
+    """Recombine the per-cell npz files into the single run-level archive.
+
+    Streamed one cell at a time so peak memory is one cell, not the sweep.
+    """
+    out_path = os.path.join(OUTDIR, f"{RUN_TAG}_data.npz")
+    payload = {}
+    for fname in sorted(os.listdir(CELL_DIR)):
+        if not fname.endswith(".npz"):
+            continue
+        key = fname[:-4]
+        with np.load(os.path.join(CELL_DIR, fname)) as d:
+            for name in d.files:
+                payload[f"{key}__{name}"] = d[name]
+    np.savez_compressed(out_path, **payload)
+    print(f"[OUT] {out_path}")
 
 
 # ===========================================================================
@@ -696,11 +880,11 @@ def fig_traces_group(results, g, labels):
             col, name = CELL_COLOUR[cell], CELL_LABEL[cell]
             # x is steps SINCE ABLATION: traces from different strata were
             # aligned to their own event before pooling, so a common absolute
-            # step axis would be meaningless here.
+            # step axis would be meaningless here. The median and IQR band
+            # were reduced at pooling time (see reduce_traces).
             t = np.arange(-pre, post)
-            for c, arr in enumerate((tr["vx"], tr["dW"])):
-                med = np.median(arr, axis=1)
-                lo, hi = np.nanpercentile(arr, [25, 75], axis=1)
+            for c, nm in enumerate(("vx", "dW")):
+                med, lo, hi = tr[nm]["med"], tr[nm]["lo"], tr[nm]["hi"]
                 axes[r, c].fill_between(t, lo, hi, color=col, alpha=0.13, lw=0)
                 axes[r, c].plot(t, med, color=col, lw=1.0,
                                 label=name if (r == 0 and c == 0) else None)
@@ -921,6 +1105,7 @@ def group_rows_table(results, active):
 def main():
     set_pub_style()
     os.makedirs(OUTDIR, exist_ok=True)
+    os.makedirs(CELL_DIR, exist_ok=True)
 
     # Labels key the results dict, the npz payload and the figure filenames; a
     # duplicate would silently overwrite a network's results with another's.
@@ -984,6 +1169,11 @@ def main():
         sch = schedule[cond["label"]]
         pre, post = align_window(sch["steps"])
 
+        # Read the checkpoint ONCE for this network. load_spec keeps only the
+        # parameter vector and three scalars, and releases the training-size
+        # network object before returning.
+        spec = load_spec(cond["ckpt"])
+
         for cell in active:
             key = f"{cond['label']}__{cell}"
             n = len(results) + 1
@@ -993,7 +1183,7 @@ def main():
             M = tau = None
             for k, (ev, ph) in enumerate(zip(sch["steps"], sch["phases_deg"])):
                 traces_k, meas_k, M, tau = run_cell(
-                    env, robot, cond["ckpt"],
+                    env, robot, spec,
                     do_freeze=CELLS[cell]["freeze"], do_lock=CELLS[cell]["lock"],
                     step_dt=step_dt,
                     verbose_lock=(first_lock and CELLS[cell]["lock"]),
@@ -1009,9 +1199,28 @@ def main():
 
             traces, meas = pool_strata(strata, pre, post)
 
-            results[key] = {"traces": traces, "per_repeat": meas,
+            # Write this cell's full arrays out before anything is discarded,
+            # so the on-disk record is complete regardless of what is kept.
+            spill_cell(key, traces, meas, strata, pre, post)
+
+            # Retain only what the figures read: the three summary curves per
+            # trace, the per-repeat scalars, and the per-stratum measures.
+            # The bulk arrays -- both the pooled `traces` and the five
+            # uncropped per-stratum copies inside `strata` -- are dropped here.
+            for s in strata:
+                del s["traces"]
+
+            # These three scalars are the only row entries that need the full
+            # arrays, so compute them before `traces` is released.
+            mean_reward = float(np.median(traces["rew"].mean(axis=0)))
+            final_upright = float(np.median(traces["up"][-1]))
+            fallen_fraction = float(np.mean(traces["up"][-1] < 0.5))
+
+            results[key] = {"traces": reduce_traces(traces),
+                            "per_repeat": meas,
                             "strata": strata, "pre": pre, "post": post,
                             "M": M, "tau_hebb": tau}
+            del traces
 
             row = {
                 "condition": cond["label"], "group": group_of(cond),
@@ -1034,15 +1243,23 @@ def main():
                 "v_post": float(np.nanmedian(meas["v_post"])),
                 "dW_early": float(np.nanmedian(meas["dW_early"])),
                 "dW_late": float(np.nanmedian(meas["dW_late"])),
-                "mean_reward": float(np.median(traces["rew"].mean(axis=0))),
-                "final_upright": float(np.median(traces["up"][-1])),
-                "fallen_fraction": float(np.mean(traces["up"][-1] < 0.5)),
+                "mean_reward": mean_reward,
+                "final_upright": final_upright,
+                "fallen_fraction": fallen_fraction,
             }
             rows.append(row)
             print(f"      retention {row['velocity_retention']:6.3f} | "
                   f"conv ratio {row['convergence_ratio']:6.3f} | "
                   f"converged {row['fraction_converged']:5.2f} | "
-                  f"fallen {row['fallen_fraction']:5.2f}")
+                  f"fallen {row['fallen_fraction']:5.2f} | "
+                  f"peak RSS {rss_gb():5.2f} GiB")
+
+        # This network is done: release its parameter vector before the next
+        # checkpoint is read.
+        del spec
+        gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
 
     env.close()
 
@@ -1094,25 +1311,11 @@ def main():
     with open(os.path.join(OUTDIR, f"{RUN_TAG}_summary.json"), "w") as f:
         json.dump(meta, f, indent=2)
 
-    payload = {}
-    for key, r in results.items():
-        # Pooled, event-aligned traces: axis 0 is steps since ablation over
-        # [-pre, +post), axis 1 is repeats x strata.
-        for name, arr in r["traces"].items():
-            payload[f"{key}__{name}"] = arr
-        for name, arr in r["per_repeat"].items():
-            payload[f"{key}__per_repeat_{name}"] = arr
-        payload[f"{key}__align"] = np.array([r["pre"], r["post"]])
-        # Per-stratum measures kept separately so phase dependence can be
-        # re-analysed without re-running the sweep.
-        for st in r["strata"]:
-            for name, arr in st["measures"].items():
-                payload[f"{key}__stratum{st['k']}_{name}"] = np.atleast_1d(arr)
-        payload[f"{key}__stratum_event_steps"] = np.array(
-            [st["event_step"] for st in r["strata"]])
-        payload[f"{key}__stratum_phases_deg"] = np.array(
-            [st["phase_deg"] for st in r["strata"]])
-    np.savez_compressed(os.path.join(OUTDIR, f"{RUN_TAG}_data.npz"), **payload)
+    # Each cell was written to CELL_DIR as it completed; merge them into the
+    # single run-level archive. Assembling one payload dict over `results` here
+    # would have been a second full copy of every trace in the sweep, built at
+    # the point where memory is already at its peak.
+    merge_npz()
 
     for g in group_order():
         fig_traces_group(results, g, [c["label"] for c in conds_in_group(g)])

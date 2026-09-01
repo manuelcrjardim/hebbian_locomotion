@@ -1,0 +1,3853 @@
+{
+  "run_tag": "leglock_sweep_RL_hip_only",
+  "conditions": [
+    {
+      "group": "M=1",
+      "label": "860896728",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:04-11:52_GO1_FINAL_HAN_499_860896728_M_1_benchmark.pickle",
+      "T_gait_steps": 0.75,
+      "t_gait_source": "condition"
+    },
+    {
+      "group": "M=1",
+      "label": "1396289849",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:04-11:52_GO1_FINAL_HAN_499_1396289849_M_1_benchmark.pickle",
+      "T_gait_steps": 1.125,
+      "t_gait_source": "condition"
+    },
+    {
+      "group": "M=1",
+      "label": "1295751242",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:18-14:01_GO1_FINAL_HAN_M_1_1295751242_benchmark.pickle",
+      "T_gait_steps": 0.899,
+      "t_gait_source": "condition"
+    },
+    {
+      "group": "M=1",
+      "label": "489225843",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:18-14:05_GO1_FINAL_HAN_M_1_489225843_benchmark.pickle",
+      "T_gait_steps": 1.058,
+      "t_gait_source": "condition"
+    },
+    {
+      "group": "M=10",
+      "label": "617764346",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:21-16:22_GO1_FINAL_HAN_M_10_617764346_benchmark.pickle",
+      "T_gait_steps": 0.899,
+      "t_gait_source": "condition"
+    },
+    {
+      "group": "M=10",
+      "label": "1146876823",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:23-16:38_GO1_FINAL_HAN_M_10_1146876823_benchmark.pickle",
+      "T_gait_steps": 0.5806,
+      "t_gait_source": "condition"
+    },
+    {
+      "group": "M=10",
+      "label": "1331919846",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:23-16:39_GO1_FINAL_HAN_M_10_1331919846_benchmark.pickle",
+      "T_gait_steps": 0.6,
+      "t_gait_source": "condition"
+    },
+    {
+      "group": "M=10",
+      "label": "27294405",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:15-11:09_GO1_FINAL_HAN_M_10_27294405_benchmark.pickle",
+      "T_gait_steps": 0.6206,
+      "t_gait_source": "condition"
+    },
+    {
+      "group": "M=20",
+      "label": "1853697842",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:04-18:00_GO1_FINAL_HAN_499_1853697842_M_20_benchamrk.pickle",
+      "T_gait_steps": 0.6923,
+      "t_gait_source": "condition"
+    },
+    {
+      "group": "M=20",
+      "label": "685059270",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:11-10:43_GO1_FINAL_HAN_M_20_685059270_M_20_benchmark.pickle",
+      "T_gait_steps": 1.058,
+      "t_gait_source": "condition"
+    },
+    {
+      "group": "M=20",
+      "label": "1919632181",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:11-10:41_GO1_FINAL_HAN_M_20_1919632181_benchmark.pickle",
+      "T_gait_steps": 1.384,
+      "t_gait_source": "condition"
+    },
+    {
+      "group": "M=20",
+      "label": "641049713",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:11-10:40_GO1_FINAL_HAN_M_20_641049713_benchmark.pickle",
+      "T_gait_steps": 0.9473,
+      "t_gait_source": "condition"
+    },
+    {
+      "group": "M=160",
+      "label": "576310242",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:04-00:56_GO1_FINAL_HAN_499_576310242_M_160_benchmark.pickle",
+      "T_gait_steps": 0.72,
+      "t_gait_source": "condition"
+    },
+    {
+      "group": "M=160",
+      "label": "756800567",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:14-14:35_GO1_FINAL_HAN_M_160_756800567_benchmark.pickle",
+      "T_gait_steps": 0.692,
+      "t_gait_source": "condition"
+    },
+    {
+      "group": "M=160",
+      "label": "1042351053",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:14-14:35_GO1_FINAL_HAN_M_160_1042351053_behcnmark.pickle",
+      "T_gait_steps": 0.75,
+      "t_gait_source": "condition"
+    },
+    {
+      "group": "M=160",
+      "label": "2126766829",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:14-14:37_GO1_FINAL_HAN_M_160_2126766829_benchmark.pickle",
+      "T_gait_steps": 0.947,
+      "t_gait_source": "condition"
+    },
+    {
+      "group": "M=160",
+      "label": "602647351",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:15-11:04_GO1_FINAL_HAN_M_160_602647351_benchmark.pickle",
+      "T_gait_steps": 0.692,
+      "t_gait_source": "condition"
+    }
+  ],
+  "cells": {
+    "baseline": {
+      "freeze": false,
+      "lock": false
+    },
+    "freeze_only": {
+      "freeze": true,
+      "lock": false
+    },
+    "lock_only": {
+      "freeze": false,
+      "lock": true
+    },
+    "both": {
+      "freeze": true,
+      "lock": true
+    }
+  },
+  "param_source": "mu",
+  "num_repeats_per_stratum": 1,
+  "n_ablations": 5,
+  "repeats_per_cell": 5,
+  "steps": 1000,
+  "event_step_base": 500,
+  "ablation_schedule": {
+    "860896728": {
+      "steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        480.0
+      ],
+      "T_gait": 0.75,
+      "t_gait_source": "condition"
+    },
+    "1396289849": {
+      "steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        320.0,
+        320.0
+      ],
+      "T_gait": 1.125,
+      "t_gait_source": "condition"
+    },
+    "1295751242": {
+      "steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        400.4,
+        400.4
+      ],
+      "T_gait": 0.899,
+      "t_gait_source": "condition"
+    },
+    "489225843": {
+      "steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        340.3,
+        340.3
+      ],
+      "T_gait": 1.058,
+      "t_gait_source": "condition"
+    },
+    "617764346": {
+      "steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        400.4,
+        400.4
+      ],
+      "T_gait": 0.899,
+      "t_gait_source": "condition"
+    },
+    "1146876823": {
+      "steps": [
+        500,
+        500,
+        500,
+        500,
+        500
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "T_gait": 0.5806,
+      "t_gait_source": "condition"
+    },
+    "1331919846": {
+      "steps": [
+        500,
+        500,
+        500,
+        500,
+        500
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "T_gait": 0.6,
+      "t_gait_source": "condition"
+    },
+    "27294405": {
+      "steps": [
+        500,
+        500,
+        500,
+        500,
+        500
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "T_gait": 0.6206,
+      "t_gait_source": "condition"
+    },
+    "1853697842": {
+      "steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        520.0
+      ],
+      "T_gait": 0.6923,
+      "t_gait_source": "condition"
+    },
+    "685059270": {
+      "steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        340.3,
+        340.3
+      ],
+      "T_gait": 1.058,
+      "t_gait_source": "condition"
+    },
+    "1919632181": {
+      "steps": [
+        500,
+        500,
+        501,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        260.1,
+        260.1,
+        260.1
+      ],
+      "T_gait": 1.384,
+      "t_gait_source": "condition"
+    },
+    "641049713": {
+      "steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        380.0,
+        380.0
+      ],
+      "T_gait": 0.9473,
+      "t_gait_source": "condition"
+    },
+    "576310242": {
+      "steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        500.0
+      ],
+      "T_gait": 0.72,
+      "t_gait_source": "condition"
+    },
+    "756800567": {
+      "steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        520.2
+      ],
+      "T_gait": 0.692,
+      "t_gait_source": "condition"
+    },
+    "1042351053": {
+      "steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        480.0
+      ],
+      "T_gait": 0.75,
+      "t_gait_source": "condition"
+    },
+    "2126766829": {
+      "steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        380.1,
+        380.1
+      ],
+      "T_gait": 0.947,
+      "t_gait_source": "condition"
+    },
+    "602647351": {
+      "steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        520.2
+      ],
+      "T_gait": 0.692,
+      "t_gait_source": "condition"
+    }
+  },
+  "episode_seconds": 20.0,
+  "lock_mode": "stuck",
+  "leg_patterns": [
+    "RL_hip_joint"
+  ],
+  "hold_position": "default",
+  "mask_locked_actions": false,
+  "norm_mode": "max",
+  "measures": {
+    "win_frac": 0.25,
+    "early_frac": 0.05,
+    "rho": 0.9
+  },
+  "results": [
+    {
+      "condition": "860896728",
+      "group": "M=1",
+      "cell": "baseline",
+      "M": 1,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.75,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        480.0
+      ],
+      "retention_per_phase": [
+        0.9836485385894775,
+        0.9842023253440857,
+        0.9809926152229309,
+        0.9788511991500854,
+        0.982151985168457
+      ],
+      "retention_phase_range": 0.005351126194000244,
+      "velocity_retention": 0.982151985168457,
+      "convergence_ratio": 1.101830244064331,
+      "fraction_converged": 0.0,
+      "v_pre": 0.8125327229499817,
+      "v_post": 0.7980032563209534,
+      "dW_early": 3.4590718746185303,
+      "dW_late": 3.8227128982543945,
+      "mean_reward": 0.01917964220046997,
+      "final_upright": 0.9994309544563293,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "860896728",
+      "group": "M=1",
+      "cell": "freeze_only",
+      "M": 1,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.75,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        480.0
+      ],
+      "retention_per_phase": [
+        -7.54365828470327e-05,
+        -9.463420428801328e-05,
+        -0.0002970130299217999,
+        -0.02628958597779274,
+        -0.00023201867588795722
+      ],
+      "retention_phase_range": 0.026214149394945707,
+      "velocity_retention": -0.00023201867588795722,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.812158465385437,
+      "v_post": -0.00018833957437891513,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.011351627297699451,
+      "final_upright": -0.9997609853744507,
+      "fallen_fraction": 1.0
+    },
+    {
+      "condition": "860896728",
+      "group": "M=1",
+      "cell": "lock_only",
+      "M": 1,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.75,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        480.0
+      ],
+      "retention_per_phase": [
+        0.518692672252655,
+        -0.0031764304731041193,
+        -0.00016066929674707353,
+        0.00022777794220019132,
+        -0.0011057041119784117
+      ],
+      "retention_phase_range": 0.5218691027257591,
+      "velocity_retention": -0.00016066929674707353,
+      "convergence_ratio": 1.1222639083862305,
+      "fraction_converged": 0.0,
+      "v_pre": 0.8132921457290649,
+      "v_post": -0.000130341766634956,
+      "dW_early": 2.948845863342285,
+      "dW_late": 3.3093833923339844,
+      "mean_reward": 0.011957702226936817,
+      "final_upright": -0.9999363422393799,
+      "fallen_fraction": 0.8
+    },
+    {
+      "condition": "860896728",
+      "group": "M=1",
+      "cell": "both",
+      "M": 1,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.75,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        480.0
+      ],
+      "retention_per_phase": [
+        0.020247075706720352,
+        -0.0006477008573710918,
+        -0.0020868219435214996,
+        -0.0006370829069055617,
+        -0.0013896254822611809
+      ],
+      "retention_phase_range": 0.022333897650241852,
+      "velocity_retention": -0.0006477008573710918,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.8120184540748596,
+      "v_post": -0.000527343072462827,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.01154474075883627,
+      "final_upright": -0.45517122745513916,
+      "fallen_fraction": 0.8
+    },
+    {
+      "condition": "1396289849",
+      "group": "M=1",
+      "cell": "baseline",
+      "M": 1,
+      "tau_hebb": 1,
+      "T_gait_steps": 1.125,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        320.0,
+        320.0
+      ],
+      "retention_per_phase": [
+        0.9789808392524719,
+        1.0077787637710571,
+        0.9822408556938171,
+        0.992173969745636,
+        0.9925188422203064
+      ],
+      "retention_phase_range": 0.028797924518585205,
+      "velocity_retention": 0.992173969745636,
+      "convergence_ratio": 0.8129452466964722,
+      "fraction_converged": 1.0,
+      "v_pre": 0.6479533910751343,
+      "v_post": 0.6414818167686462,
+      "dW_early": 2.9101669788360596,
+      "dW_late": 2.3957417011260986,
+      "mean_reward": 0.016144884750247,
+      "final_upright": 0.9857213497161865,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "1396289849",
+      "group": "M=1",
+      "cell": "freeze_only",
+      "M": 1,
+      "tau_hebb": 1,
+      "T_gait_steps": 1.125,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        320.0,
+        320.0
+      ],
+      "retention_per_phase": [
+        -0.0011176635744050145,
+        0.00235027726739645,
+        0.0004925846005789936,
+        0.0006265355623327196,
+        0.0007788045913912356
+      ],
+      "retention_phase_range": 0.0034679408418014646,
+      "velocity_retention": 0.0006265355623327196,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.6372631788253784,
+      "v_post": 0.00036836625076830387,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.010073383338749409,
+      "final_upright": -0.9995812177658081,
+      "fallen_fraction": 1.0
+    },
+    {
+      "condition": "1396289849",
+      "group": "M=1",
+      "cell": "lock_only",
+      "M": 1,
+      "tau_hebb": 1,
+      "T_gait_steps": 1.125,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        320.0,
+        320.0
+      ],
+      "retention_per_phase": [
+        0.2786404490470886,
+        0.2912023961544037,
+        0.10899844765663147,
+        0.3371122181415558,
+        0.28814974427223206
+      ],
+      "retention_phase_range": 0.22811377048492432,
+      "velocity_retention": 0.28814974427223206,
+      "convergence_ratio": 0.7307348847389221,
+      "fraction_converged": 1.0,
+      "v_pre": 0.6480507850646973,
+      "v_post": 0.18636907637119293,
+      "dW_early": 3.170548915863037,
+      "dW_late": 2.3710131645202637,
+      "mean_reward": 0.0121002197265625,
+      "final_upright": 0.9780349135398865,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "1396289849",
+      "group": "M=1",
+      "cell": "both",
+      "M": 1,
+      "tau_hebb": 1,
+      "T_gait_steps": 1.125,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        320.0,
+        320.0
+      ],
+      "retention_per_phase": [
+        8.182036981452256e-05,
+        0.0009824336739256978,
+        -0.0356585867702961,
+        -0.0008869422599673271,
+        0.00046673842007294297
+      ],
+      "retention_phase_range": 0.036641020444221795,
+      "velocity_retention": 8.182036981452256e-05,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.6419472098350525,
+      "v_post": 5.245097054284997e-05,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.010150094516575336,
+      "final_upright": -0.9990018606185913,
+      "fallen_fraction": 1.0
+    },
+    {
+      "condition": "1295751242",
+      "group": "M=1",
+      "cell": "baseline",
+      "M": 1,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.899,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        400.4,
+        400.4
+      ],
+      "retention_per_phase": [
+        0.9544413685798645,
+        0.9591081738471985,
+        0.9542237520217896,
+        0.9582294821739197,
+        0.9588486552238464
+      ],
+      "retention_phase_range": 0.0048844218254089355,
+      "velocity_retention": 0.9582294821739197,
+      "convergence_ratio": 0.9435300230979919,
+      "fraction_converged": 0.2,
+      "v_pre": 0.7259195446968079,
+      "v_post": 0.6962353587150574,
+      "dW_early": 3.401306390762329,
+      "dW_late": 3.2092347145080566,
+      "mean_reward": 0.01747528836131096,
+      "final_upright": 0.9844591021537781,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "1295751242",
+      "group": "M=1",
+      "cell": "freeze_only",
+      "M": 1,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.899,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        400.4,
+        400.4
+      ],
+      "retention_per_phase": [
+        -0.0005637279828079045,
+        -0.0003385045565664768,
+        0.00016680534463375807,
+        -0.02469787374138832,
+        0.0007407495868392289
+      ],
+      "retention_phase_range": 0.02543862332822755,
+      "velocity_retention": -0.0003385045565664768,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7265705466270447,
+      "v_post": -0.00024608575040474534,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.010660598054528236,
+      "final_upright": -0.9996440410614014,
+      "fallen_fraction": 1.0
+    },
+    {
+      "condition": "1295751242",
+      "group": "M=1",
+      "cell": "lock_only",
+      "M": 1,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.899,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        400.4,
+        400.4
+      ],
+      "retention_per_phase": [
+        0.6524333953857422,
+        0.6559887528419495,
+        0.6655588746070862,
+        0.6832882761955261,
+        0.6840808987617493
+      ],
+      "retention_phase_range": 0.03164750337600708,
+      "velocity_retention": 0.6655588746070862,
+      "convergence_ratio": 1.0171928405761719,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7228454351425171,
+      "v_post": 0.48109620809555054,
+      "dW_early": 2.9125068187713623,
+      "dW_late": 2.9732871055603027,
+      "mean_reward": 0.014627032913267612,
+      "final_upright": 0.9801470637321472,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "1295751242",
+      "group": "M=1",
+      "cell": "both",
+      "M": 1,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.899,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        400.4,
+        400.4
+      ],
+      "retention_per_phase": [
+        -0.00023680813319515437,
+        0.0018221632344648242,
+        -8.467912266496569e-06,
+        5.178827268537134e-05,
+        0.02913949266076088
+      ],
+      "retention_phase_range": 0.029376300793956034,
+      "velocity_retention": 5.178827268537134e-05,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7226308584213257,
+      "v_post": 3.7183821405051276e-05,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.010796930640935898,
+      "final_upright": -0.9999954700469971,
+      "fallen_fraction": 1.0
+    },
+    {
+      "condition": "489225843",
+      "group": "M=1",
+      "cell": "baseline",
+      "M": 1,
+      "tau_hebb": 1,
+      "T_gait_steps": 1.058,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        340.3,
+        340.3
+      ],
+      "retention_per_phase": [
+        0.9333534836769104,
+        0.9239155054092407,
+        0.9348216652870178,
+        0.9342130422592163,
+        0.9213923215866089
+      ],
+      "retention_phase_range": 0.013429343700408936,
+      "velocity_retention": 0.9333534836769104,
+      "convergence_ratio": 0.8796861171722412,
+      "fraction_converged": 0.6,
+      "v_pre": 0.6907433867454529,
+      "v_post": 0.6398561000823975,
+      "dW_early": 3.2077724933624268,
+      "dW_late": 2.7921323776245117,
+      "mean_reward": 0.016469750553369522,
+      "final_upright": 0.9866911768913269,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "489225843",
+      "group": "M=1",
+      "cell": "freeze_only",
+      "M": 1,
+      "tau_hebb": 1,
+      "T_gait_steps": 1.058,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        340.3,
+        340.3
+      ],
+      "retention_per_phase": [
+        -0.05227305367588997,
+        -0.02227666974067688,
+        -0.031083345413208008,
+        -0.018627628684043884,
+        -0.040177758783102036
+      ],
+      "retention_phase_range": 0.033645424991846085,
+      "velocity_retention": -0.031083345413208008,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.6888865232467651,
+      "v_post": -0.02141289785504341,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.010630879551172256,
+      "final_upright": 0.9469868540763855,
+      "fallen_fraction": 0.4
+    },
+    {
+      "condition": "489225843",
+      "group": "M=1",
+      "cell": "lock_only",
+      "M": 1,
+      "tau_hebb": 1,
+      "T_gait_steps": 1.058,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        340.3,
+        340.3
+      ],
+      "retention_per_phase": [
+        0.002724848687648773,
+        0.002768629463389516,
+        0.0025433721020817757,
+        0.0023139258846640587,
+        0.001960444962605834
+      ],
+      "retention_phase_range": 0.0008081845007836819,
+      "velocity_retention": 0.0025433721020817757,
+      "convergence_ratio": 0.7198129296302795,
+      "fraction_converged": 1.0,
+      "v_pre": 0.6872540712356567,
+      "v_post": 0.0017331461422145367,
+      "dW_early": 2.6493799686431885,
+      "dW_late": 1.9578027725219727,
+      "mean_reward": 0.010264798067510128,
+      "final_upright": -0.9983010292053223,
+      "fallen_fraction": 1.0
+    },
+    {
+      "condition": "489225843",
+      "group": "M=1",
+      "cell": "both",
+      "M": 1,
+      "tau_hebb": 1,
+      "T_gait_steps": 1.058,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        340.3,
+        340.3
+      ],
+      "retention_per_phase": [
+        0.0009210840216837823,
+        0.0003141890047118068,
+        0.0003309655003249645,
+        -0.0010156541829928756,
+        0.021474923938512802
+      ],
+      "retention_phase_range": 0.022490578121505678,
+      "velocity_retention": 0.0003309655003249645,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.6889349222183228,
+      "v_post": 0.0002296573220519349,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.010503715835511684,
+      "final_upright": -0.999614953994751,
+      "fallen_fraction": 0.8
+    },
+    {
+      "condition": "617764346",
+      "group": "M=10",
+      "cell": "baseline",
+      "M": 10,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.899,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        400.4,
+        400.4
+      ],
+      "retention_per_phase": [
+        0.9768193960189819,
+        0.975063681602478,
+        0.9800195097923279,
+        0.976870596408844,
+        0.973554790019989
+      ],
+      "retention_phase_range": 0.006464719772338867,
+      "velocity_retention": 0.9768193960189819,
+      "convergence_ratio": 1.0151046514511108,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7755951881408691,
+      "v_post": 0.7572113275527954,
+      "dW_early": 1.4487695693969727,
+      "dW_late": 1.4718331098556519,
+      "mean_reward": 0.019053451716899872,
+      "final_upright": 0.9844975471496582,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "617764346",
+      "group": "M=10",
+      "cell": "freeze_only",
+      "M": 10,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.899,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        400.4,
+        400.4
+      ],
+      "retention_per_phase": [
+        0.28314369916915894,
+        0.14127306640148163,
+        0.39459338784217834,
+        -0.010580847039818764,
+        -0.0003955479769501835
+      ],
+      "retention_phase_range": 0.4051742348819971,
+      "velocity_retention": 0.14127306640148163,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7708407044410706,
+      "v_post": 0.108331099152565,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.011651788838207722,
+      "final_upright": 0.961011528968811,
+      "fallen_fraction": 0.2
+    },
+    {
+      "condition": "617764346",
+      "group": "M=10",
+      "cell": "lock_only",
+      "M": 10,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.899,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        400.4,
+        400.4
+      ],
+      "retention_per_phase": [
+        0.44253888726234436,
+        0.4690897464752197,
+        0.5079235434532166,
+        0.3103393316268921,
+        -0.00026230906951241195
+      ],
+      "retention_phase_range": 0.508185852522729,
+      "velocity_retention": 0.44253888726234436,
+      "convergence_ratio": 0.9037595391273499,
+      "fraction_converged": 0.4,
+      "v_pre": 0.775864839553833,
+      "v_post": 0.3437783420085907,
+      "dW_early": 1.4215809106826782,
+      "dW_late": 1.3040544986724854,
+      "mean_reward": 0.014151732437312603,
+      "final_upright": 0.9612862467765808,
+      "fallen_fraction": 0.2
+    },
+    {
+      "condition": "617764346",
+      "group": "M=10",
+      "cell": "both",
+      "M": 10,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.899,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        400.4,
+        400.4
+      ],
+      "retention_per_phase": [
+        -0.0013183931587263942,
+        -0.00010070238204207271,
+        -0.026677915826439857,
+        -0.032000672072172165,
+        0.10530436038970947
+      ],
+      "retention_phase_range": 0.13730503246188164,
+      "velocity_retention": -0.0013183931587263942,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7761479616165161,
+      "v_post": -0.0010246479650959373,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.011651530861854553,
+      "final_upright": -0.9999997615814209,
+      "fallen_fraction": 0.8
+    },
+    {
+      "condition": "1146876823",
+      "group": "M=10",
+      "cell": "baseline",
+      "M": 10,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.5806,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        500
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "retention_per_phase": [
+        1.039299488067627,
+        1.0323761701583862,
+        1.0316449403762817,
+        1.02145254611969,
+        1.0270339250564575
+      ],
+      "retention_phase_range": 0.01784694194793701,
+      "velocity_retention": 1.0316449403762817,
+      "convergence_ratio": 1.3865137100219727,
+      "fraction_converged": 0.0,
+      "v_pre": 0.6571245193481445,
+      "v_post": 0.6762595176696777,
+      "dW_early": 0.8547973036766052,
+      "dW_late": 1.1873525381088257,
+      "mean_reward": 0.017227984964847565,
+      "final_upright": 0.9876626133918762,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "1146876823",
+      "group": "M=10",
+      "cell": "freeze_only",
+      "M": 10,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.5806,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        500
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "retention_per_phase": [
+        0.3525717258453369,
+        0.3136695921421051,
+        0.42438367009162903,
+        0.2809149920940399,
+        0.36038637161254883
+      ],
+      "retention_phase_range": 0.1434686779975891,
+      "velocity_retention": 0.3525717258453369,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.6496843695640564,
+      "v_post": 0.2285923957824707,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.012908663600683212,
+      "final_upright": 0.9913638830184937,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "1146876823",
+      "group": "M=10",
+      "cell": "lock_only",
+      "M": 10,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.5806,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        500
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "retention_per_phase": [
+        0.8253275156021118,
+        0.8050826787948608,
+        0.8278322219848633,
+        0.8259767889976501,
+        0.8244901895523071
+      ],
+      "retention_phase_range": 0.02274954319000244,
+      "velocity_retention": 0.8253275156021118,
+      "convergence_ratio": 1.3128302097320557,
+      "fraction_converged": 0.0,
+      "v_pre": 0.6525020003318787,
+      "v_post": 0.5385278463363647,
+      "dW_early": 0.9363711476325989,
+      "dW_late": 1.2249079942703247,
+      "mean_reward": 0.015923548489809036,
+      "final_upright": 0.9407609701156616,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "1146876823",
+      "group": "M=10",
+      "cell": "both",
+      "M": 10,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.5806,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        500
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "retention_per_phase": [
+        0.3476983606815338,
+        0.40584686398506165,
+        0.06724034994840622,
+        0.3504011929035187,
+        -0.00699654733762145
+      ],
+      "retention_phase_range": 0.4128434113226831,
+      "velocity_retention": 0.3476983606815338,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.650531530380249,
+      "v_post": 0.22584301233291626,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.0128328837454319,
+      "final_upright": 0.9770795702934265,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "1331919846",
+      "group": "M=10",
+      "cell": "baseline",
+      "M": 10,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.6,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        500
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "retention_per_phase": [
+        0.9712615013122559,
+        0.9893700480461121,
+        0.9722657203674316,
+        0.9674369096755981,
+        1.0009878873825073
+      ],
+      "retention_phase_range": 0.03355097770690918,
+      "velocity_retention": 0.9722657203674316,
+      "convergence_ratio": 0.9853904843330383,
+      "fraction_converged": 0.4,
+      "v_pre": 0.6312603950500488,
+      "v_post": 0.6154953241348267,
+      "dW_early": 1.1616883277893066,
+      "dW_late": 1.140714168548584,
+      "mean_reward": 0.01684543862938881,
+      "final_upright": 0.9722527265548706,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "1331919846",
+      "group": "M=10",
+      "cell": "freeze_only",
+      "M": 10,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.6,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        500
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "retention_per_phase": [
+        -0.031022684648633003,
+        -0.0243080947548151,
+        -0.00865910667926073,
+        -0.07996619492769241,
+        -0.026641685515642166
+      ],
+      "retention_phase_range": 0.07130708824843168,
+      "velocity_retention": -0.026641685515642166,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.6282138228416443,
+      "v_post": -0.01678287424147129,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.010750100016593933,
+      "final_upright": 0.9768231511116028,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "1331919846",
+      "group": "M=10",
+      "cell": "lock_only",
+      "M": 10,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.6,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        500
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "retention_per_phase": [
+        0.6082058548927307,
+        0.597949743270874,
+        0.6035513281822205,
+        0.6268863081932068,
+        0.6118849515914917
+      ],
+      "retention_phase_range": 0.028936564922332764,
+      "velocity_retention": 0.6082058548927307,
+      "convergence_ratio": 0.9911568760871887,
+      "fraction_converged": 0.0,
+      "v_pre": 0.6294447183609009,
+      "v_post": 0.3808361887931824,
+      "dW_early": 1.148064374923706,
+      "dW_late": 1.1321765184402466,
+      "mean_reward": 0.014175503514707088,
+      "final_upright": 0.9410814046859741,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "1331919846",
+      "group": "M=10",
+      "cell": "both",
+      "M": 10,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.6,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        500
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "retention_per_phase": [
+        -0.00027764859260059893,
+        -0.054414525628089905,
+        -0.055565446615219116,
+        -0.037459637969732285,
+        -0.030024809762835503
+      ],
+      "retention_phase_range": 0.05528779802261852,
+      "velocity_retention": -0.037459637969732285,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.6307451128959656,
+      "v_post": -0.023311927914619446,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.010997588746249676,
+      "final_upright": 0.963340163230896,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "27294405",
+      "group": "M=10",
+      "cell": "baseline",
+      "M": 10,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.6206,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        500
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "retention_per_phase": [
+        1.0090579986572266,
+        0.9966520071029663,
+        0.9915863275527954,
+        0.9908388257026672,
+        0.980193555355072
+      ],
+      "retention_phase_range": 0.02886444330215454,
+      "velocity_retention": 0.9915863275527954,
+      "convergence_ratio": 0.8792852759361267,
+      "fraction_converged": 0.6,
+      "v_pre": 0.6455363035202026,
+      "v_post": 0.6405173540115356,
+      "dW_early": 1.3311527967453003,
+      "dW_late": 1.1802139282226562,
+      "mean_reward": 0.017139529809355736,
+      "final_upright": 0.9495598077774048,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "27294405",
+      "group": "M=10",
+      "cell": "freeze_only",
+      "M": 10,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.6206,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        500
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "retention_per_phase": [
+        -0.0018393328646197915,
+        -0.03831813111901283,
+        -0.0005786506808362901,
+        -0.00013593363109976053,
+        1.0975340046570636e-05
+      ],
+      "retention_phase_range": 0.0383291064590594,
+      "velocity_retention": -0.0005786506808362901,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.6424940824508667,
+      "v_post": -0.00037315874942578375,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.011584279127418995,
+      "final_upright": 0.9471802115440369,
+      "fallen_fraction": 0.2
+    },
+    {
+      "condition": "27294405",
+      "group": "M=10",
+      "cell": "lock_only",
+      "M": 10,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.6206,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        500
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "retention_per_phase": [
+        0.5119947195053101,
+        0.5069881081581116,
+        0.3961862325668335,
+        0.5130506157875061,
+        0.5312261581420898
+      ],
+      "retention_phase_range": 0.13503992557525635,
+      "velocity_retention": 0.5119947195053101,
+      "convergence_ratio": 0.8196865320205688,
+      "fraction_converged": 1.0,
+      "v_pre": 0.6440527439117432,
+      "v_post": 0.3284907042980194,
+      "dW_early": 1.3025546073913574,
+      "dW_late": 1.0649811029434204,
+      "mean_reward": 0.013631230220198631,
+      "final_upright": 0.9659316539764404,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "27294405",
+      "group": "M=10",
+      "cell": "both",
+      "M": 10,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.6206,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        500
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "retention_per_phase": [
+        0.028959907591342926,
+        -0.0018130915705114603,
+        0.014657743275165558,
+        0.0013336645206436515,
+        0.000680533004924655
+      ],
+      "retention_phase_range": 0.030772999161854386,
+      "velocity_retention": 0.0013336645206436515,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.6453060507774353,
+      "v_post": 0.0008584547322243452,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.011642033234238625,
+      "final_upright": 0.9268910884857178,
+      "fallen_fraction": 0.2
+    },
+    {
+      "condition": "1853697842",
+      "group": "M=20",
+      "cell": "baseline",
+      "M": 20,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.6923,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        520.0
+      ],
+      "retention_per_phase": [
+        0.9868300557136536,
+        0.9876487851142883,
+        0.9977979063987732,
+        1.0021308660507202,
+        0.9960202574729919
+      ],
+      "retention_phase_range": 0.01530081033706665,
+      "velocity_retention": 0.9960202574729919,
+      "convergence_ratio": 1.0452277660369873,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7154298424720764,
+      "v_post": 0.712685763835907,
+      "dW_early": 0.9823184013366699,
+      "dW_late": 1.026244044303894,
+      "mean_reward": 0.018464503809809685,
+      "final_upright": 0.987159013748169,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "1853697842",
+      "group": "M=20",
+      "cell": "freeze_only",
+      "M": 20,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.6923,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        520.0
+      ],
+      "retention_per_phase": [
+        0.6028022170066833,
+        0.08315268903970718,
+        0.09265352785587311,
+        0.1784970462322235,
+        0.10029220581054688
+      ],
+      "retention_phase_range": 0.5196495279669762,
+      "velocity_retention": 0.10029220581054688,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7187475562095642,
+      "v_post": 0.0723806768655777,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.0125358235090971,
+      "final_upright": 0.9782986640930176,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "1853697842",
+      "group": "M=20",
+      "cell": "lock_only",
+      "M": 20,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.6923,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        520.0
+      ],
+      "retention_per_phase": [
+        0.7785372734069824,
+        0.7807636260986328,
+        0.7829702496528625,
+        0.7857201099395752,
+        0.78041011095047
+      ],
+      "retention_phase_range": 0.0071828365325927734,
+      "velocity_retention": 0.7807636260986328,
+      "convergence_ratio": 0.987662136554718,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7185230851173401,
+      "v_post": 0.5625821948051453,
+      "dW_early": 0.9814801812171936,
+      "dW_late": 0.9722317457199097,
+      "mean_reward": 0.01695290021598339,
+      "final_upright": 0.9450803399085999,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "1853697842",
+      "group": "M=20",
+      "cell": "both",
+      "M": 20,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.6923,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        520.0
+      ],
+      "retention_per_phase": [
+        -0.00022419945162255317,
+        0.1097007766366005,
+        0.12740576267242432,
+        0.10682755708694458,
+        0.08210331201553345
+      ],
+      "retention_phase_range": 0.12762996212404687,
+      "velocity_retention": 0.10682755708694458,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7209743857383728,
+      "v_post": 0.07643222063779831,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.011864623986184597,
+      "final_upright": 0.9743016362190247,
+      "fallen_fraction": 0.2
+    },
+    {
+      "condition": "685059270",
+      "group": "M=20",
+      "cell": "baseline",
+      "M": 20,
+      "tau_hebb": 1,
+      "T_gait_steps": 1.058,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        340.3,
+        340.3
+      ],
+      "retention_per_phase": [
+        0.962302565574646,
+        0.9452213048934937,
+        0.9616434574127197,
+        0.9670285582542419,
+        0.9617924690246582
+      ],
+      "retention_phase_range": 0.02180725336074829,
+      "velocity_retention": 0.9617924690246582,
+      "convergence_ratio": 0.9687556624412537,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7014877796173096,
+      "v_post": 0.6746856570243835,
+      "dW_early": 0.7148036360740662,
+      "dW_late": 0.6924700736999512,
+      "mean_reward": 0.017431331798434258,
+      "final_upright": 0.9392890334129333,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "685059270",
+      "group": "M=20",
+      "cell": "freeze_only",
+      "M": 20,
+      "tau_hebb": 1,
+      "T_gait_steps": 1.058,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        340.3,
+        340.3
+      ],
+      "retention_per_phase": [
+        0.035008180886507034,
+        -0.0006311682518571615,
+        -0.000580518099013716,
+        0.03416586294770241,
+        -0.0005695262807421386
+      ],
+      "retention_phase_range": 0.035639349138364196,
+      "velocity_retention": -0.0005695262807421386,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7022465467453003,
+      "v_post": -0.00039444753201678395,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.010765202343463898,
+      "final_upright": -0.9999998807907104,
+      "fallen_fraction": 0.8
+    },
+    {
+      "condition": "685059270",
+      "group": "M=20",
+      "cell": "lock_only",
+      "M": 20,
+      "tau_hebb": 1,
+      "T_gait_steps": 1.058,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        340.3,
+        340.3
+      ],
+      "retention_per_phase": [
+        0.12327079474925995,
+        0.12012561410665512,
+        0.20112092792987823,
+        -0.003010084619745612,
+        0.09118982404470444
+      ],
+      "retention_phase_range": 0.20413101254962385,
+      "velocity_retention": 0.12012561410665512,
+      "convergence_ratio": 0.7635321617126465,
+      "fraction_converged": 1.0,
+      "v_pre": 0.7035259008407593,
+      "v_post": 0.08510875701904297,
+      "dW_early": 0.7162235379219055,
+      "dW_late": 0.5331169962882996,
+      "mean_reward": 0.011319034732878208,
+      "final_upright": 0.9628205299377441,
+      "fallen_fraction": 0.2
+    },
+    {
+      "condition": "685059270",
+      "group": "M=20",
+      "cell": "both",
+      "M": 20,
+      "tau_hebb": 1,
+      "T_gait_steps": 1.058,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        340.3,
+        340.3
+      ],
+      "retention_per_phase": [
+        0.0012332455953583121,
+        0.009216886013746262,
+        0.0035657689440995455,
+        0.00884570274502039,
+        0.06818490475416183
+      ],
+      "retention_phase_range": 0.06695165915880352,
+      "velocity_retention": 0.00884570274502039,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7042123079299927,
+      "v_post": 0.006229252554476261,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.011504008434712887,
+      "final_upright": 0.9703671932220459,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "1919632181",
+      "group": "M=20",
+      "cell": "baseline",
+      "M": 20,
+      "tau_hebb": 1,
+      "T_gait_steps": 1.384,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        501,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        260.1,
+        260.1,
+        260.1
+      ],
+      "retention_per_phase": [
+        0.9465197324752808,
+        0.9728566408157349,
+        0.9457236528396606,
+        0.9498762488365173,
+        0.968695878982544
+      ],
+      "retention_phase_range": 0.02713298797607422,
+      "velocity_retention": 0.9498762488365173,
+      "convergence_ratio": 0.9243516325950623,
+      "fraction_converged": 0.0,
+      "v_pre": 0.6272889375686646,
+      "v_post": 0.5937413573265076,
+      "dW_early": 0.8512396812438965,
+      "dW_late": 0.7843353152275085,
+      "mean_reward": 0.01668548211455345,
+      "final_upright": 0.9747539758682251,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "1919632181",
+      "group": "M=20",
+      "cell": "freeze_only",
+      "M": 20,
+      "tau_hebb": 1,
+      "T_gait_steps": 1.384,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        501,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        260.1,
+        260.1,
+        260.1
+      ],
+      "retention_per_phase": [
+        0.20227426290512085,
+        -0.002813523169606924,
+        0.22909028828144073,
+        0.28390559554100037,
+        0.14460012316703796
+      ],
+      "retention_phase_range": 0.2867191187106073,
+      "velocity_retention": 0.20227426290512085,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.6250401735305786,
+      "v_post": 0.12643514573574066,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.01121257059276104,
+      "final_upright": 0.6753111481666565,
+      "fallen_fraction": 0.4
+    },
+    {
+      "condition": "1919632181",
+      "group": "M=20",
+      "cell": "lock_only",
+      "M": 20,
+      "tau_hebb": 1,
+      "T_gait_steps": 1.384,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        501,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        260.1,
+        260.1,
+        260.1
+      ],
+      "retention_per_phase": [
+        0.43466994166374207,
+        0.44208869338035583,
+        0.39371660351753235,
+        0.4435538649559021,
+        0.43290621042251587
+      ],
+      "retention_phase_range": 0.04983726143836975,
+      "velocity_retention": 0.43466994166374207,
+      "convergence_ratio": 0.799310028553009,
+      "fraction_converged": 1.0,
+      "v_pre": 0.6248293519020081,
+      "v_post": 0.27170446515083313,
+      "dW_early": 0.8234718441963196,
+      "dW_late": 0.6555405259132385,
+      "mean_reward": 0.013683272525668144,
+      "final_upright": 0.9699699282646179,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "1919632181",
+      "group": "M=20",
+      "cell": "both",
+      "M": 20,
+      "tau_hebb": 1,
+      "T_gait_steps": 1.384,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        501,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        260.1,
+        260.1,
+        260.1
+      ],
+      "retention_per_phase": [
+        0.10473905503749847,
+        0.1940901279449463,
+        0.33960235118865967,
+        0.3343295753002167,
+        0.17137093842029572
+      ],
+      "retention_phase_range": 0.2348632961511612,
+      "velocity_retention": 0.1940901279449463,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.6265384554862976,
+      "v_post": 0.12167643755674362,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.012062753550708294,
+      "final_upright": 0.9839275479316711,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "641049713",
+      "group": "M=20",
+      "cell": "baseline",
+      "M": 20,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.9473,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        380.0,
+        380.0
+      ],
+      "retention_per_phase": [
+        0.9726327061653137,
+        0.9720240235328674,
+        0.9971322417259216,
+        0.9611507058143616,
+        0.9706849455833435
+      ],
+      "retention_phase_range": 0.03598153591156006,
+      "velocity_retention": 0.9720240235328674,
+      "convergence_ratio": 1.0286625623703003,
+      "fraction_converged": 0.0,
+      "v_pre": 0.6098881959915161,
+      "v_post": 0.5920093059539795,
+      "dW_early": 0.7803613543510437,
+      "dW_late": 0.7997205257415771,
+      "mean_reward": 0.01641322486102581,
+      "final_upright": 0.9823287129402161,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "641049713",
+      "group": "M=20",
+      "cell": "freeze_only",
+      "M": 20,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.9473,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        380.0,
+        380.0
+      ],
+      "retention_per_phase": [
+        0.0014296049484983087,
+        -0.0016824507620185614,
+        0.000355132098775357,
+        0.0014673584373667836,
+        0.0009762390400283039
+      ],
+      "retention_phase_range": 0.003149809199385345,
+      "velocity_retention": 0.0009762390400283039,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.6128694415092468,
+      "v_post": 0.0005985198658891022,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.010561135597527027,
+      "final_upright": 0.7195812463760376,
+      "fallen_fraction": 0.2
+    },
+    {
+      "condition": "641049713",
+      "group": "M=20",
+      "cell": "lock_only",
+      "M": 20,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.9473,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        380.0,
+        380.0
+      ],
+      "retention_per_phase": [
+        0.5884705185890198,
+        0.37394464015960693,
+        0.4531722664833069,
+        0.001530166482552886,
+        0.05211940035223961
+      ],
+      "retention_phase_range": 0.5869403521064669,
+      "velocity_retention": 0.37394464015960693,
+      "convergence_ratio": 0.9560770392417908,
+      "fraction_converged": 0.2,
+      "v_pre": 0.615387499332428,
+      "v_post": 0.23173220455646515,
+      "dW_early": 0.7999548316001892,
+      "dW_late": 0.7555058598518372,
+      "mean_reward": 0.013008631765842438,
+      "final_upright": 0.916378378868103,
+      "fallen_fraction": 0.4
+    },
+    {
+      "condition": "641049713",
+      "group": "M=20",
+      "cell": "both",
+      "M": 20,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.9473,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        380.0,
+        380.0
+      ],
+      "retention_per_phase": [
+        -0.0022539787460118532,
+        0.002584503497928381,
+        -0.00041631629574112594,
+        -0.0002160001458832994,
+        -0.009775488637387753
+      ],
+      "retention_phase_range": 0.012359992135316133,
+      "velocity_retention": -0.00041631629574112594,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.6109330058097839,
+      "v_post": -0.0002543413720559329,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.010450893081724644,
+      "final_upright": 0.8294010758399963,
+      "fallen_fraction": 0.2
+    },
+    {
+      "condition": "576310242",
+      "group": "M=160",
+      "cell": "baseline",
+      "M": 160,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.72,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        500.0
+      ],
+      "retention_per_phase": [
+        0.9886550307273865,
+        0.9887959957122803,
+        0.9872357845306396,
+        0.988646388053894,
+        0.9861055016517639
+      ],
+      "retention_phase_range": 0.0026904940605163574,
+      "velocity_retention": 0.988646388053894,
+      "convergence_ratio": 1.0120857954025269,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7989504337310791,
+      "v_post": 0.789498507976532,
+      "dW_early": 0.13076691329479218,
+      "dW_late": 0.1323660910129547,
+      "mean_reward": 0.019398335367441177,
+      "final_upright": 0.9979333877563477,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "576310242",
+      "group": "M=160",
+      "cell": "freeze_only",
+      "M": 160,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.72,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        500.0
+      ],
+      "retention_per_phase": [
+        0.984196662902832,
+        0.9785845279693604,
+        0.9823612570762634,
+        0.9790416955947876,
+        0.9762927293777466
+      ],
+      "retention_phase_range": 0.00790393352508545,
+      "velocity_retention": 0.9790416955947876,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7983863353729248,
+      "v_post": 0.7820464968681335,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.019164111465215683,
+      "final_upright": 0.9950507283210754,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "576310242",
+      "group": "M=160",
+      "cell": "lock_only",
+      "M": 160,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.72,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        500.0
+      ],
+      "retention_per_phase": [
+        -0.0008111443603411317,
+        -7.752921374049038e-05,
+        -8.76939739100635e-05,
+        -0.0002669258392415941,
+        -4.171170076006092e-05
+      ],
+      "retention_phase_range": 0.0007694326595810708,
+      "velocity_retention": -8.76939739100635e-05,
+      "convergence_ratio": 0.7822871208190918,
+      "fraction_converged": 1.0,
+      "v_pre": 0.7983545660972595,
+      "v_post": -7.000241021160036e-05,
+      "dW_early": 0.12382487207651138,
+      "dW_late": 0.09686660021543503,
+      "mean_reward": 0.01193147897720337,
+      "final_upright": -1.0,
+      "fallen_fraction": 1.0
+    },
+    {
+      "condition": "576310242",
+      "group": "M=160",
+      "cell": "both",
+      "M": 160,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.72,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        500.0
+      ],
+      "retention_per_phase": [
+        -0.0009909601649269462,
+        -0.0007512837764807045,
+        -0.0007656078087165952,
+        -0.0008789852727204561,
+        5.932672502240166e-05
+      ],
+      "retention_phase_range": 0.0010502868899493478,
+      "velocity_retention": -0.0007656078087165952,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7983205318450928,
+      "v_post": -0.0006117032608017325,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.01198821421712637,
+      "final_upright": -0.17786133289337158,
+      "fallen_fraction": 1.0
+    },
+    {
+      "condition": "756800567",
+      "group": "M=160",
+      "cell": "baseline",
+      "M": 160,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.692,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        520.2
+      ],
+      "retention_per_phase": [
+        1.0020864009857178,
+        1.0003407001495361,
+        0.9994497895240784,
+        0.9989525675773621,
+        0.998676598072052
+      ],
+      "retention_phase_range": 0.0034098029136657715,
+      "velocity_retention": 0.9994497895240784,
+      "convergence_ratio": 0.9712764620780945,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7975226044654846,
+      "v_post": 0.7971934676170349,
+      "dW_early": 0.11215557157993317,
+      "dW_late": 0.1089133620262146,
+      "mean_reward": 0.01943073980510235,
+      "final_upright": 0.9880280494689941,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "756800567",
+      "group": "M=160",
+      "cell": "freeze_only",
+      "M": 160,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.692,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        520.2
+      ],
+      "retention_per_phase": [
+        0.5347181558609009,
+        0.867760419845581,
+        0.8631376624107361,
+        0.8766055107116699,
+        0.8555076122283936
+      ],
+      "retention_phase_range": 0.34188735485076904,
+      "velocity_retention": 0.8631376624107361,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.797633945941925,
+      "v_post": 0.6884679198265076,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.018086466938257217,
+      "final_upright": 0.9591135382652283,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "756800567",
+      "group": "M=160",
+      "cell": "lock_only",
+      "M": 160,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.692,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        520.2
+      ],
+      "retention_per_phase": [
+        0.11895734816789627,
+        -0.0002784418757073581,
+        0.2253798395395279,
+        0.23334844410419464,
+        0.2192106544971466
+      ],
+      "retention_phase_range": 0.233626885979902,
+      "velocity_retention": 0.2192106544971466,
+      "convergence_ratio": 0.7607246041297913,
+      "fraction_converged": 1.0,
+      "v_pre": 0.7970787286758423,
+      "v_post": 0.17467880249023438,
+      "dW_early": 0.10701953619718552,
+      "dW_late": 0.08193735033273697,
+      "mean_reward": 0.01204897090792656,
+      "final_upright": 0.9697514176368713,
+      "fallen_fraction": 0.4
+    },
+    {
+      "condition": "756800567",
+      "group": "M=160",
+      "cell": "both",
+      "M": 160,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.692,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        520.2
+      ],
+      "retention_per_phase": [
+        0.26378825306892395,
+        -2.529121411498636e-05,
+        0.19289463758468628,
+        -0.0009247416164726019,
+        0.14550814032554626
+      ],
+      "retention_phase_range": 0.26471299468539655,
+      "velocity_retention": 0.14550814032554626,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7970268726348877,
+      "v_post": 0.11612089723348618,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.012299262918531895,
+      "final_upright": 0.9050920605659485,
+      "fallen_fraction": 0.4
+    },
+    {
+      "condition": "1042351053",
+      "group": "M=160",
+      "cell": "baseline",
+      "M": 160,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.75,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        480.0
+      ],
+      "retention_per_phase": [
+        0.9988296031951904,
+        0.9998870491981506,
+        1.007949948310852,
+        0.9966387748718262,
+        0.9921739101409912
+      ],
+      "retention_phase_range": 0.01577603816986084,
+      "velocity_retention": 0.9988296031951904,
+      "convergence_ratio": 0.9747853875160217,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7806375622749329,
+      "v_post": 0.7780136466026306,
+      "dW_early": 0.14546409249305725,
+      "dW_late": 0.14213556051254272,
+      "mean_reward": 0.018861647695302963,
+      "final_upright": 0.9961637854576111,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "1042351053",
+      "group": "M=160",
+      "cell": "freeze_only",
+      "M": 160,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.75,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        480.0
+      ],
+      "retention_per_phase": [
+        1.0036307573318481,
+        0.9908064603805542,
+        0.9670748710632324,
+        1.0019891262054443,
+        0.9827449321746826
+      ],
+      "retention_phase_range": 0.03655588626861572,
+      "velocity_retention": 0.9908064603805542,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7768709063529968,
+      "v_post": 0.7690824270248413,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.018664807081222534,
+      "final_upright": 0.9978969693183899,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "1042351053",
+      "group": "M=160",
+      "cell": "lock_only",
+      "M": 160,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.75,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        480.0
+      ],
+      "retention_per_phase": [
+        0.5796753764152527,
+        0.5916734337806702,
+        0.583987295627594,
+        0.5958786606788635,
+        0.5996818542480469
+      ],
+      "retention_phase_range": 0.02000647783279419,
+      "velocity_retention": 0.5916734337806702,
+      "convergence_ratio": 0.8226202130317688,
+      "fraction_converged": 1.0,
+      "v_pre": 0.7823894023895264,
+      "v_post": 0.46088409423828125,
+      "dW_early": 0.14290361106395721,
+      "dW_late": 0.11739679425954819,
+      "mean_reward": 0.015425109304487705,
+      "final_upright": 0.9660497903823853,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "1042351053",
+      "group": "M=160",
+      "cell": "both",
+      "M": 160,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.75,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        480.0
+      ],
+      "retention_per_phase": [
+        0.6062516570091248,
+        0.5991103053092957,
+        0.5975052118301392,
+        0.601740300655365,
+        0.6043826341629028
+      ],
+      "retention_phase_range": 0.008746445178985596,
+      "velocity_retention": 0.601740300655365,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.7834855318069458,
+      "v_post": 0.47137781977653503,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.015580890700221062,
+      "final_upright": 0.9480018019676208,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "2126766829",
+      "group": "M=160",
+      "cell": "baseline",
+      "M": 160,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.947,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        380.1,
+        380.1
+      ],
+      "retention_per_phase": [
+        1.0202112197875977,
+        0.9766637086868286,
+        1.0071858167648315,
+        0.9975535869598389,
+        0.9752800464630127
+      ],
+      "retention_phase_range": 0.04493117332458496,
+      "velocity_retention": 0.9975535869598389,
+      "convergence_ratio": 0.9315398931503296,
+      "fraction_converged": 0.0,
+      "v_pre": 0.6152357459068298,
+      "v_post": 0.6137306094169617,
+      "dW_early": 0.10220059752464294,
+      "dW_late": 0.09395679086446762,
+      "mean_reward": 0.016260569915175438,
+      "final_upright": 0.9939579963684082,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "2126766829",
+      "group": "M=160",
+      "cell": "freeze_only",
+      "M": 160,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.947,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        380.1,
+        380.1
+      ],
+      "retention_per_phase": [
+        0.9924736618995667,
+        0.16846950352191925,
+        0.22634272277355194,
+        0.9923849701881409,
+        1.0394023656845093
+      ],
+      "retention_phase_range": 0.87093286216259,
+      "velocity_retention": 0.9923849701881409,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.6131383776664734,
+      "v_post": 0.6084693074226379,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.015956122428178787,
+      "final_upright": 0.9799871444702148,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "2126766829",
+      "group": "M=160",
+      "cell": "lock_only",
+      "M": 160,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.947,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        380.1,
+        380.1
+      ],
+      "retention_per_phase": [
+        0.7401619553565979,
+        0.7374495267868042,
+        0.6304724216461182,
+        -0.022983703762292862,
+        0.6609669327735901
+      ],
+      "retention_phase_range": 0.7631456591188908,
+      "velocity_retention": 0.6609669327735901,
+      "convergence_ratio": 0.5206347703933716,
+      "fraction_converged": 1.0,
+      "v_pre": 0.611512303352356,
+      "v_post": 0.4109227955341339,
+      "dW_early": 0.10017810016870499,
+      "dW_late": 0.05036664009094238,
+      "mean_reward": 0.01377588976174593,
+      "final_upright": 0.9864157438278198,
+      "fallen_fraction": 0.2
+    },
+    {
+      "condition": "2126766829",
+      "group": "M=160",
+      "cell": "both",
+      "M": 160,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.947,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        501,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        380.1,
+        380.1
+      ],
+      "retention_per_phase": [
+        0.8649610280990601,
+        0.8763485550880432,
+        0.8705883026123047,
+        0.8819076418876648,
+        0.9023730158805847
+      ],
+      "retention_phase_range": 0.03741198778152466,
+      "velocity_retention": 0.8763485550880432,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.6179832220077515,
+      "v_post": 0.5440740585327148,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.015048738569021225,
+      "final_upright": 0.9867338538169861,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "602647351",
+      "group": "M=160",
+      "cell": "baseline",
+      "M": 160,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.692,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        520.2
+      ],
+      "retention_per_phase": [
+        1.0052458047866821,
+        1.0021824836730957,
+        1.0070247650146484,
+        1.0045346021652222,
+        1.000506043434143
+      ],
+      "retention_phase_range": 0.006518721580505371,
+      "velocity_retention": 1.0045346021652222,
+      "convergence_ratio": 1.0304436683654785,
+      "fraction_converged": 0.0,
+      "v_pre": 0.8140324950218201,
+      "v_post": 0.8173813223838806,
+      "dW_early": 0.13414409756660461,
+      "dW_late": 0.13887274265289307,
+      "mean_reward": 0.01961980201303959,
+      "final_upright": 0.9958123564720154,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "602647351",
+      "group": "M=160",
+      "cell": "freeze_only",
+      "M": 160,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.692,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        520.2
+      ],
+      "retention_per_phase": [
+        0.9951795339584351,
+        0.989180862903595,
+        0.9910088181495667,
+        0.9876292943954468,
+        0.9953950643539429
+      ],
+      "retention_phase_range": 0.007765769958496094,
+      "velocity_retention": 0.9910088181495667,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.8125453591346741,
+      "v_post": 0.8056902885437012,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.01933329366147518,
+      "final_upright": 0.9885162711143494,
+      "fallen_fraction": 0.0
+    },
+    {
+      "condition": "602647351",
+      "group": "M=160",
+      "cell": "lock_only",
+      "M": 160,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.692,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        520.2
+      ],
+      "retention_per_phase": [
+        0.042894698679447174,
+        0.262253999710083,
+        0.6888041496276855,
+        0.04852135479450226,
+        0.7521184086799622
+      ],
+      "retention_phase_range": 0.709223710000515,
+      "velocity_retention": 0.262253999710083,
+      "convergence_ratio": 0.8238680958747864,
+      "fraction_converged": 1.0,
+      "v_pre": 0.8123364448547363,
+      "v_post": 0.21303847432136536,
+      "dW_early": 0.1411232352256775,
+      "dW_late": 0.11626692861318588,
+      "mean_reward": 0.014079771004617214,
+      "final_upright": -0.27281033992767334,
+      "fallen_fraction": 0.6
+    },
+    {
+      "condition": "602647351",
+      "group": "M=160",
+      "cell": "both",
+      "M": 160,
+      "tau_hebb": 1,
+      "T_gait_steps": 0.692,
+      "t_gait_source": "condition",
+      "n_strata": 5,
+      "event_steps": [
+        500,
+        500,
+        500,
+        500,
+        501
+      ],
+      "phases_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        520.2
+      ],
+      "retention_per_phase": [
+        -1.6415819118265063e-05,
+        0.4007323086261749,
+        -0.004895179532468319,
+        0.6474382281303406,
+        0.5216802954673767
+      ],
+      "retention_phase_range": 0.6523334076628089,
+      "velocity_retention": 0.4007323086261749,
+      "convergence_ratio": NaN,
+      "fraction_converged": 0.0,
+      "v_pre": 0.8127039074897766,
+      "v_post": 0.32555294036865234,
+      "dW_early": 0.0,
+      "dW_late": 0.0,
+      "mean_reward": 0.01424657367169857,
+      "final_upright": -0.8469715118408203,
+      "fallen_fraction": 0.6
+    }
+  ],
+  "group_results": [
+    {
+      "group": "M=1",
+      "cell": "baseline",
+      "n_networks": 4,
+      "retention_mean": 0.9664772301912308,
+      "retention_min": 0.9333534836769104,
+      "retention_max": 0.992173969745636,
+      "retention_per_network": {
+        "860896728": 0.982151985168457,
+        "1396289849": 0.992173969745636,
+        "1295751242": 0.9582294821739197,
+        "489225843": 0.9333534836769104
+      },
+      "converged_mean": 0.44999999999999996,
+      "converged_min": 0.0,
+      "converged_max": 1.0,
+      "converged_per_network": {
+        "860896728": 0.0,
+        "1396289849": 1.0,
+        "1295751242": 0.2,
+        "489225843": 0.6
+      },
+      "conv_ratio_mean": 0.9344979077577591,
+      "conv_ratio_min": 0.8129452466964722,
+      "conv_ratio_max": 1.101830244064331,
+      "conv_ratio_per_network": {
+        "860896728": 1.101830244064331,
+        "1396289849": 0.8129452466964722,
+        "1295751242": 0.9435300230979919,
+        "489225843": 0.8796861171722412
+      }
+    },
+    {
+      "group": "M=1",
+      "cell": "freeze_only",
+      "n_networks": 4,
+      "retention_mean": -0.007756833270832431,
+      "retention_min": -0.031083345413208008,
+      "retention_max": 0.0006265355623327196,
+      "retention_per_network": {
+        "860896728": -0.00023201867588795722,
+        "1396289849": 0.0006265355623327196,
+        "1295751242": -0.0003385045565664768,
+        "489225843": -0.031083345413208008
+      },
+      "converged_mean": 0.0,
+      "converged_min": 0.0,
+      "converged_max": 0.0,
+      "converged_per_network": {
+        "860896728": 0.0,
+        "1396289849": 0.0,
+        "1295751242": 0.0,
+        "489225843": 0.0
+      },
+      "conv_ratio_mean": NaN,
+      "conv_ratio_min": NaN,
+      "conv_ratio_max": NaN,
+      "conv_ratio_per_network": {
+        "860896728": NaN,
+        "1396289849": NaN,
+        "1295751242": NaN,
+        "489225843": NaN
+      }
+    },
+    {
+      "group": "M=1",
+      "cell": "lock_only",
+      "n_networks": 4,
+      "retention_mean": 0.23902283042116323,
+      "retention_min": -0.00016066929674707353,
+      "retention_max": 0.6655588746070862,
+      "retention_per_network": {
+        "860896728": -0.00016066929674707353,
+        "1396289849": 0.28814974427223206,
+        "1295751242": 0.6655588746070862,
+        "489225843": 0.0025433721020817757
+      },
+      "converged_mean": 0.5,
+      "converged_min": 0.0,
+      "converged_max": 1.0,
+      "converged_per_network": {
+        "860896728": 0.0,
+        "1396289849": 1.0,
+        "1295751242": 0.0,
+        "489225843": 1.0
+      },
+      "conv_ratio_mean": 0.897501140832901,
+      "conv_ratio_min": 0.7198129296302795,
+      "conv_ratio_max": 1.1222639083862305,
+      "conv_ratio_per_network": {
+        "860896728": 1.1222639083862305,
+        "1396289849": 0.7307348847389221,
+        "1295751242": 1.0171928405761719,
+        "489225843": 0.7198129296302795
+      }
+    },
+    {
+      "group": "M=1",
+      "cell": "both",
+      "n_networks": 4,
+      "retention_mean": -4.5781678636558354e-05,
+      "retention_min": -0.0006477008573710918,
+      "retention_max": 0.0003309655003249645,
+      "retention_per_network": {
+        "860896728": -0.0006477008573710918,
+        "1396289849": 8.182036981452256e-05,
+        "1295751242": 5.178827268537134e-05,
+        "489225843": 0.0003309655003249645
+      },
+      "converged_mean": 0.0,
+      "converged_min": 0.0,
+      "converged_max": 0.0,
+      "converged_per_network": {
+        "860896728": 0.0,
+        "1396289849": 0.0,
+        "1295751242": 0.0,
+        "489225843": 0.0
+      },
+      "conv_ratio_mean": NaN,
+      "conv_ratio_min": NaN,
+      "conv_ratio_max": NaN,
+      "conv_ratio_per_network": {
+        "860896728": NaN,
+        "1396289849": NaN,
+        "1295751242": NaN,
+        "489225843": NaN
+      }
+    },
+    {
+      "group": "M=10",
+      "cell": "baseline",
+      "n_networks": 4,
+      "retention_mean": 0.9930790960788727,
+      "retention_min": 0.9722657203674316,
+      "retention_max": 1.0316449403762817,
+      "retention_per_network": {
+        "617764346": 0.9768193960189819,
+        "1146876823": 1.0316449403762817,
+        "1331919846": 0.9722657203674316,
+        "27294405": 0.9915863275527954
+      },
+      "converged_mean": 0.25,
+      "converged_min": 0.0,
+      "converged_max": 0.6,
+      "converged_per_network": {
+        "617764346": 0.0,
+        "1146876823": 0.0,
+        "1331919846": 0.4,
+        "27294405": 0.6
+      },
+      "conv_ratio_mean": 1.0665735304355621,
+      "conv_ratio_min": 0.8792852759361267,
+      "conv_ratio_max": 1.3865137100219727,
+      "conv_ratio_per_network": {
+        "617764346": 1.0151046514511108,
+        "1146876823": 1.3865137100219727,
+        "1331919846": 0.9853904843330383,
+        "27294405": 0.8792852759361267
+      }
+    },
+    {
+      "group": "M=10",
+      "cell": "freeze_only",
+      "n_networks": 4,
+      "retention_mean": 0.11665611401258502,
+      "retention_min": -0.026641685515642166,
+      "retention_max": 0.3525717258453369,
+      "retention_per_network": {
+        "617764346": 0.14127306640148163,
+        "1146876823": 0.3525717258453369,
+        "1331919846": -0.026641685515642166,
+        "27294405": -0.0005786506808362901
+      },
+      "converged_mean": 0.0,
+      "converged_min": 0.0,
+      "converged_max": 0.0,
+      "converged_per_network": {
+        "617764346": 0.0,
+        "1146876823": 0.0,
+        "1331919846": 0.0,
+        "27294405": 0.0
+      },
+      "conv_ratio_mean": NaN,
+      "conv_ratio_min": NaN,
+      "conv_ratio_max": NaN,
+      "conv_ratio_per_network": {
+        "617764346": NaN,
+        "1146876823": NaN,
+        "1331919846": NaN,
+        "27294405": NaN
+      }
+    },
+    {
+      "group": "M=10",
+      "cell": "lock_only",
+      "n_networks": 4,
+      "retention_mean": 0.5970167443156242,
+      "retention_min": 0.44253888726234436,
+      "retention_max": 0.8253275156021118,
+      "retention_per_network": {
+        "617764346": 0.44253888726234436,
+        "1146876823": 0.8253275156021118,
+        "1331919846": 0.6082058548927307,
+        "27294405": 0.5119947195053101
+      },
+      "converged_mean": 0.35,
+      "converged_min": 0.0,
+      "converged_max": 1.0,
+      "converged_per_network": {
+        "617764346": 0.4,
+        "1146876823": 0.0,
+        "1331919846": 0.0,
+        "27294405": 1.0
+      },
+      "conv_ratio_mean": 1.0068582892417908,
+      "conv_ratio_min": 0.8196865320205688,
+      "conv_ratio_max": 1.3128302097320557,
+      "conv_ratio_per_network": {
+        "617764346": 0.9037595391273499,
+        "1146876823": 1.3128302097320557,
+        "1331919846": 0.9911568760871887,
+        "27294405": 0.8196865320205688
+      }
+    },
+    {
+      "group": "M=10",
+      "cell": "both",
+      "n_networks": 4,
+      "retention_mean": 0.0775634985184297,
+      "retention_min": -0.037459637969732285,
+      "retention_max": 0.3476983606815338,
+      "retention_per_network": {
+        "617764346": -0.0013183931587263942,
+        "1146876823": 0.3476983606815338,
+        "1331919846": -0.037459637969732285,
+        "27294405": 0.0013336645206436515
+      },
+      "converged_mean": 0.0,
+      "converged_min": 0.0,
+      "converged_max": 0.0,
+      "converged_per_network": {
+        "617764346": 0.0,
+        "1146876823": 0.0,
+        "1331919846": 0.0,
+        "27294405": 0.0
+      },
+      "conv_ratio_mean": NaN,
+      "conv_ratio_min": NaN,
+      "conv_ratio_max": NaN,
+      "conv_ratio_per_network": {
+        "617764346": NaN,
+        "1146876823": NaN,
+        "1331919846": NaN,
+        "27294405": NaN
+      }
+    },
+    {
+      "group": "M=20",
+      "cell": "baseline",
+      "n_networks": 4,
+      "retention_mean": 0.9699282497167587,
+      "retention_min": 0.9498762488365173,
+      "retention_max": 0.9960202574729919,
+      "retention_per_network": {
+        "1853697842": 0.9960202574729919,
+        "685059270": 0.9617924690246582,
+        "1919632181": 0.9498762488365173,
+        "641049713": 0.9720240235328674
+      },
+      "converged_mean": 0.0,
+      "converged_min": 0.0,
+      "converged_max": 0.0,
+      "converged_per_network": {
+        "1853697842": 0.0,
+        "685059270": 0.0,
+        "1919632181": 0.0,
+        "641049713": 0.0
+      },
+      "conv_ratio_mean": 0.9917494058609009,
+      "conv_ratio_min": 0.9243516325950623,
+      "conv_ratio_max": 1.0452277660369873,
+      "conv_ratio_per_network": {
+        "1853697842": 1.0452277660369873,
+        "685059270": 0.9687556624412537,
+        "1919632181": 0.9243516325950623,
+        "641049713": 1.0286625623703003
+      }
+    },
+    {
+      "group": "M=20",
+      "cell": "freeze_only",
+      "n_networks": 4,
+      "retention_mean": 0.07574329536873847,
+      "retention_min": -0.0005695262807421386,
+      "retention_max": 0.20227426290512085,
+      "retention_per_network": {
+        "1853697842": 0.10029220581054688,
+        "685059270": -0.0005695262807421386,
+        "1919632181": 0.20227426290512085,
+        "641049713": 0.0009762390400283039
+      },
+      "converged_mean": 0.0,
+      "converged_min": 0.0,
+      "converged_max": 0.0,
+      "converged_per_network": {
+        "1853697842": 0.0,
+        "685059270": 0.0,
+        "1919632181": 0.0,
+        "641049713": 0.0
+      },
+      "conv_ratio_mean": NaN,
+      "conv_ratio_min": NaN,
+      "conv_ratio_max": NaN,
+      "conv_ratio_per_network": {
+        "1853697842": NaN,
+        "685059270": NaN,
+        "1919632181": NaN,
+        "641049713": NaN
+      }
+    },
+    {
+      "group": "M=20",
+      "cell": "lock_only",
+      "n_networks": 4,
+      "retention_mean": 0.42737595550715923,
+      "retention_min": 0.12012561410665512,
+      "retention_max": 0.7807636260986328,
+      "retention_per_network": {
+        "1853697842": 0.7807636260986328,
+        "685059270": 0.12012561410665512,
+        "1919632181": 0.43466994166374207,
+        "641049713": 0.37394464015960693
+      },
+      "converged_mean": 0.55,
+      "converged_min": 0.0,
+      "converged_max": 1.0,
+      "converged_per_network": {
+        "1853697842": 0.0,
+        "685059270": 1.0,
+        "1919632181": 1.0,
+        "641049713": 0.2
+      },
+      "conv_ratio_mean": 0.8766453415155411,
+      "conv_ratio_min": 0.7635321617126465,
+      "conv_ratio_max": 0.987662136554718,
+      "conv_ratio_per_network": {
+        "1853697842": 0.987662136554718,
+        "685059270": 0.7635321617126465,
+        "1919632181": 0.799310028553009,
+        "641049713": 0.9560770392417908
+      }
+    },
+    {
+      "group": "M=20",
+      "cell": "both",
+      "n_networks": 4,
+      "retention_mean": 0.07733676787029253,
+      "retention_min": -0.00041631629574112594,
+      "retention_max": 0.1940901279449463,
+      "retention_per_network": {
+        "1853697842": 0.10682755708694458,
+        "685059270": 0.00884570274502039,
+        "1919632181": 0.1940901279449463,
+        "641049713": -0.00041631629574112594
+      },
+      "converged_mean": 0.0,
+      "converged_min": 0.0,
+      "converged_max": 0.0,
+      "converged_per_network": {
+        "1853697842": 0.0,
+        "685059270": 0.0,
+        "1919632181": 0.0,
+        "641049713": 0.0
+      },
+      "conv_ratio_mean": NaN,
+      "conv_ratio_min": NaN,
+      "conv_ratio_max": NaN,
+      "conv_ratio_per_network": {
+        "1853697842": NaN,
+        "685059270": NaN,
+        "1919632181": NaN,
+        "641049713": NaN
+      }
+    },
+    {
+      "group": "M=160",
+      "cell": "baseline",
+      "n_networks": 5,
+      "retention_mean": 0.9978027939796448,
+      "retention_min": 0.988646388053894,
+      "retention_max": 1.0045346021652222,
+      "retention_per_network": {
+        "576310242": 0.988646388053894,
+        "756800567": 0.9994497895240784,
+        "1042351053": 0.9988296031951904,
+        "2126766829": 0.9975535869598389,
+        "602647351": 1.0045346021652222
+      },
+      "converged_mean": 0.0,
+      "converged_min": 0.0,
+      "converged_max": 0.0,
+      "converged_per_network": {
+        "576310242": 0.0,
+        "756800567": 0.0,
+        "1042351053": 0.0,
+        "2126766829": 0.0,
+        "602647351": 0.0
+      },
+      "conv_ratio_mean": 0.9840262413024903,
+      "conv_ratio_min": 0.9315398931503296,
+      "conv_ratio_max": 1.0304436683654785,
+      "conv_ratio_per_network": {
+        "576310242": 1.0120857954025269,
+        "756800567": 0.9712764620780945,
+        "1042351053": 0.9747853875160217,
+        "2126766829": 0.9315398931503296,
+        "602647351": 1.0304436683654785
+      }
+    },
+    {
+      "group": "M=160",
+      "cell": "freeze_only",
+      "n_networks": 5,
+      "retention_mean": 0.963275921344757,
+      "retention_min": 0.8631376624107361,
+      "retention_max": 0.9923849701881409,
+      "retention_per_network": {
+        "576310242": 0.9790416955947876,
+        "756800567": 0.8631376624107361,
+        "1042351053": 0.9908064603805542,
+        "2126766829": 0.9923849701881409,
+        "602647351": 0.9910088181495667
+      },
+      "converged_mean": 0.0,
+      "converged_min": 0.0,
+      "converged_max": 0.0,
+      "converged_per_network": {
+        "576310242": 0.0,
+        "756800567": 0.0,
+        "1042351053": 0.0,
+        "2126766829": 0.0,
+        "602647351": 0.0
+      },
+      "conv_ratio_mean": NaN,
+      "conv_ratio_min": NaN,
+      "conv_ratio_max": NaN,
+      "conv_ratio_per_network": {
+        "576310242": NaN,
+        "756800567": NaN,
+        "1042351053": NaN,
+        "2126766829": NaN,
+        "602647351": NaN
+      }
+    },
+    {
+      "group": "M=160",
+      "cell": "lock_only",
+      "n_networks": 5,
+      "retention_mean": 0.34680346535751594,
+      "retention_min": -8.76939739100635e-05,
+      "retention_max": 0.6609669327735901,
+      "retention_per_network": {
+        "576310242": -8.76939739100635e-05,
+        "756800567": 0.2192106544971466,
+        "1042351053": 0.5916734337806702,
+        "2126766829": 0.6609669327735901,
+        "602647351": 0.262253999710083
+      },
+      "converged_mean": 1.0,
+      "converged_min": 1.0,
+      "converged_max": 1.0,
+      "converged_per_network": {
+        "576310242": 1.0,
+        "756800567": 1.0,
+        "1042351053": 1.0,
+        "2126766829": 1.0,
+        "602647351": 1.0
+      },
+      "conv_ratio_mean": 0.7420269608497619,
+      "conv_ratio_min": 0.5206347703933716,
+      "conv_ratio_max": 0.8238680958747864,
+      "conv_ratio_per_network": {
+        "576310242": 0.7822871208190918,
+        "756800567": 0.7607246041297913,
+        "1042351053": 0.8226202130317688,
+        "2126766829": 0.5206347703933716,
+        "602647351": 0.8238680958747864
+      }
+    },
+    {
+      "group": "M=160",
+      "cell": "both",
+      "n_networks": 5,
+      "retention_mean": 0.4047127393772826,
+      "retention_min": -0.0007656078087165952,
+      "retention_max": 0.8763485550880432,
+      "retention_per_network": {
+        "576310242": -0.0007656078087165952,
+        "756800567": 0.14550814032554626,
+        "1042351053": 0.601740300655365,
+        "2126766829": 0.8763485550880432,
+        "602647351": 0.4007323086261749
+      },
+      "converged_mean": 0.0,
+      "converged_min": 0.0,
+      "converged_max": 0.0,
+      "converged_per_network": {
+        "576310242": 0.0,
+        "756800567": 0.0,
+        "1042351053": 0.0,
+        "2126766829": 0.0,
+        "602647351": 0.0
+      },
+      "conv_ratio_mean": NaN,
+      "conv_ratio_min": NaN,
+      "conv_ratio_max": NaN,
+      "conv_ratio_per_network": {
+        "576310242": NaN,
+        "756800567": NaN,
+        "1042351053": NaN,
+        "2126766829": NaN,
+        "602647351": NaN
+      }
+    }
+  ]
+}

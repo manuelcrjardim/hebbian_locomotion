@@ -72,7 +72,7 @@ Edit the CONFIG block, then:
 # (exact, recorded at write time). Without a manifest the group is inferred
 # from the label -- see infer_group() for the rule and its limits.
 # ---------------------------------------------------------------------------
-NPZ_DIR = ("/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:13-18:58_mu/npz")
+NPZ_DIR = ("/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:27-14:42_mu/npz")
 
 # Everything below is an escape hatch, used only when NPZ_DIR is None.
 BASE = ("/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/"

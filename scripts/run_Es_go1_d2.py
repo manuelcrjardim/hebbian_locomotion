@@ -6,26 +6,33 @@ action filter, seeding, config capture and checkpointing. The ONLY substantive
 differences are:
 
   1. The controller is D2Net, not HANNet. HAN's integer boxcar window M is
-     replaced by an exponential moving average whose decay is EVOLVED as part
-     of the same parameter vector, under the same OpenES optimiser. There is
-     no separate meta-optimiser: theta is a contiguous tail of the flat
-     parameter vector and is perturbed with the same sigma as every Hebbian
-     coefficient.
+     replaced by a FRACTIONAL-LENGTH boxcar whose length is EVOLVED as part of
+     the same parameter vector, under the same OpenES optimiser. There is no
+     separate meta-optimiser: theta is a contiguous tail of the flat parameter
+     vector and is perturbed with the same sigma as every Hebbian coefficient.
 
   2. An added D2/* TensorBoard block. HANNet has no evolved window to log;
-     D2Net does, and the trajectory of M_eff over generations IS the headline
+     D2Net does, and the trajectory of M over generations IS the headline
      result of Objective 2. Every pre-existing log stays byte-identical so the
      runs remain directly comparable to Objective 1.
 
 PARAMETERISATION (see d2_net.py for the full argument)
 
-    tau   = exp(theta)          theta evolved, tau in CONTROL STEPS
-    gamma = exp(-1 / tau)
-    M_eff = 2*gamma/(1 - gamma) + 1      mean-lag-matched boxcar equivalent
+    M = exp(theta)              theta evolved, M in CONTROL STEPS
 
-TAU_INIT = 10 gives M_eff = 20, i.e. the SHORT-window limit-cycle regime of
-Objective 1. Starting short is the informative direction: any drift toward the
-on-null M = 160 region is then somewhere evolution WENT, not where it began.
+A boxcar averages over a whole number of steps, so a continuously varying
+parameter would give a staircase fitness surface that ES cannot get a gradient
+from. D2Net therefore blends the two adjacent integer boxcars in proportion to
+the fractional part of M, which is exact at every integer and continuous
+across every boundary. The estimator stays a weighted sum of boxcars, so it
+keeps the comb structure -- the spectral nulls slide continuously with M --
+and the evolved M is reported in the SAME UNITS as the fixed M values of
+Objective 1, with no conversion.
+
+M_INIT = 20 is the paper-faithful HAN condition and the short-window
+limit-cycle regime of Objective 1. Starting short is the informative
+direction: any drift toward the on-null M = 160 region is then somewhere
+evolution WENT, not where it began.
 
 SHARING (Objective 3 is a one-line change to SHARE below)
     'global'  1 theta for the whole network       <- Objective 2
@@ -59,7 +66,7 @@ from isaaclab.managers import SceneEntityCfg
 from hebbian_locomotion.networks.hebbian_neural_net import HebbianNet
 from hebbian_locomotion.networks.han_net import HANNet
 from hebbian_locomotion.networks.LSTM import LSTMNet
-from hebbian_locomotion.networks.d2_net import D2Net, tau_to_m_eff
+from hebbian_locomotion.networks.d2_net import D2Net
 from hebbian_locomotion.networks.ES_classes import OpenES
 
 import random
@@ -126,7 +133,7 @@ def build_run_cfg(env_cfg, models, solver, *,
                   fall_z_threshold, growth_factor,
                   action_filter_alpha, reward_scaling,
                   obs_dim, action_dim, timestamp, seed=SEED,
-                  share=None, tau_init=None):
+                  share=None, m_init=None, m_cap=None):
     """Assemble a plain, JSON-serialisable record of everything that shaped a run:
     reward terms (off the live env cfg), ES hyperparameters (off the solver),
     network architecture / plasticity params (off the model), and the hand-set
@@ -155,22 +162,13 @@ def build_run_cfg(env_cfg, models, solver, *,
         "init_noise": getattr(models, "init_noise", None),
         "M": getattr(models, "M", None),                 # HANNet boxcar window
         "tau_hebb": getattr(models, "tau_hebb", None),   # HANNet dual-timescale
-        "gamma_logit": None,                             # D2Net evolved EMA decay
-        # --- D2Net: the evolved temporal window ---
+        # --- D2Net: the evolved averaging window ---
         "share": getattr(models, "share", None),
         "n_theta": getattr(models, "n_theta", None),
         "n_parent_params": getattr(models, "n_parent_params", None),
-        "tau_init": tau_init,
-        "tau_init_M_eff": None if tau_init is None else float(tau_to_m_eff(tau_init)),
+        "M_init": m_init,
+        "M_cap": m_cap,
     }
-    # gamma_logit is a per-individual tensor on D2Net; store the first indiv's scalar.
-    gl = getattr(models, "gamma_logit", None)
-    if gl is not None:
-        try:
-            net["gamma_logit"] = float(gl.flatten()[0].item())
-        except Exception:
-            net["gamma_logit"] = str(gl)
-
     # --- env-level parameters that impact training ---
     env = {
         "target_speed": getattr(env_cfg, "target_speed", None),
@@ -211,21 +209,24 @@ def main():
 
     #writer = SummaryWriter(log_dir=custom_log_dir)
     # --- 1. Hyperparameters ---
-    EPOCHS = 500                    # Total generations
+    EPOCHS = 2000                    # Total generations
     EPISODE_LENGTH_TRAIN = 500      # MAX episode length (curriculum cap)
     INITIAL_EPISODE_LENGTH = 500     # Starting episode length
     FALL_Z_THRESHOLD = 0.1          # Robot considered fallen when base z < this
     GROWTH_FACTOR = 1.5             # next_length = last_fall_step * GROWTH_FACTOR
     POPSIZE = 4096                  # Population size (paper uses 1024)
-    SAVE_EVERY = 500
+    SAVE_EVERY = 2000
 
     ROBOT = 'GO1'
     MODEL = 'D2'
     # --- D2: the window is evolved, so there is no M to set. -------------
     SHARE = 'global'      # 'global' (Obj 2) | 'layer' | 'node' (Obj 3)
-    TAU_INIT = 10.0       # initial time constant in CONTROL STEPS
-                          # tau=10 -> gamma=0.905 -> M_eff=20
-    TAU_HEBB = 1          # matched to the HAN runs; held at 1 so the temporal
+    M_INIT = 20.0         # initial averaging window in CONTROL STEPS,
+                          # matching the HAN M=20 condition of Objective 1
+    M_CAP = 1024           # ring-buffer capacity; the evolved window is clamped
+                          # here, so it must exceed any M the search should
+                          # be able to reach (Objective 1 went to M=160)
+    TAU_HEBB = 1          # matched to the HAN runs; held at 1 so the averaging
                           # window is the single manipulated variable.
     REWARD = f'FINAL'
     # ES parameters (paper: sigma_init=0.1, decay=0.999, lr=0.1, lr_decay=0.999)
@@ -246,7 +247,7 @@ def main():
     obs_dim = env.observation_manager.group_obs_dim["policy"][0]
     action_dim = 12
 
-    run_name = f"{current_time}_{ROBOT}_{REWARD}_{MODEL}_{SHARE}_tau{TAU_INIT:g}_{SEED}"
+    run_name = f"{current_time}_{ROBOT}_{REWARD}_{MODEL}_{SHARE}_M{M_INIT:g}_{SEED}"
 
     base_dir = "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/tensorboard"
     custom_log_dir = os.path.join(base_dir, run_name)
@@ -258,12 +259,12 @@ def main():
     #   models = HANNet(POPSIZE, sizes=..., norm_mode='max', M=M, tau_hebb=1)
     # norm_mode MUST stay 'max' to remain comparable with Objective 1.
     models = D2Net(POPSIZE, sizes=[obs_dim, 64, 32, action_dim], norm_mode='max',
-                   tau_hebb=TAU_HEBB, share=SHARE, tau_init=TAU_INIT)
+                   tau_hebb=TAU_HEBB, share=SHARE, M_init=M_INIT, M_cap=M_CAP)
 
     n_params = models.get_n_params_a_model()
     print(f"[INFO] Evolvable parameters per individual: {n_params}")
     print(f"[INFO]   parent block {models.n_parent_params} + theta {models.n_theta}")
-    print(f"[INFO] tau_init={TAU_INIT:g} steps -> M_eff={tau_to_m_eff(TAU_INIT):.1f} steps")
+    print(f"[INFO] M_init={M_INIT:g} steps (cap {M_CAP}) = {M_INIT*0.02:.2f} s at dt=0.02")
 
     print("\n[INFO] Initializing OpenES Optimizer...")
     solver = OpenES(
@@ -293,7 +294,7 @@ def main():
         obs_dim=obs_dim, action_dim=action_dim,
         timestamp=current_time,
         seed=SEED,                                     # wire in a SEED constant if you seed
-        share=SHARE, tau_init=TAU_INIT,                # D2: evolved-window config
+        share=SHARE, m_init=M_INIT, m_cap=M_CAP,       # D2: evolved-window config
     )
 
     # Readable sidecar you can `cat` on the cluster without unpickling / Isaac.
@@ -541,34 +542,30 @@ def main():
         #              and is the series to plot as the Objective 2 result.
         control_dt = env_cfg.sim.dt * env_cfg.decimation
 
-        ts = models.tau_summary(dt=control_dt)
-        for k, v in ts.items():
+        ms = models.M_summary(dt=control_dt)
+        for k, v in ms.items():
             writer.add_scalar(f"D2/pop_{k}", v, epoch)
 
         # Distribution across the population, not just its moments: under
         # 'layer'/'node' sharing this is where multimodality would show, which
         # is the whole question of Objective 3.
-        writer.add_histogram("D2/M_eff_population", models.get_m_eff().ravel(), epoch)
-        writer.add_histogram("D2/log_tau_population",
-                             np.log(models.get_tau_steps()).ravel(), epoch)
+        writer.add_histogram("D2/M_population", models.get_M().ravel(), epoch)
+        writer.add_histogram("D2/log_M_population",
+                             np.log(models.get_M()).ravel(), epoch)
 
         # theta is a contiguous TAIL of the flat parameter vector, so the parent
         # HebbianNet block is a pure prefix and this slice is exact.
         theta_mu = solver.mu[models.n_parent_params:]
-        tau_mu = np.exp(np.clip(theta_mu, -20.0, 20.0))
-        m_eff_mu = tau_to_m_eff(tau_mu)
-        writer.add_scalar("D2/mu_tau_steps", float(tau_mu.mean()), epoch)
-        writer.add_scalar("D2/mu_tau_seconds", float(tau_mu.mean() * control_dt), epoch)
-        writer.add_scalar("D2/mu_M_eff", float(m_eff_mu.mean()), epoch)
-        writer.add_scalar("D2/mu_M_eff_seconds",
-                          float(m_eff_mu.mean() * control_dt), epoch)
+        M_mu = np.clip(np.exp(np.clip(theta_mu, -20.0, 20.0)), 1.0, M_CAP)
+        writer.add_scalar("D2/mu_M_steps", float(M_mu.mean()), epoch)
+        writer.add_scalar("D2/mu_M_seconds", float(M_mu.mean() * control_dt), epoch)
         if models.n_theta > 1:
-            writer.add_histogram("D2/mu_M_eff_per_slot", m_eff_mu, epoch)
+            writer.add_histogram("D2/mu_M_per_slot", M_mu, epoch)
 
-        print(f"Epoch {epoch:03d} | Mean: {mean_reward:>8.2f} | Best: {best_reward:>8.2f} | Sigma: {solver.sigma:.4f} | LR: {solver.learning_rate:.6f} | M_eff: {float(m_eff_mu.mean()):>7.2f}")
+        print(f"Epoch {epoch:03d} | Mean: {mean_reward:>8.2f} | Best: {best_reward:>8.2f} | Sigma: {solver.sigma:.4f} | LR: {solver.learning_rate:.6f} | M: {float(M_mu.mean()):>7.2f}")
 
         if (epoch + 1) % SAVE_EVERY == 0:
-            save_path = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/{current_time}_{ROBOT}_{REWARD}_{MODEL}_{SHARE}_tau{TAU_INIT:g}_{SEED}.pickle"
+            save_path = f"/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/{current_time}_{ROBOT}_{REWARD}_{MODEL}_{SHARE}_M{M_INIT:g}_{SEED}.pickle"
             print(f"  -> Saving checkpoint to {save_path}")
             with open(save_path, 'wb') as f:
                 pickle.dump((

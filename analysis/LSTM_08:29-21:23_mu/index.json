@@ -1,0 +1,89 @@
+{
+  "tag": "08:29-21:23_mu",
+  "run_dir": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/LSTM_08:29-21:23_mu",
+  "npz_dir": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/LSTM_08:29-21:23_mu/npz",
+  "param_source": "mu",
+  "steps": 500,
+  "n_requested": 5,
+  "n_analysed": 4,
+  "failures": [
+    {
+      "label": "SEED3",
+      "error": "EOFError('Ran out of input')"
+    }
+  ],
+  "networks": [
+    {
+      "tag": "08:29-21:23_mu",
+      "group": "LSTM",
+      "label": "SEED1",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:28-19:54_GO1_FINAL_LSTM_687358595_499_benchmark.pickle",
+      "architecture": [
+        33,
+        25,
+        12
+      ],
+      "param_source": "mu",
+      "steps": 500,
+      "mean_reward": 0.015142215928062797,
+      "total_reward": 7.571107964031398,
+      "mean_vx": 0.5485142471538856,
+      "z_range": 0.28025684505701065,
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/LSTM_08:29-21:23_mu/npz/LSTM_SEED1_data.npz"
+    },
+    {
+      "tag": "08:29-21:23_mu",
+      "group": "LSTM",
+      "label": "SEED2",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:29-12:50_GO1_FINAL_LSTM_36833173_499_benchmark.pickle",
+      "architecture": [
+        33,
+        25,
+        12
+      ],
+      "param_source": "mu",
+      "steps": 500,
+      "mean_reward": 0.017540787918958814,
+      "total_reward": 8.770393959479406,
+      "mean_vx": 0.7014901818130166,
+      "z_range": 0.26760944724082947,
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/LSTM_08:29-21:23_mu/npz/LSTM_SEED2_data.npz"
+    },
+    {
+      "tag": "08:29-21:23_mu",
+      "group": "LSTM",
+      "label": "SEED4",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:29-14:33_GO1_FINAL_LSTM_1521446440_499_benchmark.pickle",
+      "architecture": [
+        33,
+        25,
+        12
+      ],
+      "param_source": "mu",
+      "steps": 500,
+      "mean_reward": 0.019746688266750426,
+      "total_reward": 9.873344133375213,
+      "mean_vx": 0.8391980043333024,
+      "z_range": 0.24804478883743286,
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/LSTM_08:29-21:23_mu/npz/LSTM_SEED4_data.npz"
+    },
+    {
+      "tag": "08:29-21:23_mu",
+      "group": "LSTM",
+      "label": "SEED5",
+      "checkpoint": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/checkpoints/08:29-17:26_GO1_FINAL_LSTM_1550689036_499_benchmark.pickle",
+      "architecture": [
+        33,
+        25,
+        12
+      ],
+      "param_source": "mu",
+      "steps": 500,
+      "mean_reward": 0.01789091242942959,
+      "total_reward": 8.945456214714795,
+      "mean_vx": 0.7371434791050852,
+      "z_range": 0.2599637061357498,
+      "npz": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/LSTM_08:29-21:23_mu/npz/LSTM_SEED5_data.npz"
+    }
+  ]
+}

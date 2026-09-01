@@ -73,24 +73,24 @@ CONDITIONS = [
      "ckpt": f"{ROOT}/checkpoints/08:04-11:52_GO1_FINAL_HAN_499_860896728_M_1_benchmark.pickle"},
      {"group": "M=1",   "label": "1396289849",
      "ckpt": f"{ROOT}/checkpoints/08:04-11:52_GO1_FINAL_HAN_499_1396289849_M_1_benchmark.pickle"},
-     {"group": "M=1",   "label": "297339698",
-     "ckpt": f"{ROOT}/checkpoints/08:17-13:33_GO1_FINAL_HAN_M_1_297339698_benchmark.pickle"},
+     {"group": "M=1",   "label": "2113178504",
+     "ckpt": f"{ROOT}/checkpoints/08:26-19:37_GO1_FINAL_HAN_M_1_2113178504_benchmark.pickle"}, # RAN OUT OF INPUT ERROR
      {"group": "M=1",   "label": "1295751242",
      "ckpt": f"{ROOT}/checkpoints/08:18-14:01_GO1_FINAL_HAN_M_1_1295751242_benchmark.pickle"},
      {"group": "M=1",   "label": "489225843",
      "ckpt": f"{ROOT}/checkpoints/08:18-14:05_GO1_FINAL_HAN_M_1_489225843_benchmark.pickle"},
 
 
-    {"group": "M=10",  "label": "930988644",
-     "ckpt": f"{ROOT}/checkpoints/08:06-13:32_GO1_FINAL_HAN_499_930988644_M_10_benchmark.pickle"},
-    {"group": "M=10",  "label": "1315706754",
-     "ckpt": f"{ROOT}/checkpoints/08:07-14:17_GO1_FINAL_HAN_499_1315706754_M_10_benchmark.pickle"},
-     {"group": "M=10",  "label": "1302491059",
-     "ckpt": f"{ROOT}/checkpoints/08:08-15:23_GO1_FINAL_HAN_M_10_1302491059_M_10_benchmark.pickle"},
-     {"group": "M=10",  "label": "68914096",
-     "ckpt": f"{ROOT}/checkpoints/08:07-14:19_GO1_FINAL_HAN_499_68914096_M_10_benchmark.pickle"},
-     {"group": "M=10",  "label": "27294405",
-     "ckpt": f"{ROOT}/checkpoints/08:15-11:09_GO1_FINAL_HAN_M_10_27294405_benchmark.pickle"},
+    {"group": "M=10",  "label": "617764346",
+     "ckpt": f"{ROOT}/checkpoints/08:21-16:22_GO1_FINAL_HAN_M_10_617764346_benchmark.pickle"},
+    {"group": "M=10",  "label": "689362957",
+     "ckpt": f"{ROOT}/checkpoints/08:26-19:50_GO1_FINAL_HAN_M_10_689362957_benchmark.pickle"}, # RAN OUT OF INPUT ERROR
+     {"group": "M=10",  "label": "1146876823",
+     "ckpt": f"{ROOT}/checkpoints/08:23-16:38_GO1_FINAL_HAN_M_10_1146876823_benchmark.pickle"}, # m = 20
+     {"group": "M=10",  "label": "1331919846",
+     "ckpt": f"{ROOT}/checkpoints/08:23-16:39_GO1_FINAL_HAN_M_10_1331919846_benchmark.pickle"}, # m =20
+     {"group": "M=10",  "label": "27294405", 
+     "ckpt": f"{ROOT}/checkpoints/08:15-11:09_GO1_FINAL_HAN_M_10_27294405_benchmark.pickle"}, # ONLY GOOD ONE
 
 
     {"group": "M=20",  "label": "1853697842",
@@ -101,9 +101,23 @@ CONDITIONS = [
      "ckpt": f"{ROOT}/checkpoints/08:11-10:41_GO1_FINAL_HAN_M_20_1919632181_benchmark.pickle"},
      {"group": "M=20",  "label": "641049713",
      "ckpt": f"{ROOT}/checkpoints/08:11-10:40_GO1_FINAL_HAN_M_20_641049713_benchmark.pickle"},
-     {"group": "M=20",  "label": "1511497366",
-     "ckpt": f"{ROOT}/checkpoints/08:04-18:04_GO1_FINAL_HAN_499_1511497366_M_20_benchmark.pickle"},
+     {"group": "M=20",  "label": "1298619277",
+     "ckpt": f"{ROOT}/checkpoints/08:26-16:50_GO1_FINAL_HAN_M_20_1298619277_benchmark.pickle"}, # RAN OUT OF INPUT
 
+
+    {"group": "M=160", "label": "576310242",
+     "ckpt": f"{ROOT}/checkpoints/08:04-00:56_GO1_FINAL_HAN_499_576310242_M_160_benchmark.pickle"},
+     {"group": "M=160", "label": "756800567",
+     "ckpt": f"{ROOT}/checkpoints/08:14-14:35_GO1_FINAL_HAN_M_160_756800567_benchmark.pickle"},
+     {"group": "M=160", "label": "1042351053",
+     "ckpt": f"{ROOT}/checkpoints/08:14-14:35_GO1_FINAL_HAN_M_160_1042351053_behcnmark.pickle"},
+     {"group": "M=160", "label": "2126766829",
+     "ckpt": f"{ROOT}/checkpoints/08:14-14:37_GO1_FINAL_HAN_M_160_2126766829_benchmark.pickle"},
+    {"group": "M=160", "label": "602647351",
+     "ckpt": f"{ROOT}/checkpoints/08:15-11:04_GO1_FINAL_HAN_M_160_602647351_benchmark.pickle"},
+]
+
+CONDITIONS2 = [
 
     {"group": "M=160", "label": "576310242",
      "ckpt": f"{ROOT}/checkpoints/08:04-00:56_GO1_FINAL_HAN_499_576310242_M_160_benchmark.pickle"},

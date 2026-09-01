@@ -1,0 +1,91 @@
+{
+  "tag": "08:24-15:33_mu",
+  "npz_dir": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:24-15:33_mu/npz",
+  "networks": [
+    {
+      "group": "M=1",
+      "label": "1295751242",
+      "npz": "M=1_1295751242_data.npz"
+    },
+    {
+      "group": "M=1",
+      "label": "1396289849",
+      "npz": "M=1_1396289849_data.npz"
+    },
+    {
+      "group": "M=1",
+      "label": "489225843",
+      "npz": "M=1_489225843_data.npz"
+    },
+    {
+      "group": "M=1",
+      "label": "860896728",
+      "npz": "M=1_860896728_data.npz"
+    },
+    {
+      "group": "M=10",
+      "label": "1146876823",
+      "npz": "M=10_1146876823_data.npz"
+    },
+    {
+      "group": "M=10",
+      "label": "1331919846",
+      "npz": "M=10_1331919846_data.npz"
+    },
+    {
+      "group": "M=10",
+      "label": "27294405",
+      "npz": "M=10_27294405_data.npz"
+    },
+    {
+      "group": "M=10",
+      "label": "617764346",
+      "npz": "M=10_617764346_data.npz"
+    },
+    {
+      "group": "M=160",
+      "label": "1042351053",
+      "npz": "M=160_1042351053_data.npz"
+    },
+    {
+      "group": "M=160",
+      "label": "2126766829",
+      "npz": "M=160_2126766829_data.npz"
+    },
+    {
+      "group": "M=160",
+      "label": "576310242",
+      "npz": "M=160_576310242_data.npz"
+    },
+    {
+      "group": "M=160",
+      "label": "602647351",
+      "npz": "M=160_602647351_data.npz"
+    },
+    {
+      "group": "M=160",
+      "label": "756800567",
+      "npz": "M=160_756800567_data.npz"
+    },
+    {
+      "group": "M=20",
+      "label": "1853697842",
+      "npz": "M=20_1853697842_data.npz"
+    },
+    {
+      "group": "M=20",
+      "label": "1919632181",
+      "npz": "M=20_1919632181_data.npz"
+    },
+    {
+      "group": "M=20",
+      "label": "641049713",
+      "npz": "M=20_641049713_data.npz"
+    },
+    {
+      "group": "M=20",
+      "label": "685059270",
+      "npz": "M=20_685059270_data.npz"
+    }
+  ]
+}

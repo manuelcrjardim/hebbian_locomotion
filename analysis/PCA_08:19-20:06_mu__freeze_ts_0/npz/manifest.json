@@ -1,0 +1,31 @@
+{
+  "tag": "08:19-20:06_mu",
+  "npz_dir": "/cs/student/project_msc/2025/rai/mdecastr/Isaac_Lab/isaac_lab_sandbox/workspace/hebbian_locomotion/analysis/PCA_08:19-20:06_mu/npz",
+  "networks": [
+    {
+      "group": "M=160",
+      "label": "1042351053",
+      "npz": "M=160_1042351053_data.npz"
+    },
+    {
+      "group": "M=160",
+      "label": "2126766829",
+      "npz": "M=160_2126766829_data.npz"
+    },
+    {
+      "group": "M=160",
+      "label": "576310242",
+      "npz": "M=160_576310242_data.npz"
+    },
+    {
+      "group": "M=160",
+      "label": "602647351",
+      "npz": "M=160_602647351_data.npz"
+    },
+    {
+      "group": "M=160",
+      "label": "756800567",
+      "npz": "M=160_756800567_data.npz"
+    }
+  ]
+}
